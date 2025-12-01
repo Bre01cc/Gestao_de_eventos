@@ -1,3 +1,4 @@
+# Gestão de eventos
 ## Sobre o Projeto
 O Sistema de Gestão de Eventos Online é uma aplicação web desenvolvida para facilitar a criação, organização e gerenciamento de eventos. O sistema centraliza as informações e oferece recursos para que organizadores publiquem seus eventos e para que participantes encontrem e acompanhem atividades de seu interesse.
 
