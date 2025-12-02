@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./login.css">
+    <script src="./login.js" defer></script>
+    <title>WEB-Eventos</title>
+</head>
+
+<body>
+    <div class="transparencia">
+      
+        <div class="mensagem-erro" id="mensagem-erro">
+            <div class="caixa-erro">
+                <div class="texto-mensagem-erro">
+                    <div class="mensagem-erro-text">
+                        <p>Usuário ou Senha não correspondem!</p>
+                    </div>
+                </div>
+                <button class="bnt-erro" id="bnt-erro">
+                    <p>OK</p>
+                </button>
+            </div>
+        </div>
+        <header>
+            <div class="titulo">
+                <div class="logo">
+                    <img src="../../../img/Logo-Transparente.png" alt="Logo do site">
+                </div>
+                <h1>WEB Eventos</h1>
+            </div>
+            <div class="saudacoes">
+                <p>Bem-vindo(a) Participante</p>
+            </div>
+        </header>
+        <main>
+            <form class="campos-cadastro">
+               
+                    <div class="input-box">
+                        <input type="text" placeholder="Email/CPF" required>
+
+                    </div>
+                    <div class="input-box">
+                        <input placeholder="Senha" type="password" required>
+                    </div>
+                    <button class="acessar" id="acessar">
+                        <p>ENTRAR</p>
+                    </button>
+                    <p class="senha">Esqueceu a senha?</p>
+                
+
+                </form>
+            <div class="criarConta">
+                <p>Não tem conta? <a href="">Crie aqui</a></p>
+            </div>
+        </main>
+
+        <footer>
+            <p class="mensagem-footer">
+                Ao se inscrever, você concorda com os <span class="destaque-footer">
+                    <a href="">Termos de serviço</a></span> &
+                <span class="destaque-footer"><a href="">Politica de privacidade</a></span> da WEB Eventos.
+            </p>
+        </footer>
+       
+    </div>
+
+
+
+</body>
+
+</html>
