@@ -20,7 +20,7 @@
     width: 100vw;
     font-family: "Inter", sans-serif;
     overflow: hidden;
-    background-image: url(../../../img/fundo.png);
+    background-image: url(./Front-End/img/fundo.png);
     background-repeat: no-repeat;
     background-size: cover;
   }
@@ -34,51 +34,6 @@
     justify-content: space-around;
     flex-direction: column;
     position: relative;
-  
-    .mensagem-erro {
-      position: absolute;
-      height: 100%;
-      width: 100%;
-      justify-content: center;
-      z-index: 999;
-      background-color: rgba(0, 0, 0, 0.5);
-  
-      .caixa-erro {
-        width: 85%;
-        border-radius: 2px;
-        background-color: #ffffff;
-        display: flex;
-        flex-direction: column;
-        height: 15%;
-        gap: 5px;
-        padding-bottom: 5px;
-        align-items: center;
-  
-        .texto-mensagem-erro {
-          height: 75%;
-          width: 90%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          border-bottom: 2px solid #919191;
-  
-          .mensagem-erro-text {
-            height: 60%;
-            font-size: 0.8rem;
-            display: flex;
-            align-items: center;
-            color: red;
-            justify-content: center;
-            background-color: rgba(255, 16, 16, 0.4);
-            width: 100%;
-          }
-        }
-        .bnt-erro {
-          height: 25px;
-          width: 100px;
-        }
-      }
-    }
   
     header {
       display: flex;
