@@ -113,7 +113,7 @@ const setOrganizer = async function(organizador, contentType){
 }
 
 const setUpdateOrganizer = async function(organizador, id, contentType){
-     //Criando um objeto para as mensagens
+    //Criando um objeto para as mensagens
      let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
 
      try{
@@ -203,7 +203,7 @@ module.exports = {
 }
 
 
-// Função para validar todos os dados so evento enviado
+// Função para validar todos os dados do organizador enviado
 const validateOrganizer = async function(organizador){
     let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
 

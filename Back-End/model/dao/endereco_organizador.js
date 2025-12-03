@@ -131,6 +131,8 @@ const updateOrganizerAddress = async function(endereco){
     }
 }
 
+
+
 module.exports = {
     getAllOrganizersAddresses,
     getOrganizerAddressByAddressID,
