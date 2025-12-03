@@ -196,6 +196,13 @@ const setUpdateOrganizerAddress = async function(address, id, contentType){
     }
 }
 
+module.exports = {
+    listOrganizersAddresess,
+    listOrganizerAdresessByAddressID,
+    listOrganizerAdresessByOrganizerID,
+    setOrganizerAddress,
+    setUpdateOrganizerAddress
+}
 
 
 
