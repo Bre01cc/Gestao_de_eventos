@@ -8,13 +8,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="cadastro.css">
+    <script src="./cadastro.js" defer></script>
     <title>Cadastrar</title>
 </head>
 
 <body>
     <header>
         <div class="voltar">
-            <i class="fas fa-arrow-left icon"></i>
+            <i class="fas fa-arrow-left icon" id="voltar"></i>
             <h2>Web Eventos</h2>
         </div>
         <div class="titulo">
@@ -22,29 +23,44 @@
         </div>
     </header>
     <main>
-        <div class="campo-cadastro">
+        <form class="campo-cadastro">
             <div class="input-box">
-                <input type="text" placeholder="Nome Completo">
+                <input type="text" placeholder="Nome Completo" required>
             </div>
             <div class="input-box">
-                <input type="text" placeholder="Nome Completo">
+                <input type="text" placeholder="CPF" required>
             </div>
             <div class="input-box">
-                <input type="text" placeholder="Nome Completo">
+                <input type="text" placeholder="Email" required>
             </div>
             <div class="input-box">
-                <input type="text" placeholder="Nome Completo">
+                <input type="text" placeholder="Telefone" required>
             </div>
             <div class="input-box">
-                <input type="text" placeholder="Nome Completo">
+                <input type="text" placeholder="CEP" required>
             </div>
             <div class="input-box">
-                <input type="text" placeholder="Nome Completo">
+                <input type="text" placeholder="Bairro" required>
             </div>
-        </div>
-        <button class="finalizar">
+            <div class="input-box">
+                <input type="text" placeholder="Cidade" required>
+            </div>
+            <div class="input-box">
+                <input type="text" placeholder="UF" required>
+            </div>
+            <div class="input-box">
+                <input type="text" placeholder="Número" required>
+            </div>
+            <div class="input-box">
+                <input type="password"  placeholder="Senha" required>
+            </div>
+            <div class="input-box">
+                <input type="password"  placeholder="Confirmar senha" required>
+            </div>
+             <button class="finalizar">
             <p>Finalizar</p>
         </button>
+        </form>
     </main>
     <footer></footer>
 </body>

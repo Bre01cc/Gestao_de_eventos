@@ -52,6 +52,7 @@ body {
     .titulo {
       display: flex;
       gap: 10px;
+      width: 100%;
       justify-content: center;
       align-items: center;
       flex-direction: column;
@@ -81,14 +82,21 @@ body {
       justify-content: center;
       align-items: center;
 
-      .acesso{
+      .acesso {
         width: 230px;
         border-radius: 5px;
-        background-color: #FA862A;
+        background-color: #fa862a;
         border: none;
         color: #fff;
         font-size: 1rem;
         height: 40px;
+        transition: all 0.5s;
+        cursor: pointer;
+      }
+
+      .acesso:hover {
+        background-color: #a4612a;
+        transform: scale(1.025);
       }
     }
   }
@@ -103,5 +111,111 @@ body {
 
   footer span {
     font-weight: 700;
+  }
+  footer a{
+     transition: all 0.5s;
+  }
+  footer a:hover {
+    color: #8d33a3;
+  }
+}
+
+@media (min-width: 650px) {
+  .transparencia {
+    padding-top: 20%;
+    justify-content: center;
+    gap: 4vh;
+
+    header {
+      font-size: 1.6rem;
+      height: auto;
+
+      .saudacoes {
+        font-size: 2rem;
+      }
+    }
+    header {
+      height: auto;
+    }
+    .titulo {
+      width: 100%;
+
+      .logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+      }
+      .logo img {
+        width: 40%;
+      }
+    }
+    main {
+      padding-top: 0;
+      align-items: start;
+      flex-grow: 1;
+      gap: 5vh;
+      justify-content: start;
+
+      .acessar-conta {
+        .acesso {
+          height: 50px;
+          font-size: 1.3rem;
+          width: 300px;
+        }
+      }
+    }
+
+    footer {
+      display: flex;
+      justify-content: end;
+      align-items: end;
+      font-size: 1.3rem;
+      padding-bottom: 20px;
+    }
+  }
+}
+
+@media (min-width: 1020px) {
+  body {
+    background-size: cover;
+    background-position: center;
+  }
+  .transparencia {
+    /* background-color: #000000; */
+    padding-top: 0;
+    justify-content: center;
+    gap: 4vh;
+
+    header {
+      .titulo {
+        .logo img {
+          width: 20%;
+        }
+      }
+    }
+    main {
+      .campos-cadastro {
+        gap: 35px;
+        /* background-color: aqua; */
+
+        .input-box {
+          width: 35%;
+        }
+        .acessar {
+          width: 175px;
+          height: 40px;
+        }
+        .senha {
+          font-size: 1.1rem;
+        }
+      }
+      .criarConta {
+        font-size: 1.1rem;
+      }
+    }
+    footer {
+      font-size: 1.1rem;
+    }
   }
 }
