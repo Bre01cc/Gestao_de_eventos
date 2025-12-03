@@ -3,10 +3,12 @@
   padding: 0;
   margin: 0;
 }
+
 a {
   text-decoration: none;
   color: #fff;
 }
+
 .active {
   display: flex;
 }
@@ -24,6 +26,7 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 .transparencia {
   height: 100%;
   width: 100%;
@@ -73,6 +76,7 @@ body {
           width: 100%;
         }
       }
+
       .bnt-erro {
         height: 25px;
         width: 100px;
@@ -85,6 +89,7 @@ body {
     align-items: center;
     justify-content: center;
     width: 100%;
+    height: 10%;
     flex-direction: column;
     height: auto;
     gap: 2.5rem;
@@ -198,5 +203,55 @@ body {
 
   footer span {
     font-weight: 700;
+  }
+}
+
+@media (min-width: 650px) {
+  .transparencia {
+    background-color: #fa862a;
+    padding-top: 10%;
+    justify-content: center;
+
+    header {
+      font-size: 1.6rem;
+      height: 25%;
+
+      .saudacoes {
+        font-size: 1.5rem;
+      }
+    }
+
+    .main {
+      padding-top: 0;
+      align-items: start;
+      gap: 5vh;
+      justify-content: start;
+      height: 50%;
+
+      .campos-cadastro {
+        gap: 30px;
+        height: auto;
+
+        .input-box {
+          height: 40px;
+        }
+      }
+
+    }
+
+    footer {
+      display: flex;
+      height: 25%;
+      justify-content: end;
+      align-items: end;
+      font-size: 1.3rem;
+    }
+  }
+
+}
+
+@media (min-width: 1080px) {
+  .transparencia {
+    background-color: #fff;
   }
 }
