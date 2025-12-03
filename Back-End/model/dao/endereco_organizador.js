@@ -14,7 +14,9 @@ const prisma = new PrismaClient()
 //Retorna uma lista de todos os Endereços Referente aos Organizadores no BD
 const getAllOrganizersAddresses = async function(){
     try{
-        let result = await prisma.$queryRaw(`select * from tb_endereco_organizador order by id desc`)
+        let sql = `select * from tb_endereco_organizador order by id desc`
+
+        let result = await prisma.$queryRawUnsafe(sql)
         
         if(Array.isArray(result))
             return result
@@ -29,7 +31,9 @@ const getAllOrganizersAddresses = async function(){
 //Retorna um Endereço de organizador filtrando pelo ID do Endereço
 const getOrganizerAddressByAddressID = async function(id){
     try {
-        let result = await prisma.$queryRaw(`select * from tb_endereco_organizador where id = ${id}`)
+        let sql = `select * from tb_endereco_organizador where id = ${id}`
+
+        let result = await prisma.$queryRawUnsafe(sql)
 
         if(Array.isArray(result))
             return result
@@ -44,8 +48,10 @@ const getOrganizerAddressByAddressID = async function(id){
 //Retorna um Endereço de organizador filtrando pelo ID do Organizador
 const getOrganizerAddressByOrganizerID = async function(organizerID){
     try {
-        let result = await prisma.$queryRaw(`select * from tb_endereco_organizador where id_organizador = ${organizerID}`)
+        let sql = `select * from tb_endereco_organizador where id_organizador = ${organizerID}`
 
+        let result = await prisma.$queryRawUnsafe(sql)
+        
         if(Array.isArray(result))
             return result
         else

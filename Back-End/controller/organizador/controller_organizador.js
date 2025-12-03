@@ -5,6 +5,7 @@
  * Versão: 1.0
  ***********************************************************************************************************/
 const organizerDAO = require('../../model/dao/organizador.js')
+const controllerOrganizerAddress = require('./controller_endereco_organizador.js')
 const DEFAULT_MESSAGES = require('../modulo/response_messages.js')
 
 const listOrganizers = async function(){
@@ -13,12 +14,12 @@ const listOrganizers = async function(){
 
     try{
        let resultOrganizers = await organizerDAO.getAllOrganizers()
-       
+              
        if(resultOrganizers){
-            if(resultOrganizers != null){
+            if(resultOrganizers.length > 0){
                 MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_REQUEST.status
                 MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_REQUEST.status_code
-                MESSAGES.DEFAULT_HEADER.item = resultOrganizers
+                MESSAGES.DEFAULT_HEADER.items = resultOrganizers
 
                 return MESSAGES.DEFAULT_HEADER //200(sucesso)
             }else{
@@ -40,14 +41,14 @@ const listOrganizerByID = async function(id){
     try {
         //Validação do ID
         if(!isNaN(id) || id != '' || id > 0){
-            let resultOrganizer = await statsDAO.getEventStatsByID(id)
-
+            let resultOrganizer = await organizerDAO.getOrganizerById(id)
+            
             if(resultOrganizer){
 
-                if(resultOrganizer != null){
+                if(resultOrganizer.length > 0){
                     MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_REQUEST.status
                     MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_REQUEST.status_code
-                    MESSAGES.DEFAULT_HEADER.item = resultOrganizer
+                    MESSAGES.DEFAULT_HEADER.items = resultOrganizer
 
                     return MESSAGES.DEFAULT_HEADER //200(sucesso)
                 }else{
