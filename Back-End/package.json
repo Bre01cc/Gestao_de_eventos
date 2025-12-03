@@ -1,6 +1,7 @@
 {
   "name": "api_event_management",
   "version": "1.0.0",
+  "type": "module",
   "description": "��#\u0000 \u0000A\u0000P\u0000I\u0000_\u0000E\u0000v\u0000e\u0000n\u0000t\u0000_\u0000M\u0000a\u0000n\u0000a\u0000g\u0000e\u0000m\u0000e\u0000n\u0000t\u0000\r\u0000 \u0000",
   "main": "app.js",
   "scripts": {
@@ -17,10 +18,10 @@
   },
   "homepage": "https://github.com/EnzoCarrilho/API_Event_Management#readme",
   "dependencies": {
-    "@prisma/client": "^7.0.1",
+    "@prisma/client": "^5.15.0",
     "body-parser": "^2.2.1",
     "cors": "^2.8.5",
     "express": "^5.1.0",
-    "prisma": "^7.0.1"
+    "prisma": "^5.15.0"
   }
 }
