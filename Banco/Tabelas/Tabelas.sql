@@ -154,7 +154,7 @@ CREATE TABLE tb_setor (
 -- CRIAÇÃO DA TABELA DE LOTE DE INGRESSOS --
 CREATE TABLE tb_lote_ingresso (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    numero INT NOT NULL,
+    lote INT NOT NULL,
     quantidade INT NOT NULL,
     valor DECIMAL(11,2) NOT NULL,
     data_inicio_venda DATE NOT NULL,
