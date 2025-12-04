@@ -14,7 +14,9 @@ const prisma = new PrismaClient()
 //Retorna uma lista de todos os Eventos no BD
 const getAllCategorys = async function(){
     try{
-        let result = await prisma.$queryRaw(`select * from tb_categoria order by id desc`)
+        let sql = `select * from tb_categoria order by id desc`
+
+        let result = await prisma.$queryRawUnsafe(sql)
         
         if(Array.isArray(result))
             return result
@@ -29,7 +31,9 @@ const getAllCategorys = async function(){
 //Retorna uma categoria filtrando pelo ID
 const getCategoryById = async function(id){
     try {
-        let result = await prisma.$queryRaw(`select * from tb_categoria where id = ${id}`)
+        let sql = `select * from tb_categoria where id = ${id}`
+
+        let result = await prisma.$queryRawUnsafe(sql)
 
         if(Array.isArray(result))
             return result
