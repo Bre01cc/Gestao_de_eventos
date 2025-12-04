@@ -26,7 +26,7 @@ const getAllParticipants = async function(){
     }
 }
 
-//Retorna um participante filtrando pelo ID
+//Retorna um Participante filtrando pelo ID
 const getParticipantById = async function(id){
     try {
         let result = await prisma.$queryRaw`select * from tb_participante where id = ${id}`
@@ -45,9 +45,9 @@ const getParticipantById = async function(id){
 const getLastId = async function(){
     try {
         //Script SQL que retorna apenas o último ID do BD
-        let sql = `select id from tb_participante order by id desc limit 1;`
+       
 
-        let result = await prisma.$queryRawUnsafe(sql)
+        let result = await prisma.$queryRaw`select id from tb_participante order by id desc limit 1;`
 
         if(Array.isArray(result))
             return Number(result[0].id)
@@ -58,25 +58,24 @@ const getLastId = async function(){
     }
 }
 
-
-const insertOrganizer = async function(organizador){
+//Inseri um Participante no BD
+const insertParticipant = async function(participante){
     try {
-        let sql = `insert into tb_organizador(
-                    nome_fantasia,
-                    razao_social,
-                    cnpj,
-                    email,
-                    telefone,
-                    senha)
-                values ('${organizador.nome_fantasia}',
-                        '${organizador.razao_social}',
-                        '${organizador.cnpj}',
-                        '${organizador.email}',
-                        '${organizador.telefone}',
-                        '${organizador.senha}');`
     
     //executeRawUnsafe() -> Executa o script SQL que não tem retorno de valores
-    let result = await prisma.$executeRawUnsafe(sql)
+    let result = await prisma.$queryRaw`insert into tb_participante(
+        nome,
+        cpf,
+        data_nascimento,
+        email,
+        telefone,
+        senha)
+    values ('${participante.nome}',
+            '${participante.cpf}',
+            '${participante.data_nascimento}',
+            '${participante.email}',
+            '${participante.telefone}',
+            '${participante.senha}');`;
 
     if(result)
         return true
@@ -88,17 +87,17 @@ const insertOrganizer = async function(organizador){
     }
 }
 
-//Altera um Organizador
-const updateOrganizaer = async function(organizador){
+//Altera um Participante
+const updateParticipant = async function(participante){
     try {
-        let sql = `update tb_organizador set
-                        nome_fantasia = '${organizador.nome_fantasia}',
-                        razao_social = '${organizador.razao_social}',
-                        cnpj = '${organizador.cnpj}',
-                        email = '${organizador.email}',
-                        telefone = '${organizador.telefone}',
-                        senha = '${organizador.senha}'
-                    where id = ${organizador.id};`
+        let sql = `update tb_participante set
+                        nome = '${participante.nome}',
+                        cpf = '${participante.razao_social}',
+                        data_nascimento = '${participante.cnpj}',
+                        email = '${participante.email}',
+                        telefone = '${participante.telefone}',
+                        senha = '${participante.senha}'
+                    where id = ${participante.id};`
                 
     //executeRawUnsafe() -> Executa o script SQL que não tem retorno de valores
     let result = await prisma.$executeRawUnsafe(sql)
@@ -135,5 +134,7 @@ module.exports = {
     getAllParticipants,
     getLastId,
     getParticipantById,
-    deleteParticipant
+    deleteParticipant,
+    insertParticipant,
+    updateParticipant
 }
