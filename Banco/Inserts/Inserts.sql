@@ -81,19 +81,27 @@ INSERT INTO tb_setor (nome, capacidade, id_evento)
 VALUES 
 ('Pista', 200, 4),
 ('VIP', 50, 4),
-('Backstage', 70, 4);
+('Backstage', 70, 4),
+('Cadeira Térrea', 300, 4),
+('Arquibancada Oeste', 400, 4);
 -----------------------------------------------------------------------------------------------------------------------------
 -- INSERT DE LOTE INGRESSO --
-INSERT INTO tb_lote_ingresso (numero, quantidade, valor, data_inicio_venda, 
+INSERT INTO tb_lote_ingresso (lote, quantidade, valor, data_inicio_venda, 
 								disponibilidade, id_setor, id_tipo)
 VALUES
-('1', '100', '300.00', '2025-12-01', TRUE, '7', '1');
+('1', '100', '300.00', '2025-12-01', TRUE, '7', '1'),
+('1', '200', '200.00', '2025-12-01', TRUE, '13', '8'),
+('1', '100', '150.00', '2025-12-04', TRUE, '14', '9');
+
+delete from tb_lote_ingresso where id = 6;
 -----------------------------------------------------------------------------------------------------------------------------
 -- INSERT DE TIPO DE INGRESSO --
 INSERT INTO tb_tipo_ingresso (tipo) VALUES
 ('Ingresso Geral'),
 ('Ingresso VIP'),
-('Experiência Premium');
+('Experiência Premium'),
+('Ingresso Cadeira'),
+('Ingresso Arquibancada');
 
 select * from tb_tipo_ingresso;
 select * from tb_lote_ingresso;
