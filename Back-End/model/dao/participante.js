@@ -1,7 +1,7 @@
 /***********************************************************************************************************
- * Objetivo: Arquivo responsável pelo CRUD de dados no MySQL referente a Organizadores de Eventos 
- * Data: 01/12/2025
- * Autor: Enzo Carrilho
+ * Objetivo: Arquivo responsável pelo CRUD de dados no MySQL referente a Participantes de Eventos 
+ * Data: 03/12/2025
+ * Autor: Breno
  * Versão: 1.0
  ***********************************************************************************************************/
 
@@ -11,10 +11,10 @@ const { PrismaClient } = require('../../generated/prisma')
 //Cria um novo objeto baseado na classe do PrismaClient
 const prisma = new PrismaClient()
 
-//Retorna uma lista de todos os Organizadores no BD
-const getAllOrganizers = async function(){
+//Retorna uma lista de todos os Participantes no BD
+const getAllParticipants = async function(){
     try{
-        let result = await prisma.$queryRaw`select * from tb_organizador order by id desc`
+        let result = await prisma.$queryRaw`select * from tb_participante order by id desc`
         
         if(Array.isArray(result))
             return result
@@ -26,10 +26,10 @@ const getAllOrganizers = async function(){
     }
 }
 
-//Retorna um organizador filtrando pelo ID
-const getOrganizerById = async function(id){
+//Retorna um participante filtrando pelo ID
+const getParticipantById = async function(id){
     try {
-        let result = await prisma.$queryRaw`select * from tb_organizador where id = ${id}`
+        let result = await prisma.$queryRaw`select * from tb_participante where id = ${id}`
 
         if(Array.isArray(result))
             return result
@@ -45,7 +45,7 @@ const getOrganizerById = async function(id){
 const getLastId = async function(){
     try {
         //Script SQL que retorna apenas o último ID do BD
-        let sql = `select id from tb_organizador order by id desc limit 1;`
+        let sql = `select id from tb_participante order by id desc limit 1;`
 
         let result = await prisma.$queryRawUnsafe(sql)
 
@@ -58,7 +58,7 @@ const getLastId = async function(){
     }
 }
 
-//Insere um Organizador novo no Banco de Dados
+
 const insertOrganizer = async function(organizador){
     try {
         let sql = `insert into tb_organizador(
@@ -113,11 +113,12 @@ const updateOrganizaer = async function(organizador){
     }
 }
 
-//Exclui um organizador pelo ID no Banco de Dados
-const deleteOrganizer = async function(id){
+
+//Exclui um participante pelo ID no Banco de Dados
+const deleteParticipant = async function(id){
     try {
 
-        let sql = `delete from tb_organizador where id = ${id}`
+        let sql = `delete from tb_participante where id = ${id}`
         
         let result = await prisma.$executeRawUnsafe(sql)
         
@@ -131,10 +132,8 @@ const deleteOrganizer = async function(id){
 }
 
 module.exports = {
-    getAllOrganizers,
-    getOrganizerById,
+    getAllParticipants,
     getLastId,
-    insertOrganizer,
-    updateOrganizaer,
-    deleteOrganizer
+    getParticipantById,
+    deleteParticipant
 }

@@ -4,6 +4,12 @@
  * Autor: Enzo
  * Versão: 1.0
  ***********************************************************************************************************/
+/***********************************************************************************************************
+ * Objetivo: Verificar e corrigir o funcionamento funções
+ * Data: 03/12/2025
+ * Autor: Breno
+ * Versão: 1.0
+ ***********************************************************************************************************/
 
 //Import das dependencias da API
 const express =    require('express')
@@ -26,7 +32,7 @@ router.get('/v1/webeventos/uf', cors(), async (request, response) => {
 //Retorna todas as categorias
 router.get('/v1/webeventos/uf/:id', cors(), async (request, response) => {
     let ufID = request.params.id
-    let uf = await controller_uf.listCategoryByID(ufID)
+    let uf = await controller_uf.listUfByID(ufID)
     
     response.status(uf.status_code).json(uf)
 })

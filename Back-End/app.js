@@ -1,9 +1,4 @@
-/***********************************************************************************************************
- * Objetivo: Arquivo responsável por controlar as requisições da API de Gestão de Eventos 
- * Data: 26/11/2025
- * Autor: Enzo
- * Versão: 1.0
- ***********************************************************************************************************/
+
 
 //Import das dependências
 const express =    require('express')
@@ -30,11 +25,13 @@ const routes_category = require('./routes/routes_categoria.js')
 const routes_uf = require('./routes/routes_uf.js')
 const routes_stats_event = require('./routes/routes_status_evento.js')
 const routes_organizer = require('./routes/routes_organizador.js')
+const routes_forma_pagamento = require('./routes/routers_forma_pagamento.js')
 
 app.use(routes_category)
 app.use(routes_uf)
 app.use(routes_stats_event)
 app.use(routes_organizer)
+app.use(routes_forma_pagamento)
 
 
 app.listen(PORT, () => {

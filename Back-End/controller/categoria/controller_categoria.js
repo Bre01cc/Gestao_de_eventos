@@ -15,10 +15,10 @@ const listCategorys = async function(){
         let resultCategorys = await categoryDAO.getAllCategorys()
 
         if(resultCategorys){
-            if(resultCategorys != null){
+            if(resultCategorys != null && resultCategorys.length>0){
                 MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_REQUEST.status
                 MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_REQUEST.status_code
-                MESSAGES.DEFAULT_HEADER.item = resultCategorys
+                MESSAGES.DEFAULT_HEADER.items.categorias = resultCategorys
 
                 return MESSAGES.DEFAULT_HEADER //200(sucesso)
             }else{
@@ -39,15 +39,15 @@ const listCategoryByID = async function name(id){
 
     try {
         //Validação do ID
-        if(!isNaN(id) || id != '' || id > 0){
+        if(!isNaN(id) && id != '' && id > 0){
             let resultCategory = await categoryDAO.getCategoryById(id)
 
             if(resultCategory){
 
-                if(resultCategory != null){
+                if(resultCategory != null && resultCategory.length>0){
                     MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_REQUEST.status
                     MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_REQUEST.status_code
-                    MESSAGES.DEFAULT_HEADER.item = resultCategory
+                    MESSAGES.DEFAULT_HEADER.items.categorias = resultCategory
 
                     return MESSAGES.DEFAULT_HEADER //200(sucesso)
                 }else{
@@ -57,7 +57,7 @@ const listCategoryByID = async function name(id){
                 return MESSAGES.ERROR_INTERNAL_SERVER_MODEL //500(erro interno)
             }
         }else{
-            MESSAGES.ERROR_REQUIRED_FIELDS += ' [ID Inválido]'
+            MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [ID Inválido]'
             return MESSAGES.ERROR_REQUIRED_FIELDS //400
         }
         

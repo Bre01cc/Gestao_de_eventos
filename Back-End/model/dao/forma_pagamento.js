@@ -1,7 +1,7 @@
 /***********************************************************************************************************
- * Objetivo: Arquivo responsável pelo GET de dados no MySQL referente as UF'S
- * Data: 27/11/2025
- * Autor: Enzo Carrilho
+ * Objetivo: Arquivo responsável pelo GET de dados no MySQL referente as formas de pagamento
+ * Data: 03/12/2025
+ * Autor: Breno
  * Versão: 1.0
  ***********************************************************************************************************/
 
@@ -11,10 +11,10 @@ const { PrismaClient } = require('../../generated/prisma')
 //Cria um novo objeto baseado na classe do PrismaClient
 const prisma = new PrismaClient()
 
-//Retorna todas as uf's
-const getAllUfs = async function () {
+//Retorna todas as formas de pagamento
+const getAllPayments = async function () {
     try {
-        let result = await prisma.$queryRaw`select * from tb_uf order by id desc`;
+        let result = await prisma.$queryRaw`select * from tb_forma_pagamento order by id desc`;
 
         if (Array.isArray(result))
             return result
@@ -22,15 +22,14 @@ const getAllUfs = async function () {
             return false
 
     } catch (error) {
-        console.log(error)
         return false
     }
 }
 
 //Retorna uma UF filtrando por ID
-const getUfByID = async function (id) {
+const getPaymentsByID = async function (id) {
     try {
-        let result = await prisma.$queryRaw`select * from tb_uf where id = ${id}`;
+        let result = await prisma.$queryRaw`select * from tb_forma_pagamento where id = ${id}`;
 
         if (Array.isArray(result))
             return result
@@ -42,7 +41,7 @@ const getUfByID = async function (id) {
     }
 }
 
-module.exports = {
-    getAllUfs,
-    getUfByID
+module.exports ={
+    getAllPayments,
+    getPaymentsByID
 }

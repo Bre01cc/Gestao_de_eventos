@@ -17,14 +17,14 @@ const router = express.Router()
 const controller_event_stats = require('../controller/status_evento/controller_status_evento.js')
 
 //Retorna todas as categorias
-router.get('/v1/webeventos/uf', cors(), async (request, response) => {
+router.get('/v1/webeventos/stats', cors(), async (request, response) => {
     let stats = await controller_event_stats.listStats()
 
     response.status(stats.status_code).json(stats)
 })
 
 //Retorna todas as categorias
-router.get('/v1/webeventos/uf/:id', cors(), async (request, response) => {
+router.get('/v1/webeventos/stats/:id', cors(), async (request, response) => {
     let statsID = request.params.id
     let stats = await controller_event_stats.listStatsByID(statsID)
     

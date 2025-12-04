@@ -4,6 +4,12 @@
  * Autor: Enzo Carrilho
  * Versão: 1.0
  ***********************************************************************************************************/
+/***********************************************************************************************************
+ * Objetivo: Verificar e corrigir o funcionamento funções
+ * Data: 03/12/2025
+ * Autor: Breno
+ * Versão: 1.0
+ ***********************************************************************************************************/
 
 //Import da dependência do Prisma
 const { PrismaClient } = require('../../generated/prisma')
@@ -14,7 +20,7 @@ const prisma = new PrismaClient()
 //Retorna uma lista de todos os Eventos no BD
 const getAllCategorys = async function(){
     try{
-        let result = await prisma.$queryRaw(`select * from tb_categoria order by id desc`)
+        let result = await prisma.$queryRaw`select * from tb_categoria order by id desc`
         
         if(Array.isArray(result))
             return result
@@ -29,7 +35,7 @@ const getAllCategorys = async function(){
 //Retorna uma categoria filtrando pelo ID
 const getCategoryById = async function(id){
     try {
-        let result = await prisma.$queryRaw(`select * from tb_categoria where id = ${id}`)
+        let result = await prisma.$queryRaw`select * from tb_categoria where id = ${id}`
 
         if(Array.isArray(result))
             return result

@@ -14,7 +14,7 @@ const prisma = new PrismaClient()
 //Retorna todos os status de Evento do BD
 const getAllEventStats = async function(){
     try{
-        let result = await prisma.$queryRaw(`select * from tb_status_evento order by id desc`)
+        let result = await prisma.$queryRaw`select * from tb_status_evento order by id desc`;
         
         if(Array.isArray(result))
             return result
@@ -29,7 +29,7 @@ const getAllEventStats = async function(){
 //Retorna um status de Evento filtrando por ID
 const getEventStatsByID = async function(id){
     try{
-        let result = await prisma.$queryRaw(`select * from tb_status_evento where id = ${id}`)
+        let result = await prisma.$queryRaw`select * from tb_status_evento where id = ${id}`;
         
         if(Array.isArray(result))
             return result
