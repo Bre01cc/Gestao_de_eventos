@@ -116,7 +116,8 @@ const updateParticipant = async function (participante) {
 //Exclui um participante pelo ID no Banco de Dados
 const deleteParticipant = async function (id) {
     try {
-        let result = await prisma.$queryRaw`delete from tb_participante where id = ${id};`
+        let result = await prisma.$queryRaw `update tb_participante set
+                        status = 0 where id = ${id} `
         if (result)
             return true
         else

@@ -31,6 +31,26 @@ router.get('/v1/webeventos/tipo-ingresso/:id', cors(), async (request, response)
     response.status(tipoIngresso.status_code).json(tipoIngresso)
 })
 
+router.post('/v1/webeventos/tipo-ingresso', cors(), bodyParserJSON, async (request, response) => {
+    let dadosBody = request.body
+
+    let contentType = request.headers['content-type']
+    
+    let tipoIngresso = await controller_tipo_ingresso.setTicket(dadosBody, contentType)
+    
+    response.status(tipoIngresso.status_code).json(tipoIngresso)
+})
+
+//Envia os dados do tipoIngressos à controller para ser atualizada
+router.put('/v1/webeventos/tipo-ingresso/:id', cors(), bodyParserJSON, async(request, response) => {
+    let tipoIngressoID = request.params.id
+    let dadosBody = request.body
+    let contentType = request.headers['content-type']
+
+    let tipoIngresso = await controller_tipo_ingresso.setUpdateTicket(dadosBody, tipoIngressoID, contentType)
+    response.status(tipoIngresso.status_code).json(tipoIngresso)
+})
+
 router.delete('/v1/webeventos/tipo-ingresso/:id', cors(), async (request, response) => {
     let tipoIngressoID = request.params.id
     let tipoIngresso = await controller_tipo_ingresso.setDeleteTicket(tipoIngressoID)

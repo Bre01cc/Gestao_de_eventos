@@ -76,7 +76,7 @@ const setTicket = async function (tipoIngresso, contentType) {
         //Validação do tipo de conteúdo da requisição (Obrigatório ser um JSON)
         if (String(contentType).toUpperCase() == 'APPLICATION/JSON') {
             //Guarda o resultado da validação de dados do tipoIngresso
-            let validar = await validarParticipant(tipoIngresso)
+            let validar = await validarTicket(tipoIngresso)
             if (!validar) {
                 let resultTicket = await tipoIngressoDAO.insertTicket(tipoIngresso)
 
@@ -114,7 +114,7 @@ const setTicket = async function (tipoIngresso, contentType) {
     }
 }
 
-const setUpdateParticipant = async function (tipoIngresso, id, contentType) {
+const setUpdateTicket = async function (tipoIngresso, id, contentType) {
     //Criando um objeto para as mensagens
     let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
 
@@ -122,19 +122,19 @@ const setUpdateParticipant = async function (tipoIngresso, id, contentType) {
         //Validação do tipo de conteúdo da requisição (Obrigatório ser um JSON)
         if (String(contentType).toUpperCase() == 'APPLICATION/JSON') {
             //Guarda o resultado da validação de dados do tipoIngresso
-            let validar = await validarParticipant(tipoIngresso)
+            let validar = await validarTicket(tipoIngresso)
             if (!validar) {
-                let validarID = await listParticipantByID(id)
+                let validarID = await listTicketByID(id)
 
                 if (validarID.status_code == 200) {
                     tipoIngresso.id = id
-                    let resultTicket = await tipoIngressoDAO.updateParticipant(tipoIngresso)
-                    if (resultParticipant) {
+                    let resultTicket = await tipoIngressoDAO.updateTicket(tipoIngresso)
+                    if (resultTicket) {
                         MESSAGES.DEFAULT_HEADER.development = "Breno Oliveira Assis Reis"
                         MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_CREATED_ITEM.status
-                        MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_CREATED_ITEM.status_code
-                        MESSAGES.DEFAULT_HEADER.message = MESSAGES.SUCCESS_CREATED_ITEM.message
-                        MESSAGES.DEFAULT_HEADER.items.participante = participante
+                        MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_UPDATED_ITEM.status_code
+                        MESSAGES.DEFAULT_HEADER.message = MESSAGES.SUCCESS_UPDATED_ITEM.message
+                        MESSAGES.DEFAULT_HEADER.items.ticket = tipoIngresso
 
                         return MESSAGES.DEFAULT_HEADER //201
 
@@ -147,7 +147,7 @@ const setUpdateParticipant = async function (tipoIngresso, id, contentType) {
                 }
 
             } else {
-                return validar //400 Referente a  validação dos dados
+                return validarTicket //400 Referente a  validação dos dados
             }
         } else {
             return MESSAGES.ERROR_CONTENT_TYPE //415
@@ -164,10 +164,12 @@ const setDeleteTicket = async function (id) {
     try {
 
         let validarId = await listTicketByID(id)
+        console.log(validarId)
 
         if (validarId.status_code == 200) {
 
             let resultTicket = await tipoIngressoDAO.deleteTicket(id)
+            console.log(resultTicket)
 
 
             if (resultTicket) {
@@ -196,10 +198,13 @@ const validarTicket = async function (tipoIngresso) {
     let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
 
     //Validações de todas entradas de dados
-    if (tipoIngresso.nome == '' || tipoIngresso.nome == undefined || tipoIngresso.nome == null || tipoIngresso.nome.length > 100) {
-        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [nome incorreto]'
+    if (tipoIngresso.tipo == '' || tipoIngresso.tipo == undefined || tipoIngresso.tipo == null || tipoIngresso.tipo.length > 100) {
+        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [tipo incorreto]'
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
 
+    }
+    else{
+        return false
     }
 
 }
@@ -207,5 +212,7 @@ const validarTicket = async function (tipoIngresso) {
 module.exports = {
 listAllTicket,
 listTicketByID,
-setDeleteTicket
+setDeleteTicket,
+setTicket,
+setUpdateTicket
 }

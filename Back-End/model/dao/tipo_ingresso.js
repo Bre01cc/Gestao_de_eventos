@@ -81,8 +81,9 @@ const insertTicket = async function (tipoIngresso) {
 const updateTicket = async function (tipoIngresso) {
     try {
         //executeRawUnsafe() -> Executa o script SQL que não tem retorno de valores
-        let result = await prisma.$queryRaw`update tb_tipo_ingresso set
-                        nome = ${tipoIngresso.tipo};`
+        let result = await prisma.$executeRaw`UPDATE tb_tipo_ingresso 
+        SET tipo = ${tipoIngresso.tipo}
+        WHERE id = ${tipoIngresso.id};`
 
 
         if (result)

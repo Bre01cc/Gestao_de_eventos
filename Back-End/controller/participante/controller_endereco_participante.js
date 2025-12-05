@@ -5,6 +5,8 @@
  * Versão: 1.0
  ***********************************************************************************************************/
 const enderecoParticipanteDAO = require('../../model/dao/endereco_participante.js')
+const  controllerParticipante = require('./controller_participante.js')
+const controllerUf = require('../uf/controller_uf.js')
 const DEFAULT_MESSAGES = require('../modulo/response_messages.js')
 
 const listAdress = async function () {
@@ -45,7 +47,7 @@ const listAdressByID = async function (id) {
 
             if (resultAdress) {
 
-                if (resultAdress != null && resultAdress.length>0) {
+                if (resultAdress != null && resultAdress.length > 0) {
                     MESSAGES.DEFAULT_HEADER.development = "Breno Oliveira Assis Reis"
                     MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_REQUEST.status
                     MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_REQUEST.status_code
@@ -79,7 +81,7 @@ const listAdressByParticipantID = async function (id) {
 
             if (resultAdress) {
 
-                if (resultAdress != null && resultAdress.length>0) {
+                if (resultAdress != null && resultAdress.length > 0) {
                     MESSAGES.DEFAULT_HEADER.development = "Breno Oliveira Assis Reis"
                     MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_REQUEST.status
                     MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_REQUEST.status_code
@@ -102,7 +104,7 @@ const listAdressByParticipantID = async function (id) {
     }
 }
 
-const setOrganizer = async function (organizador, contentType) {
+const setAdress = async function (enderecoParticipante, contentType) {
     //Criando um objeto para as mensagens
     let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
 
@@ -110,21 +112,36 @@ const setOrganizer = async function (organizador, contentType) {
         //Validação do tipo de conteúdo da requisição (Obrigatório ser um JSON)
         if (String(contentType).toUpperCase() == 'APPLICATION/JSON') {
             //Guarda o resultado da validação de dados do Organizador
-            let validate = await validateOrganizer(organizador)
-            if (!validate) {
-                let resultOrganizer = await enderecoParticipanteDAO.insertOrganizer(organizador)
+            let validar = await validarAdress(enderecoParticipante)
 
-                if (resultOrganizer) {
+            let validarIDParticipante = await controllerParticipante.listParticipantByID(enderecoParticipante.id_participante)
+            // console.log(validarIDParticipante)
+            if(validarIDParticipante.status_code != 200){
+                MESSAGES.ERROR_REQUIRED_FIELDS.message += '[Id participante não foi encontrado]'
+                return  MESSAGES.ERROR_REQUIRED_FIELDS
+            }
+
+            let validarIDUf = await controllerUf.listUfByID(enderecoParticipante.id_uf)
+            
+            if(validarIDUf.status_code != 200){
+                MESSAGES.ERROR_REQUIRED_FIELDS.message += '[Id uf não foi encontrado]'
+                return  MESSAGES.ERROR_REQUIRED_FIELDS
+            }
+           
+            if (!validar) {
+                let resultAdress = await enderecoParticipanteDAO.insertParticipantsAddresses(enderecoParticipante)
+
+                if (resultAdress) {
 
                     let lastId = await enderecoParticipanteDAO.getLastId()
 
                     if (lastId) {
-                        organizador.id = lastId
-
+                        enderecoParticipante.id = lastId
+                        MESSAGES.DEFAULT_HEADER.development = "Breno Oliveira Assis Reis"
                         MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_CREATED_ITEM.status
                         MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_CREATED_ITEM.status_code
                         MESSAGES.DEFAULT_HEADER.message = MESSAGES.SUCCESS_CREATED_ITEM.message
-                        MESSAGES.DEFAULT_HEADER.items = organizador
+                        MESSAGES.DEFAULT_HEADER.items = enderecoParticipante
 
                         return MESSAGES.DEFAULT_HEADER
 
@@ -137,7 +154,7 @@ const setOrganizer = async function (organizador, contentType) {
                 }
 
             } else {
-                return validate
+                return validar
             }
         } else {
             return MESSAGES.ERROR_CONTENT_TYPE
@@ -148,7 +165,7 @@ const setOrganizer = async function (organizador, contentType) {
     }
 }
 
-const setUpdateOrganizer = async function (organizador, id, contentType) {
+const setUpdateAdress = async function (organizador, id, contentType) {
     //Criando um objeto para as mensagens
     let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
 
@@ -169,7 +186,7 @@ const setUpdateOrganizer = async function (organizador, id, contentType) {
                     if (resultOrganizer) {
 
                         organizador.id = lastId
-
+                        MESSAGES.DEFAULT_HEADER.development = "Breno Oliveira Assis Reis"
                         MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_CREATED_ITEM.status
                         MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_CREATED_ITEM.status_code
                         MESSAGES.DEFAULT_HEADER.message = MESSAGES.SUCCESS_CREATED_ITEM.message
@@ -198,19 +215,20 @@ const setUpdateOrganizer = async function (organizador, id, contentType) {
 }
 
 
-const setDeleteOrganizer = async function (id) {
+const setDeleteAdress = async function (id) {
     let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
 
     try {
 
-        let validarId = await buscarProdutoraID(id)
+        let validarId = await listAdressByID(id)
 
         if (validarId.status_code == 200) {
 
-            let resultOrganizer = await enderecoParticipanteDAO.deleteOrganizer(Number(id))
+            let resultAdress = await enderecoParticipanteDAO.deleteParticipantAddress(Number(id))
 
 
-            if (resultOrganizer) {
+            if (resultAdress) {
+                MESSAGES.DEFAULT_HEADER.development = "Breno Oliveira Assis Reis"
                 MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_DELETED_ITEM.status
                 MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_DELETED_ITEM.status_code
                 MESSAGES.DEFAULT_HEADER.message = MESSAGES.SUCCESS_DELETED_ITEM.message
@@ -231,33 +249,47 @@ const setDeleteOrganizer = async function (id) {
 }
 
 // Função para validar todos os dados do organizador enviado
-const validateOrganizer = async function (organizador) {
+const validarAdress = async function (enderecoParticipante) {
     let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
 
     //Validações de todas entradas de dados
-    if (organizador.nome_fantasia == '' || organizador.nome_fantasia == undefined || organizador.nome_fantasia == null || organizador.nome_fantasia.length > 100) {
-        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [nome_fantasia incorreto]'
+    if (enderecoParticipante.cep == '' || enderecoParticipante.cep == undefined || enderecoParticipante.cep == null || enderecoParticipante.cep.length != 8) {
+        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [CEP incorreto]'
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
 
-    } else if (organizador.razao_social == '' || organizador.razao_social == undefined || organizador.razao_social == null || organizador.razao_social.length > 100) {
-        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [razao_social incorreta]'
+    } else if (enderecoParticipante.cidade == '' || enderecoParticipante.cidade == undefined || enderecoParticipante.cidade == null || enderecoParticipante.cidade.length > 200) {
+        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [cidade incorreta]'
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
 
-    } else if (organizador.cnpj == '' || organizador.cnpj == undefined || organizador.cnpj == null || organizador.cnpj.length != 14) {
-        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [cnpj incorreto]'
+    } else if (enderecoParticipante.bairro == '' || enderecoParticipante.bairro == undefined || enderecoParticipante.bairro == null || enderecoParticipante.bairro.length > 200) {
+        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [bairro incorreto]'
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
     }
-    else if (organizador.email == '' || organizador.email == undefined || organizador.email == null || organizador.email.length > 150) {
-        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [email incorreto]'
+    else if (enderecoParticipante.numero == '' || enderecoParticipante.numero == undefined || enderecoParticipante.numero == null || enderecoParticipante.numero.length > 50) {
+        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [numero incorreto]'
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
 
-    } else if (organizador.telefone == '' || organizador.telefone == undefined || organizador.telefone == null || organizador.telefone.length > 20) {
-        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [telefone incorreto]'
+    } else if (enderecoParticipante.endereco == '' || enderecoParticipante.endereco == undefined || enderecoParticipante.endereco == null || enderecoParticipante.endereco.length > 200) {
+        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [endereco incorreto]'
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
 
-    } else if (organizador.senha == '' || organizador.senha == undefined || organizador.senha == null || organizador.senha.length > 100) {
-        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [senha incorreta]'
+    }
+    else if (enderecoParticipante.logradouro == '' || enderecoParticipante.logradouro == undefined || enderecoParticipante.logradouro == null || enderecoParticipante.logradouro.length > 200) {
+        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [logradouro incorreto]'
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
+
+    }
+
+    else if (enderecoParticipante.id_participante <= 0 || isNaN(enderecoParticipante.id_participante) || enderecoParticipante.id_participante == undefined || enderecoParticipante.id_participante == null || enderecoParticipante.id_participante == '') {
+        MESSAGES.ERROR_REQUIRED_FIELDS.message += '[Id participante incorreto]'
+        return MESSAGES.ERROR_REQUIRED_FIELDS
+    }
+    else if (enderecoParticipante.id_uf <= 0 || isNaN(enderecoParticipante.id_uf) || enderecoParticipante.id_uf == undefined || enderecoParticipante.id_uf == null || enderecoParticipante.id_uf == '') {
+        MESSAGES.ERROR_REQUIRED_FIELDS.message += '[Id uf incorreto]'
+        return MESSAGES.ERROR_REQUIRED_FIELDS
+    }
+    else {
+        return false
     }
 
 }
@@ -265,5 +297,8 @@ const validateOrganizer = async function (organizador) {
 module.exports = {
     listAdress,
     listAdressByID,
-    listAdressByParticipantID
+    listAdressByParticipantID,
+    setDeleteAdress,
+    setUpdateAdress,
+    setAdress
 }
