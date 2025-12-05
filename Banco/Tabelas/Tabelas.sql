@@ -32,7 +32,6 @@ CREATE TABLE tb_participante (
     telefone VARCHAR(20) NOT NULL,
     email VARCHAR(150) NOT NULL,
     senha VARCHAR(100) NOT NULL,
-    status BOOLEAN NOT NULL DEFAULT TRUE
 );
 
 ALTER TABLE tb_participante

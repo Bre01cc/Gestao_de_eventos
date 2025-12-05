@@ -14,7 +14,7 @@ const prisma = new PrismaClient()
 //Retorna uma lista de todos os Endereços Referente aos Participantes no BD
 const getAllParticipantsAddresses = async function(){
     try{
-        let result = await prisma.$queryRaw(`select * from tb_endereco_participante order by id desc`)
+        let result = await prisma.$queryRaw`select * from  vw_participante_endereco order by id desc`
         
         if(Array.isArray(result))
             return result
@@ -29,7 +29,7 @@ const getAllParticipantsAddresses = async function(){
 //Retorna um Endereço de Participante filtrando pelo ID do Endereço
 const getParticipantAddressByAddressID = async function(id){
     try {
-        let result = await prisma.$queryRaw(`select * from tb_endereco_participante where id = ${id}`)
+        let result = await prisma.$queryRaw`select * from vw_participante_endereco where id = ${id}`
 
         if(Array.isArray(result))
             return result
@@ -42,12 +42,66 @@ const getParticipantAddressByAddressID = async function(id){
 }
 
 //Retorna um Endereço de participante filtrando pelo ID do participante
-const getParticipantAddressByOrganizerID = async function(participanteID){
+const getParticipantAddressByParticipantID = async function(participanteID){
     try {
-        let result = await prisma.$queryRaw(`select * from tb_endereco_participante where id_participante = ${participanteID}`)
+        let result = await prisma.$queryRaw`select * from vw_participante_endereco where id_participante = ${participanteID}`
 
         if(Array.isArray(result))
             return result
+        else
+            return false
+
+    } catch (error) {
+        return false
+    }
+}
+
+//Inseri um Endereço do participantes no BD
+const insertParticipantsAddresses = async function (participante) {
+    try {
+
+
+        //executeRawUnsafe() -> Executa o script SQL que não tem retorno de valores
+        let result = await prisma.$queryRaw`insert into tb_participante(
+        nome,
+        cpf,
+        data_nascimento,
+        email,
+        telefone,
+        senha)
+    values (${participante.nome},
+            ${participante.cpf},
+            ${participante.data_nascimento},
+            ${participante.email},
+            ${participante.telefone},
+            ${participante.senha});`
+
+        if (result)
+            return true
+        else
+            return false
+
+    } catch (error) {
+        return false
+    }
+}
+
+//Altera o Endereço de um participante
+const updateParticipantsAddresses = async function (participante) {
+    try {
+        //executeRawUnsafe() -> Executa o script SQL que não tem retorno de valores
+        let result = await prisma.$queryRaw`update tb_participante set
+                        nome = ${participante.nome},
+                        cpf = ${participante.cpf},
+                        data_nascimento = ${participante.data_nascimento},
+                        email = ${participante.email},
+                        telefone = ${participante.telefone},
+                        senha = ${participante.senha}
+                    where id = ${participante.id};`
+
+
+        if (result)
+            return true
         else
             return false
 
@@ -88,4 +142,9 @@ const deleteParticipantAddress = async function(id){
     } catch (error) {
         return false
     }
+}
+module.exports = {
+    getAllParticipantsAddresses,
+    getParticipantAddressByAddressID,
+    getParticipantAddressByParticipantID
 }

@@ -1,26 +1,25 @@
 /***********************************************************************************************************
- * Objetivo: Arquivo responsável pela manipulação de dados entre APP e MODEL referente ao Paricipante
- * Data: 03/12/2025
- * Autor: Breno
+ * Objetivo: Arquivo responsável pela manipulação de dados entre APP e MODEL referente ao participante
+ * Data: 04/12/2025
+ * Autor: Breno 
  * Versão: 1.0
  ***********************************************************************************************************/
 const participanteDAO = require('../../model/dao/participante.js')
 const DEFAULT_MESSAGES = require('../modulo/response_messages.js')
-
 
 const listParticipants = async function () {
     //Criando objeto para as mensagens
     let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
 
     try {
-        let resultParticipant = await participanteDAO.getAllParticipants()
+        let resultParticipants = await participanteDAO.getAllParticipants()
 
-        if (resultParticipant) {
-            if (resultParticipant != null && resultParticipant.length > 0) {
+        if (resultParticipants) {
+            if (resultParticipants != null && resultParticipants.length > 0) {
                 MESSAGES.DEFAULT_HEADER.development = "Breno Oliveira Assis Reis"
                 MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_REQUEST.status
                 MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_REQUEST.status_code
-                MESSAGES.DEFAULT_HEADER.items.participantes = resultParticipant
+                MESSAGES.DEFAULT_HEADER.items.participantes = resultParticipants
 
                 return MESSAGES.DEFAULT_HEADER //200(sucesso)
             } else {
@@ -35,22 +34,22 @@ const listParticipants = async function () {
     }
 }
 
-const listParticipantsByID = async function (id) {
+const listParticipantByID = async function (id) {
     //Criando um objeto para as mensagens
     let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
 
     try {
         //Validação do ID
-        if (!isNaN(id) || id != '' || id > 0) {
-            let resultOrganizer = await statsDAO.getEventStatsByID(id)
+        if (!isNaN(id) && id != '' && id > 0) {
+            let resultParticipant = await participanteDAO.getParticipantById(id)
 
-            if (resultOrganizer) {
+            if (resultParticipant) {
 
-                if (resultOrganizer != null) {
-                    MESSAGES.DEFAULT_HEADER.development = 'Breno Oliveira Assis Reis'
+                if (resultParticipant != null && resultParticipant.length > 0) {
+                    MESSAGES.DEFAULT_HEADER.development = "Breno Oliveira Assis Reis"
                     MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_REQUEST.status
                     MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_REQUEST.status_code
-                    MESSAGES.DEFAULT_HEADER.item = resultOrganizer
+                    MESSAGES.DEFAULT_HEADER.items.participante = resultParticipant
 
                     return MESSAGES.DEFAULT_HEADER //200(sucesso)
                 } else {
@@ -60,7 +59,7 @@ const listParticipantsByID = async function (id) {
                 return MESSAGES.ERROR_INTERNAL_SERVER_MODEL //500(erro interno)
             }
         } else {
-            MESSAGES.ERROR_REQUIRED_FIELDS += ' [ID Inválido]'
+            MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [ID Inválido]'
             return MESSAGES.ERROR_REQUIRED_FIELDS //400
         }
 
@@ -69,29 +68,29 @@ const listParticipantsByID = async function (id) {
     }
 }
 
-const setOrganizer = async function (organizador, contentType) {
+const setParticipant = async function (participante, contentType) {
     //Criando um objeto para as mensagens
     let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
 
     try {
         //Validação do tipo de conteúdo da requisição (Obrigatório ser um JSON)
         if (String(contentType).toUpperCase() == 'APPLICATION/JSON') {
-            //Guarda o resultado da validação de dados do Organizador
-            let validate = await validateOrganizer(organizador)
-            if (!validate) {
-                let resultOrganizer = await participanteDAO.insertOrganizer(organizador)
+            //Guarda o resultado da validação de dados do participante
+            let validar = await validarParticipant(participante)
+            if (!validar) {
+                let resultParticipant = await participanteDAO.insertParticipant(participante)
 
-                if (resultOrganizer) {
+                if (resultParticipant) {
 
                     let lastId = await participanteDAO.getLastId()
 
                     if (lastId) {
-                        organizador.id = lastId
-                        MESSAGES.DEFAULT_HEADER.development = 'Breno Oliveira Assis Reis'
+                        participante.id = lastId
+                        MESSAGES.DEFAULT_HEADER.development = "Breno Oliveira Assis Reis"
                         MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_CREATED_ITEM.status
                         MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_CREATED_ITEM.status_code
                         MESSAGES.DEFAULT_HEADER.message = MESSAGES.SUCCESS_CREATED_ITEM.message
-                        MESSAGES.DEFAULT_HEADER.items = organizador
+                        MESSAGES.DEFAULT_HEADER.items.participante = participante
 
                         return MESSAGES.DEFAULT_HEADER
 
@@ -104,7 +103,7 @@ const setOrganizer = async function (organizador, contentType) {
                 }
 
             } else {
-                return validate
+                return validar
             }
         } else {
             return MESSAGES.ERROR_CONTENT_TYPE
@@ -115,32 +114,27 @@ const setOrganizer = async function (organizador, contentType) {
     }
 }
 
-const setUpdateOrganizer = async function (organizador, id, contentType) {
+const setUpdateParticipant = async function (participante, id, contentType) {
     //Criando um objeto para as mensagens
     let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
 
     try {
         //Validação do tipo de conteúdo da requisição (Obrigatório ser um JSON)
         if (String(contentType).toUpperCase() == 'APPLICATION/JSON') {
-            //Guarda o resultado da validação de dados do Organizador
-            let validate = await validateOrganizer(organizador)
-            if (!validate) {
+            //Guarda o resultado da validação de dados do participante
+            let validar = await validarParticipant(participante)
+            if (!validar) {
+                let validarID = await listParticipantByID(id)
 
-                let validateID = await listOrganizerByID(id)
-                if (validateID.status_code == 200) {
-
-                    organizador.id = Number(id)
-
-                    let resultOrganizer = await participanteDAO.updateOrganizaer(organizador)
-
-                    if (resultOrganizer) {
-
-                        organizador.id = lastId
-                        MESSAGES.DEFAULT_HEADER.development = 'Breno Oliveira Assis Reis'
+                if (validarID.status_code == 200) {
+                    participante.id = id
+                    let resultParticipant = await participanteDAO.updateParticipant(participante)
+                    if (resultParticipant) {
+                        MESSAGES.DEFAULT_HEADER.development = "Breno Oliveira Assis Reis"
                         MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_CREATED_ITEM.status
                         MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_CREATED_ITEM.status_code
                         MESSAGES.DEFAULT_HEADER.message = MESSAGES.SUCCESS_CREATED_ITEM.message
-                        MESSAGES.DEFAULT_HEADER.items = organizador
+                        MESSAGES.DEFAULT_HEADER.items.participante = participante
 
                         return MESSAGES.DEFAULT_HEADER //201
 
@@ -149,11 +143,11 @@ const setUpdateOrganizer = async function (organizador, id, contentType) {
                     }
 
                 } else {
-                    return validateID //Referente a validação da função de busca por ID poderá retornar (400 | 404 | 500)
+                    return validarID //Referente a validação da função de busca por ID poderá retornar (400 | 404 | 500)
                 }
 
             } else {
-                return validate //400 Referente a  validação dos dados
+                return validar //400 Referente a  validação dos dados
             }
         } else {
             return MESSAGES.ERROR_CONTENT_TYPE //415
@@ -165,20 +159,20 @@ const setUpdateOrganizer = async function (organizador, id, contentType) {
 }
 
 
-const setDeleteOrganizer = async function (id) {
+const setDeleteParticipant = async function (id) {
     let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
 
     try {
 
-        let validarId = await buscarProdutoraID(id)
+        let validarId = await listParticipantByID(id)
 
         if (validarId.status_code == 200) {
 
-            let resultOrganizer = await participanteDAO.deleteOrganizer(Number(id))
+            let resultParticipant = await participanteDAO.deleteParticipant(id)
 
 
-            if (resultOrganizer) {
-                MESSAGES.DEFAULT_HEADER.development = 'Breno Oliveira Assis Reis'
+            if (resultParticipant) {
+                MESSAGES.DEFAULT_HEADER.development = "Breno Oliveira Assis Reis"
                 MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_DELETED_ITEM.status
                 MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_DELETED_ITEM.status_code
                 MESSAGES.DEFAULT_HEADER.message = MESSAGES.SUCCESS_DELETED_ITEM.message
@@ -198,32 +192,32 @@ const setDeleteOrganizer = async function (id) {
     }
 }
 
-// Função para validar todos os dados do organizador enviado
-const validateOrganizer = async function (organizador) {
+// Função para validar todos os dados do participante enviado
+const validarParticipant = async function (participante) {
     let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
 
     //Validações de todas entradas de dados
-    if (organizador.nome_fantasia == '' || organizador.nome_fantasia == undefined || organizador.nome_fantasia == null || organizador.nome_fantasia.length > 100) {
-        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [nome_fantasia incorreto]'
+    if (participante.nome == '' || participante.nome == undefined || participante.nome == null || participante.nome.length > 100) {
+        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [nome incorreto]'
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
 
-    } else if (organizador.razao_social == '' || organizador.razao_social == undefined || organizador.razao_social == null || organizador.razao_social.length > 100) {
-        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [razao_social incorreta]'
+    } else if (participante.cpf == '' || participante.cpf == undefined || participante.cpf == null || participante.cpf.length != 11) {
+        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [cpf incorreto]'
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
 
-    } else if (organizador.cnpj == '' || organizador.cnpj == undefined || organizador.cnpj == null || organizador.cnpj.length != 14) {
-        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [cnpj incorreto]'
+    } else if (participante.data_nascimento == '' || participante.data_nascimento == undefined || participante.data_nascimento == null || participante.data_nascimento.length != 10) {
+        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [data nascimento incorreta]'
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
     }
-    else if (organizador.email == '' || organizador.email == undefined || organizador.email == null || organizador.email.length > 150) {
+    else if (participante.email == '' || participante.email == undefined || participante.email == null || participante.email.length > 150) {
         MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [email incorreto]'
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
 
-    } else if (organizador.telefone == '' || organizador.telefone == undefined || organizador.telefone == null || organizador.telefone.length > 20) {
+    } else if (participante.telefone == '' || participante.telefone == undefined || participante.telefone == null || participante.telefone.length > 20) {
         MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [telefone incorreto]'
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
 
-    } else if (organizador.senha == '' || organizador.senha == undefined || organizador.senha == null || organizador.senha.length > 100) {
+    } else if (participante.senha == '' || participante.senha == undefined || participante.senha == null || participante.senha.length > 100) {
         MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [senha incorreta]'
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
     }
@@ -231,7 +225,9 @@ const validateOrganizer = async function (organizador) {
 }
 
 module.exports = {
-    listParticipants
+    listParticipants,
+    listParticipantByID,
+    setDeleteParticipant,
+    setParticipant,
+    setUpdateParticipant
 }
-
-

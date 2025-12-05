@@ -27,6 +27,8 @@ const routes_stats_event = require('./routes/routes_status_evento.js')
 const routes_organizer = require('./routes/routes_organizador.js')
 const routes_forma_pagamento = require('./routes/routers_forma_pagamento.js')
 const routes_participante = require('./routes/routers_participante.js')
+const routes_endereco_participante = require('./routes/router_endereco_participante.js')
+const routes_tipo_ingresso = require('./routes/router_tipo_ingresso.js')
 
 app.use(routes_category)
 app.use(routes_uf)
@@ -34,6 +36,8 @@ app.use(routes_stats_event)
 app.use(routes_organizer)
 app.use(routes_forma_pagamento)
 app.use(routes_participante)
+app.use(routes_endereco_participante)
+app.use(routes_tipo_ingresso)
 
 
 app.listen(PORT, () => {

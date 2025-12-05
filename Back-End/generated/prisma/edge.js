@@ -112,7 +112,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\25133656\\Front-End\\Gestao_de_eventos\\Back-End\\generated\\prisma",
+      "value": "C:\\Senai\\Gestao_de_eventos\\Back-End\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -129,7 +129,7 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../.env",
+    "rootEnvPath": null,
     "schemaEnvPath": "../../.env"
   },
   "relativePath": "../../prisma",

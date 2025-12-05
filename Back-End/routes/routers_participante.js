@@ -24,43 +24,43 @@ router.get('/v1/webeventos/participante', cors(), async (request, response) => {
 })
 
 //Retorna um organizador filtando pelo ID
-router.get('/v1/webeventos/organizador/:id', cors(), async(request, response) => {
+router.get('/v1/webeventos/participante/:id', cors(), async(request, response) => {
     //Obtendo o ID do Gênero
-    let organizerID = request.params.id
+    let participanteID = request.params.id
 
-    let organizer = await controller_participante.listOrganizerByID(organizerID)
+    let participante = await controller_participante.listParticipantByID(participanteID)
     
-    response.status(organizer.status_code).json(organizer)
+    response.status(participante.status_code).json(participante)
 })
 
-//Envia os dados da organizadora para a Controller
-router.post('/v1/webeventos/organizador', cors(), bodyParserJSON, async (request, response) => {
+//Envia os dados do participante para a Controller
+router.post('/v1/webeventos/participante', cors(), bodyParserJSON, async (request, response) => {
     let dadosBody = request.body
 
     let contentType = request.headers['content-type']
     
-    let organizer = await controller_participante.setOrganizer(dadosBody, contentType)
+    let participante = await controller_participante.setParticipant(dadosBody, contentType)
     
-    response.status(organizer.status_code).json(organizer)
+    response.status(participante.status_code).json(participante)
 })
 
-//Envia os dados da organizadora à controller para ser atualizada
-router.put('/v1/webeventos/organizador/:id', cors(), bodyParserJSON, async(request, response) => {
-    let organizerID = request.params.id
+//Envia os dados do participantes à controller para ser atualizada
+router.put('/v1/webeventos/participante/:id', cors(), bodyParserJSON, async(request, response) => {
+    let participanteID = request.params.id
     let dadosBody = request.body
     let contentType = request.headers['content-type']
 
-    let organizer = await controller_participante.setUpdateOrganizer(dadosBody, organizerID, contentType)
-    response.status(organizer.status_code).json(organizer)
+    let participante = await controller_participante.setUpdateParticipant(dadosBody, participanteID, contentType)
+    response.status(participante.status_code).json(participante)
 })
 
-//Deleta uma produtora filtando pelo ID passado pelo parâmetro
-router.delete('/v1/webeventos/organizador/:id', cors(), async(request, response) => {
-    let organizerID = request.params.id
+//Deleta um participante pelo ID passado pelo parâmetro
+router.delete('/v1/webeventos/participante/:id', cors(), async(request, response) => {
+    let participanteID = request.params.id
     
-    let organizer = await controller_participante.setDeleteOrganizer(organizerID)
+    let participante = await controller_participante.setDeleteParticipant(participanteID)
     
-    response.status(organizer.status_code).json(organizer)
+    response.status(participante.status_code).json(participante)
 })
 
 module.exports = router

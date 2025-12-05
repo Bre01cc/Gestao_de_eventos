@@ -44,10 +44,8 @@ const getTicketById = async function(id){
 //Retorna o último ID gerado no BD
 const getLastId = async function(){
     try {
-        //Script SQL que retorna apenas o último ID do BD
-        let sql = `select id from tb_tipo_ingresso order by id desc limit 1;`
 
-        let result = await prisma.$queryRawUnsafe(sql)
+        let result = await prisma.$queryRaw`select id from tb_tipo_ingresso order by id desc limit 1;`
 
         if(Array.isArray(result))
             return Number(result[0].id)
@@ -58,15 +56,50 @@ const getLastId = async function(){
     }
 }
 
+//Inseri um tipo de ingresso no BD
+const insertTicket = async function (tipoIngresso) {
+    try {
 
+
+        //executeRawUnsafe() -> Executa o script SQL que não tem retorno de valores
+        let result = await prisma.$queryRaw`insert into tb_tipo_ingresso(tipo)
+        values(
+        ${tipoIngresso.tipo});
+       `
+
+        if (result)
+            return true
+        else
+            return false
+
+    } catch (error) {
+        return false
+    }
+}
+
+//Altera um tipo de ingresso
+const updateTicket = async function (tipoIngresso) {
+    try {
+        //executeRawUnsafe() -> Executa o script SQL que não tem retorno de valores
+        let result = await prisma.$queryRaw`update tb_tipo_ingresso set
+                        nome = ${tipoIngresso.tipo};`
+
+
+        if (result)
+            return true
+        else
+            return false
+
+    } catch (error) {
+        return false
+    }
+}
 
 //Exclui um ingresso pelo ID no Banco de Dados
 const deleteTicket = async function(id){
     try {
-
-        let sql = `delete from tb_tipo_ingresso where id = ${id}`
         
-        let result = await prisma.$executeRawUnsafe(sql)
+        let result = await prisma.$queryRaw`delete from tb_tipo_ingresso where id = ${id}`
         
         if(result)
             return true
@@ -78,5 +111,10 @@ const deleteTicket = async function(id){
 }
 
 module.exports ={
-    
+    getAllTicket,
+    getLastId,
+    getTicketById,
+    deleteTicket,
+    insertTicket,
+    updateTicket
 }

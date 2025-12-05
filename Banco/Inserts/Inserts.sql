@@ -9,11 +9,11 @@ INSERT INTO tb_uf (sigla) VALUES
 
 -- 2) PARTICIPANTES 
 INSERT INTO tb_participante (nome, cpf, data_nascimento, telefone, email, senha, status) VALUES
-('Weslei Santos', '12345678901', '2001-10-18', '(11)90000-0001', 'weslei.santos@email.com', 'senhaWeslei123', TRUE),
-('Enzo Carrilho', '98765432100', '2005-09-25', '(11)90000-0002', 'enzo.carrilho@email.com', 'senhaCarrilho123', TRUE),
-('Breno Assis', '65498732155', '2008-12-10', '(11)90000-0003', 'breno.assis@email.com', 'senhaBreno123', TRUE),
-('Ricardo Almeida', '11223344556', '1992-06-15', '(11)90000-0004', 'ricardo.almeida@email.com', 'senhaRicardo123', TRUE),
-('Fernanda Costa', '33221144556', '1999-03-21', '(11)90000-0005', 'fernanda.costa@email.com', 'senhaFernanda123', TRUE);
+('Weslei Santos', '12345678901', '2001-10-18', '(11)90000-0001', 'weslei.santos@email.com', 'senhaWeslei123'),
+('Enzo Carrilho', '98765432100', '2005-09-25', '(11)90000-0002', 'enzo.carrilho@email.com', 'senhaCarrilho123'),
+('Breno Assis', '65498732155', '2008-12-10', '(11)90000-0003', 'breno.assis@email.com', 'senhaBreno123'),
+('Ricardo Almeida', '11223344556', '1992-06-15', '(11)90000-0004', 'ricardo.almeida@email.com', 'senhaRicardo123'),
+('Fernanda Costa', '33221144556', '1999-03-21', '(11)90000-0005', 'fernanda.costa@email.com', 'senhaFernanda123');
 
 -- 3) ORGANIZADORES
 INSERT INTO tb_organizador (nome_fantasia, razao_social, cnpj, email, telefone, senha) VALUES
