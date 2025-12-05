@@ -79,7 +79,6 @@ const insertOrganizer = async function(organizador){
                         '${organizador.telefone}',
                         '${organizador.senha}');`
     
-    //executeRawUnsafe() -> Executa o script SQL que não tem retorno de valores
     let result = await prisma.$executeRawUnsafe(sql)
 
     if(result)
@@ -93,7 +92,7 @@ const insertOrganizer = async function(organizador){
 }
 
 //Altera um Organizador
-const updateOrganizaer = async function(organizador){
+const updateOrganizer = async function(organizador){
     try {
         let sql = `update tb_organizador set
                         nome_fantasia = '${organizador.nome_fantasia}',
@@ -104,7 +103,6 @@ const updateOrganizaer = async function(organizador){
                         senha = '${organizador.senha}'
                     where id = ${organizador.id};`
                 
-    //executeRawUnsafe() -> Executa o script SQL que não tem retorno de valores
     let result = await prisma.$executeRawUnsafe(sql)
 
     if(result)
@@ -139,6 +137,6 @@ module.exports = {
     getOrganizerById,
     getLastId,
     insertOrganizer,
-    updateOrganizaer,
+    updateOrganizer,
     deleteOrganizer
 }

@@ -14,7 +14,9 @@ const prisma = new PrismaClient()
 //Retorna todas as uf's
 const getAllUfs = async function(){
     try{
-        let result = await prisma.$queryRaw(`select * from tb_uf order by id desc`)
+        let sql = `select * from tb_uf order by id desc`
+
+        let result = await prisma.$queryRawUnsafe(sql)
         
         if(Array.isArray(result))
             return result
@@ -29,7 +31,9 @@ const getAllUfs = async function(){
 //Retorna uma UF filtrando por ID
 const getUfByID = async function(id){
     try{
-        let result = await prisma.$queryRaw(`select * from tb_uf where id = ${id}`)
+        let sql = `select * from tb_uf where id = ${id}`
+
+        let result = await prisma.$queryRawUnsafe(sql)
         
         if(Array.isArray(result))
             return result

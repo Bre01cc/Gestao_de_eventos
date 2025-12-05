@@ -18,7 +18,7 @@ const listOrganizersAddresess = async function(){
             if(resultAdresess != null){
                 MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_REQUEST.status
                 MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_REQUEST.status_code
-                MESSAGES.DEFAULT_HEADER.item = resultAdresess
+                MESSAGES.DEFAULT_HEADER.items = resultAdresess
 
                 return MESSAGES.DEFAULT_HEADER //200(sucesso)
             }else{
@@ -231,11 +231,11 @@ const validateOrganizerAddress = async function(address){
         MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [endereco incorreto]' 
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
 
-    }else if(address.id_uf == '' || address.id_uf == undefined || address.id_uf == null || !isNaN(address.id_uf)){
+    }else if(address.id_uf == undefined || address.id_uf == null || !isNaN(address.id_uf)){
         MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [id_uf incorreto]' 
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
 
-    }else if(address.id_organizador == '' || address.id_organizador == undefined || address.id_organizador == null || !isNaN(address.id_organizador)){
+    }else if(address.id_organizador == undefined || address.id_organizador == null || !isNaN(address.id_organizador)){
         MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [id_organizador incorreto]' 
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
     }
