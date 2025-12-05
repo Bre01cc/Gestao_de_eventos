@@ -3,10 +3,12 @@
   padding: 0;
   margin: 0;
 }
+
 a {
   text-decoration: none;
   color: #fff;
 }
+
 .active {
   display: flex;
 }
@@ -24,6 +26,7 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 .transparencia {
   height: 100%;
   width: 100%;
@@ -44,12 +47,13 @@ body {
     background-color: rgba(0, 0, 0, 0.5);
 
     .caixa-erro {
-      width: 85%;
+      margin-top: 3%;
+      width: 350px;
       border-radius: 2px;
       background-color: #ffffff;
       display: flex;
       flex-direction: column;
-      height: 15%;
+      height: 20%;
       gap: 5px;
       padding-bottom: 5px;
       align-items: center;
@@ -73,6 +77,7 @@ body {
           width: 100%;
         }
       }
+
       .bnt-erro {
         height: 25px;
         width: 100px;
@@ -85,6 +90,7 @@ body {
     align-items: center;
     justify-content: center;
     width: 100%;
+    height: 10%;
     flex-direction: column;
     height: auto;
     gap: 2.5rem;
@@ -112,7 +118,7 @@ body {
     width: 100%;
     display: flex;
     flex-direction: column;
-    padding-top: 10%;
+    padding-top: 5%;
     gap: 5vh;
 
     .campos-cadastro {
@@ -126,7 +132,7 @@ body {
       .input-box {
         padding-left: 10px;
         display: flex;
-        gap: 10px;
+        gap: 20px;
         flex-direction: row;
         padding-inline: 10px;
         align-items: center;
@@ -199,4 +205,123 @@ body {
   footer span {
     font-weight: 700;
   }
+  footer a{
+     transition: all 0.5s;
+  }
+  footer a:hover {
+    color: #8d33a3;
+  }
 }
+
+@media (min-width: 650px) {
+  .transparencia {
+    padding-top: 20%;
+    justify-content: center;
+    gap: 4vh;
+
+    header {
+      font-size: 1.6rem;
+      height: 25%;
+
+      .saudacoes {
+        font-size: 1.5rem;
+      }
+    }
+    header {
+      height: auto;
+    }
+    .titulo {
+      width: 100%;
+
+      .logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+      }
+      .logo img {
+        width: 40%;
+      }
+    }
+    main {
+      padding-top: 0;
+      align-items: start;
+      flex-grow: 1;
+      gap: 5vh;
+      justify-content: start;
+
+      .campos-cadastro {
+        gap: 40px;
+        height: auto;
+
+        .input-box input {
+          height: 40px;
+        }
+        .acessar {
+          font-size: 1.1rem;
+          width: 200px;
+          height: 40px;
+        }
+        .senha {
+          font-size: 1.2rem;
+        }
+      }
+      .criarConta {
+        font-size: 1.2rem;
+      }
+    }
+
+    footer {
+      display: flex;
+      justify-content: end;
+      align-items: end;
+      font-size: 1.3rem;
+      padding-bottom: 20px;
+    }
+  }
+}
+
+@media (min-width: 1020px) {
+  body {
+    background-size: cover;
+    background-position: center;
+  }
+  .transparencia {
+    /* background-color: #000000; */
+    padding-top: 0;
+    justify-content: center;
+    gap: 4vh;
+
+    header {
+      .titulo {
+        .logo img {
+          width: 20%;
+        }
+      }
+    }
+    main {
+      .campos-cadastro {
+        gap: 35px;
+        /* background-color: aqua; */
+
+        .input-box {
+          width: 35%;
+        }
+        .acessar {
+          width: 175px;
+          height: 40px;
+        }
+        .senha {
+          font-size: 1.1rem;
+        }
+      }
+      .criarConta {
+        font-size: 1.1rem;
+      }
+    }
+    footer {
+      font-size: 1.1rem;
+    }
+  }
+}
+

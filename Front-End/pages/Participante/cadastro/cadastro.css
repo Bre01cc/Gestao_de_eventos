@@ -1,0 +1,122 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.active {
+  display: flex;
+}
+
+.disable {
+  display: none;
+}
+
+body {
+  background-color: #e4e6e7;
+  width: 100vw;
+  height: 100vh;
+  font-family: "Inter", sans-serif;
+  overflow-x: hidden;
+}
+
+header {
+  width: 100%;
+  height: 10%;
+
+  .voltar {
+    width: 100%;
+    background-color: #222323;
+    height: 50%;
+    display: flex;
+    padding-left: 10px;
+    align-items: center;
+    color: #fff;
+    gap: 10px;
+    font-size: 0.9rem;
+
+    .icon {
+      font-size: 1.3rem;
+    }
+  }
+
+  .titulo {
+    background-color: #2b2d2e;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    height: 50%;
+    width: 100%;
+    padding-left: 15px;
+    font-size: 0.825rem;
+  }
+}
+
+main {
+  height: auto;
+  padding-top: 30px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  flex-direction: column;
+  padding-bottom: 15px;
+  gap: 3vh;
+
+  .campo-cadastro {
+    width: 100%;
+    height: 80%;
+    display: flex;
+    gap: 2vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .input-box {
+      padding-block: 5px;
+      display: flex;
+      gap: 10px;
+      background-color: #fdfefd;
+      flex-direction: row;
+      padding-inline: 10px;
+      align-items: center;
+      position: relative;
+      width: 90%;
+      border-radius: 5px;
+    }
+
+    .input-box input {
+      height: 25px;
+      width: 100%;
+      background-color: transparent;
+      font-weight: 100;
+      border-radius: 3px;
+      padding-left: 5px;
+      border: none;
+      color: #222323;
+      font-size: 1rem;
+      font-weight: 700;
+      outline: none;
+      box-shadow: none;
+    }
+  }
+
+  .finalizar {
+    width: 70%;
+    border: none;
+    border-radius: 5px;
+    height: 40px;
+    color: #fff;
+    font-size: 1.2rem;
+    background-color: #85329e;
+  }
+}
+
+@media (min-width: 650px) {}
+
+@media (min-width: 1020px) {}
