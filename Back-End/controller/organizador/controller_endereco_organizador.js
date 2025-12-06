@@ -231,11 +231,11 @@ const validateOrganizerAddress = async function(address){
         MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [endereco incorreto]' 
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
 
-    }else if(address.id_uf == '' || address.id_uf == undefined || address.id_uf == null || !isNaN(address.id_uf)){
+    }else if(address.id_uf == '' || address.id_uf == undefined || address.id_uf == null || isNaN(address.id_uf) || address.id_uf <= 0 ){
         MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [id_uf incorreto]' 
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
 
-    }else if(address.id_organizador == '' || address.id_organizador == undefined || address.id_organizador == null || !isNaN(address.id_organizador)){
+    }else if(address.id_organizador == '' || address.id_organizador == undefined || address.id_organizador == null || isNaN(address.id_organizador) || address.id_organizador <= 0){
         MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [id_organizador incorreto]' 
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
     }
