@@ -15,7 +15,32 @@ const listParticipants = async function () {
         let resultParticipants = await participanteDAO.getAllParticipants()
 
         if (resultParticipants) {
+
             if (resultParticipants != null && resultParticipants.length > 0) {
+                resultParticipants.forEach(participante => {
+                    let estado_info = []
+                    estado_info.push({id:participante.id_uf,
+                        sigla:participante.sigla
+                    })
+                    participante.endereco = []
+                    participante.endereco.push({
+                        id: participante.id_endereco,
+                        cep: participante.cep,
+                        cidade: participante.cidade,
+                        estado: estado_info,
+                        bairro: participante.bairro,
+                        numero: participante.numero,
+                        logradouro: participante.logradouro
+                    })
+                    delete participante.id_endereco
+                    delete participante.cep
+                    delete participante.cidade
+                    delete participante.sigla
+                    delete participante.id_uf
+                    delete participante.bairro
+                    delete participante.numero
+                    delete participante.logradouro
+                })
                 MESSAGES.DEFAULT_HEADER.development = "Breno Oliveira Assis Reis"
                 MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_REQUEST.status
                 MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_REQUEST.status_code
@@ -41,11 +66,37 @@ const listParticipantByID = async function (id) {
     try {
         //Validação do ID
         if (!isNaN(id) && id != '' && id > 0) {
-            let resultParticipant = await participanteDAO.getParticipantById(id)
+            let resultParticipant = await participanteDAO.getParticipantAdressById(id)
+            if (resultParticipant.length == 0) {
+                resultParticipant = await participanteDAO.getParticipantById(id)
+            }
 
             if (resultParticipant) {
 
                 if (resultParticipant != null && resultParticipant.length > 0) {
+
+                    resultParticipant.forEach(participante => {
+                        if ('id_endereco' in participante) {
+                            participante.endereco = []
+                            participante.endereco.push({
+                                id: participante.id_endereco,
+                                cep: participante.cep,
+                                cidade: participante.cidade,
+                                sigla: participante.sigla,
+                                bairro: participante.bairro,
+                                numero: participante.numero,
+                                logradouro: participante.logradouro
+                            })
+                            delete participante.id_endereco
+                            delete participante.cep
+                            delete participante.cidade
+                            delete participante.sigla
+                            delete participante.bairro
+                            delete participante.numero
+                            delete participante.logradouro
+                        }
+
+                    })
                     MESSAGES.DEFAULT_HEADER.development = "Breno Oliveira Assis Reis"
                     MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_REQUEST.status
                     MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_REQUEST.status_code
@@ -132,8 +183,8 @@ const setUpdateParticipant = async function (participante, id, contentType) {
                     if (resultParticipant) {
                         MESSAGES.DEFAULT_HEADER.development = "Breno Oliveira Assis Reis"
                         MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_CREATED_ITEM.status
-                        MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_CREATED_ITEM.status_code
-                        MESSAGES.DEFAULT_HEADER.message = MESSAGES.SUCCESS_CREATED_ITEM.message
+                        MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_UPDATED_ITEM.status_code
+                        MESSAGES.DEFAULT_HEADER.message = MESSAGES.SUCCESS_UPDATED_ITEM.message
                         MESSAGES.DEFAULT_HEADER.items.participante = participante
 
                         return MESSAGES.DEFAULT_HEADER //201

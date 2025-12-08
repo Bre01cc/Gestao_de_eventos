@@ -22,14 +22,14 @@ const router = express.Router()
 
 const controller_uf = require('../controller/uf/controller_uf.js')
 
-//Retorna todas as categorias
+//Retorna todos ufs
 router.get('/v1/webeventos/uf', cors(), async (request, response) => {
     let uf = await controller_uf.listUfs()
 
     response.status(uf.status_code).json(uf)
 })
 
-//Retorna todas as categorias
+//Retorna um uf pelo id
 router.get('/v1/webeventos/uf/:id', cors(), async (request, response) => {
     let ufID = request.params.id
     let uf = await controller_uf.listUfByID(ufID)

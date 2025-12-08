@@ -16,14 +16,14 @@ const router = express.Router()
 
 const controller_tipo_ingresso = require('../controller/tipo_ingresso/controller_tipo_ingresso.js')
 
-//Retorna todas as categorias
+//Retorna todos os tipo ingresso
 router.get('/v1/webeventos/tipo-ingresso', cors(), async (request, response) => {
     let tipoIngresso = await controller_tipo_ingresso.listAllTicket()
 
     response.status(tipoIngresso.status_code).json(tipoIngresso)
 })
 
-//Retorna todas as categorias
+//Retorna todos os tipo ingresso
 router.get('/v1/webeventos/tipo-ingresso/:id', cors(), async (request, response) => {
     let tipoIngressoID = request.params.id
     let tipoIngresso = await controller_tipo_ingresso.listTicketByID(tipoIngressoID)
@@ -31,6 +31,7 @@ router.get('/v1/webeventos/tipo-ingresso/:id', cors(), async (request, response)
     response.status(tipoIngresso.status_code).json(tipoIngresso)
 })
 
+//Cadastra um tipo ingresso
 router.post('/v1/webeventos/tipo-ingresso', cors(), bodyParserJSON, async (request, response) => {
     let dadosBody = request.body
 
@@ -41,7 +42,7 @@ router.post('/v1/webeventos/tipo-ingresso', cors(), bodyParserJSON, async (reque
     response.status(tipoIngresso.status_code).json(tipoIngresso)
 })
 
-//Envia os dados do tipoIngressos à controller para ser atualizada
+//Envia os dados do tipo Ingressos à controller para ser atualizada
 router.put('/v1/webeventos/tipo-ingresso/:id', cors(), bodyParserJSON, async(request, response) => {
     let tipoIngressoID = request.params.id
     let dadosBody = request.body
@@ -51,6 +52,7 @@ router.put('/v1/webeventos/tipo-ingresso/:id', cors(), bodyParserJSON, async(req
     response.status(tipoIngresso.status_code).json(tipoIngresso)
 })
 
+//Deleta um tipo ingresso
 router.delete('/v1/webeventos/tipo-ingresso/:id', cors(), async (request, response) => {
     let tipoIngressoID = request.params.id
     let tipoIngresso = await controller_tipo_ingresso.setDeleteTicket(tipoIngressoID)

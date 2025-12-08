@@ -164,12 +164,12 @@ const setDeleteTicket = async function (id) {
     try {
 
         let validarId = await listTicketByID(id)
-        console.log(validarId)
+        
 
         if (validarId.status_code == 200) {
 
             let resultTicket = await tipoIngressoDAO.deleteTicket(id)
-            console.log(resultTicket)
+          
 
 
             if (resultTicket) {

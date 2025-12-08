@@ -23,14 +23,6 @@ router.get('/v1/webeventos/endereco-participante', cors(), async (request, respo
     response.status(enderecoParticipante.status_code).json(enderecoParticipante)
 })
 
-//Retorna um endereço pelo id do participante
-router.get('/v1/webeventos/endereco_participante/:id', cors(), async (request, response) => {
-    let enderecoParticipanteID = request.params.id
-    let enderecoParticipante = await controller_endereco_participante.listAdressByParticipantID(enderecoParticipanteID)
-    
-    response.status(enderecoParticipante.status_code).json(enderecoParticipante)
-})
-
 //Retorna um endereço pelo id
 router.get('/v1/webeventos/endereco-participante/:id', cors(), async (request, response) => {
     let enderecoParticipanteID = request.params.id
@@ -39,6 +31,16 @@ router.get('/v1/webeventos/endereco-participante/:id', cors(), async (request, r
     response.status(enderecoParticipante.status_code).json(enderecoParticipante)
 })
 
+//Retorna um endereço pelo id do participante
+router.get('/v1/webeventos/endereco-participante/participante/:id', cors(), async (request, response) => {
+    let enderecoParticipanteID = request.params.id
+    let enderecoParticipante = await controller_endereco_participante.listAdressByParticipantID(enderecoParticipanteID)
+    
+    response.status(enderecoParticipante.status_code).json(enderecoParticipante)
+})
+
+
+//Cadastra um endereço
 router.post('/v1/webeventos/endereco-participante', cors(), bodyParserJSON, async (request, response) => {
     let dadosBody = request.body
 
@@ -49,7 +51,7 @@ router.post('/v1/webeventos/endereco-participante', cors(), bodyParserJSON, asyn
     response.status(enderecoParticipante.status_code).json(enderecoParticipante)
 })
 
-//Envia os dados do tipoIngressos à controller para ser atualizada
+//Envia os dados do endereço à controller para ser atualizada
 router.put('/v1/webeventos/endereco-participante/:id', cors(), bodyParserJSON, async(request, response) => {
     let enderecoParticipanteID = request.params.id
     let dadosBody = request.body

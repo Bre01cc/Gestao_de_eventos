@@ -5,7 +5,7 @@
  * Versão: 1.0
  ***********************************************************************************************************/
 const enderecoParticipanteDAO = require('../../model/dao/endereco_participante.js')
-const  controllerParticipante = require('./controller_participante.js')
+const controllerParticipante = require('./controller_participante.js')
 const controllerUf = require('../uf/controller_uf.js')
 const DEFAULT_MESSAGES = require('../modulo/response_messages.js')
 
@@ -15,9 +15,28 @@ const listAdress = async function () {
 
     try {
         let resultAdress = await enderecoParticipanteDAO.getAllParticipantsAddresses()
-        // console.log(resultAdress)
+        
         if (resultAdress) {
             if (resultAdress != null && resultAdress.length > 0) {
+                resultAdress.forEach(endereco => {
+                    endereco.participante_info = []
+                    endereco.estado = []
+                    endereco.estado.push({
+                        id: endereco.id_uf,
+                        sigla: endereco.sigla
+                    })
+                    endereco.participante_info.push({ id: endereco.id_participante,
+                         nome: endereco.participante,
+                         status:endereco.status
+                        })
+
+                    delete endereco.participante
+                    delete endereco.id_participante
+                    delete endereco.sigla
+                    delete endereco.id_uf
+                     delete endereco.status
+
+                })
                 MESSAGES.DEFAULT_HEADER.development = "Breno Oliveira Assis Reis"
                 MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_REQUEST.status
                 MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_REQUEST.status_code
@@ -48,6 +67,24 @@ const listAdressByID = async function (id) {
             if (resultAdress) {
 
                 if (resultAdress != null && resultAdress.length > 0) {
+                    resultAdress.forEach(endereco => {
+                        endereco.participante_info = []
+                        endereco.estado = []
+                        endereco.estado.push({
+                            id: endereco.id_uf,
+                            sigla: endereco.sigla
+                        })
+                        endereco.participante_info.push({ id: endereco.id_participante,
+                            nome: endereco.participante,
+                            status:endereco.status })
+
+                        delete endereco.participante
+                        delete endereco.id_participante
+                        delete endereco.sigla
+                        delete endereco.id_uf
+                        delete endereco.status
+
+                    })
                     MESSAGES.DEFAULT_HEADER.development = "Breno Oliveira Assis Reis"
                     MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_REQUEST.status
                     MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_REQUEST.status_code
@@ -82,10 +119,30 @@ const listAdressByParticipantID = async function (id) {
             if (resultAdress) {
 
                 if (resultAdress != null && resultAdress.length > 0) {
+                    resultAdress.forEach(endereco => {
+                        endereco.participante_info = []
+                        endereco.estado = []
+                        endereco.estado.push({
+                            id: endereco.id_uf,
+                            sigla: endereco.sigla
+                        })
+                        endereco.participante_info.push({ id: endereco.id_participante,
+                             nome: endereco.participante,
+                              status:endereco.status
+
+                        })
+
+                        delete endereco.participante
+                        delete endereco.id_participante
+                        delete endereco.sigla
+                        delete endereco.id_uf
+                        delete endereco.status
+
+                    })
                     MESSAGES.DEFAULT_HEADER.development = "Breno Oliveira Assis Reis"
                     MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_REQUEST.status
                     MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_REQUEST.status_code
-                    MESSAGES.DEFAULT_HEADER.items.endereco_participante = resultAdress
+                    MESSAGES.DEFAULT_HEADER.items.endereco_participantes = resultAdress
 
                     return MESSAGES.DEFAULT_HEADER //200(sucesso)
                 } else {
@@ -116,18 +173,18 @@ const setAdress = async function (enderecoParticipante, contentType) {
 
             let validarIDParticipante = await controllerParticipante.listParticipantByID(enderecoParticipante.id_participante)
             // console.log(validarIDParticipante)
-            if(validarIDParticipante.status_code != 200){
+            if (validarIDParticipante.status_code != 200) {
                 MESSAGES.ERROR_REQUIRED_FIELDS.message += '[Id participante não foi encontrado]'
-                return  MESSAGES.ERROR_REQUIRED_FIELDS
+                return MESSAGES.ERROR_REQUIRED_FIELDS
             }
 
             let validarIDUf = await controllerUf.listUfByID(enderecoParticipante.id_uf)
-            
-            if(validarIDUf.status_code != 200){
+
+            if (validarIDUf.status_code != 200) {
                 MESSAGES.ERROR_REQUIRED_FIELDS.message += '[Id uf não foi encontrado]'
-                return  MESSAGES.ERROR_REQUIRED_FIELDS
+                return MESSAGES.ERROR_REQUIRED_FIELDS
             }
-           
+
             if (!validar) {
                 let resultAdress = await enderecoParticipanteDAO.insertParticipantsAddresses(enderecoParticipante)
 
@@ -141,7 +198,7 @@ const setAdress = async function (enderecoParticipante, contentType) {
                         MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_CREATED_ITEM.status
                         MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_CREATED_ITEM.status_code
                         MESSAGES.DEFAULT_HEADER.message = MESSAGES.SUCCESS_CREATED_ITEM.message
-                        MESSAGES.DEFAULT_HEADER.items = enderecoParticipante
+                        MESSAGES.DEFAULT_HEADER.items.endereco_participante = enderecoParticipante
 
                         return MESSAGES.DEFAULT_HEADER
 
@@ -165,32 +222,45 @@ const setAdress = async function (enderecoParticipante, contentType) {
     }
 }
 
-const setUpdateAdress = async function (organizador, id, contentType) {
+const setUpdateAdress = async function (enderecoParticipante, id, contentType) {
     //Criando um objeto para as mensagens
     let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
 
     try {
         //Validação do tipo de conteúdo da requisição (Obrigatório ser um JSON)
         if (String(contentType).toUpperCase() == 'APPLICATION/JSON') {
-            //Guarda o resultado da validação de dados do Organizador
-            let validate = await validateOrganizer(organizador)
+            //Guarda o resultado da validação de dados do enderecoParticipante
+            let validate = await validarAdress(enderecoParticipante)
+            
+             let validarIDParticipante = await controllerParticipante.listParticipantByID(enderecoParticipante.id_participante)
+            
+            if (validarIDParticipante.status_code != 200) {
+                MESSAGES.ERROR_REQUIRED_FIELDS.message += '[Id participante não foi encontrado]'
+                return MESSAGES.ERROR_REQUIRED_FIELDS
+            }
+
+            let validarIDUf = await controllerUf.listUfByID(enderecoParticipante.id_uf)
+
+            if (validarIDUf.status_code != 200) {
+                MESSAGES.ERROR_REQUIRED_FIELDS.message += '[Id uf não foi encontrado]'
+                return MESSAGES.ERROR_REQUIRED_FIELDS
+            }
             if (!validate) {
 
-                let validateID = await listOrganizerByID(id)
+                let validateID = await listAdressByID(id)
                 if (validateID.status_code == 200) {
 
-                    organizador.id = Number(id)
+                    enderecoParticipante.id = Number(id)
 
-                    let resultOrganizer = await enderecoParticipanteDAO.updateOrganizaer(organizador)
+                    let resultOrganizer = await enderecoParticipanteDAO.updateParticipantsAddresses(enderecoParticipante)
 
                     if (resultOrganizer) {
 
-                        organizador.id = lastId
                         MESSAGES.DEFAULT_HEADER.development = "Breno Oliveira Assis Reis"
                         MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_CREATED_ITEM.status
-                        MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_CREATED_ITEM.status_code
-                        MESSAGES.DEFAULT_HEADER.message = MESSAGES.SUCCESS_CREATED_ITEM.message
-                        MESSAGES.DEFAULT_HEADER.items = organizador
+                        MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_UPDATED_ITEM.status_code
+                        MESSAGES.DEFAULT_HEADER.message = MESSAGES.SUCCESS_UPDATED_ITEM.message
+                        MESSAGES.DEFAULT_HEADER.items.endereco_participante = enderecoParticipante
 
                         return MESSAGES.DEFAULT_HEADER //201
 
@@ -248,7 +318,7 @@ const setDeleteAdress = async function (id) {
     }
 }
 
-// Função para validar todos os dados do organizador enviado
+// Função para validar todos os dados do endereco do participante enviado
 const validarAdress = async function (enderecoParticipante) {
     let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
 
@@ -267,10 +337,6 @@ const validarAdress = async function (enderecoParticipante) {
     }
     else if (enderecoParticipante.numero == '' || enderecoParticipante.numero == undefined || enderecoParticipante.numero == null || enderecoParticipante.numero.length > 50) {
         MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [numero incorreto]'
-        return MESSAGES.ERROR_REQUIRED_FIELDS //400
-
-    } else if (enderecoParticipante.endereco == '' || enderecoParticipante.endereco == undefined || enderecoParticipante.endereco == null || enderecoParticipante.endereco.length > 200) {
-        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [endereco incorreto]'
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
 
     }

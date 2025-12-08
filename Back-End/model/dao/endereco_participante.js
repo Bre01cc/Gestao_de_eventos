@@ -85,7 +85,7 @@ const insertParticipantsAddresses = async function (endereco) {
             return false;
 
     } catch (error) {
-        console.log(error);
+        
         return false;
     }
 };
@@ -102,14 +102,15 @@ const updateParticipantsAddresses = async function (endereco) {
                 bairro = ${endereco.bairro},
                 numero = ${endereco.numero},
                 logradouro = ${endereco.logradouro},
-                id_uf = ${endereco.id_uf}
+                id_uf = ${endereco.id_uf},
+                id_participante = ${endereco.id_participante}
             WHERE id = ${endereco.id};
         `;
 
         return result > 0;
 
     } catch (error) {
-        console.log(error);
+       
         return false;
     }
 };

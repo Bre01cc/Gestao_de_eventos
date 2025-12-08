@@ -16,14 +16,14 @@ const router = express.Router()
 
 const controller_forma_pagamento = require('../controller/forma_pagamento/controller_forma_pagamento.js')
 
-//Retorna todas as categorias
+//Retorna todas as formas de pagamento
 router.get('/v1/webeventos/pagamento', cors(), async (request, response) => {
     let pagamento = await controller_forma_pagamento.listPayments()
 
     response.status(pagamento.status_code).json(pagamento)
 })
 
-//Retorna todas as categorias
+//Retorna todas as formas de pagamento
 router.get('/v1/webeventos/pagamento/:id', cors(), async (request, response) => {
     let pagamentoID = request.params.id
     let pagamento = await controller_forma_pagamento.listPaymentsByID(pagamentoID)
