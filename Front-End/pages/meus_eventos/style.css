@@ -1,0 +1,48 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    height: 7%;
+    background-color: #121212;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 2px;
+    gap: 15px;
+}
+
+header img {
+    height: 90%;
+    width: auto;
+}
+
+header p {
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: #ffff;
+}
+
+.perfil {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+    width: 20%;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.perfil img {
+    height: 40%;
+    width: auto;
+}
