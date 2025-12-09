@@ -32,6 +32,7 @@ const routes_tipo_ingresso = require('./routes/routes_tipo_ingresso.js')
 const routes_pedido = require('./routes/routes_pedido.js')
 const routes_ingressos_pedido = require('./routes/routes_ingressos_pedido.js')
 const routes_lote_ingresso = require('./routes/routes_lote_ingresso.js')
+const routes_setor = require('./routes/routes_setor.js')
 
 app.use(routes_category)
 app.use(routes_uf)
@@ -44,6 +45,7 @@ app.use(routes_tipo_ingresso)
 app.use(routes_pedido)
 app.use(routes_ingressos_pedido)
 app.use(routes_lote_ingresso)
+app.use(routes_setor)
 
 app.listen(PORT, () => {
     console.log('API aguardando requisições...')
