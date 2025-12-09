@@ -108,7 +108,7 @@ const setOrganizerAddress = async function(address, contentType){
         //Validação do tipo de conteúdo da requisição (Obrigatório ser um JSON)
         if(String(contentType).toUpperCase() == 'APPLICATION/JSON'){
             //Guarda o resultado da validação de dados do Organizador
-            let validate = await validateOrganizerAddress(address)
+            let validate = await validateoOrganizerAddress(address)
             if(!validate){
                 let resultAddress = await organizer_addressDAO.insertOrganizerAddress(address)
 
@@ -227,8 +227,8 @@ const validateOrganizerAddress = async function(address){
         MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [numero incorreto]' 
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
 
-    }else if(address.endereco == '' || address.endereco == undefined || address.endereco == null || address.endereco.length > 200){
-        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [endereco incorreto]' 
+    }else if(address.logradouro == '' || address.logradouro == undefined || address.logradouro == null || address.logradouro.length > 200){
+        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [logradouro incorreto]' 
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
 
     }else if(address.id_uf == undefined || address.id_uf == null || !isNaN(address.id_uf)){

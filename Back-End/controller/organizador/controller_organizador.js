@@ -68,73 +68,73 @@ const listOrganizerByID = async function(id){
 }
 
 const setOrganizer = async function(organizador, contentType){
-     //Criando um objeto para as mensagens
-     let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
+    //Criando um objeto para as mensagens
+    let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
 
-    try{
-        //Validação do tipo de conteúdo da requisição (Obrigatório ser um JSON)
-        if(String(contentType).toUpperCase() == 'APPLICATION/JSON'){
+   try{
+       //Validação do tipo de conteúdo da requisição (Obrigatório ser um JSON)
+       if(String(contentType).toUpperCase() == 'APPLICATION/JSON'){
 
-            if(organizador.endereco){
-                //Guarda os dados do endereço do Organizador e remove do JSON Organizador
-                const organizerAddress = organizador.endereco
-                delete organizador.endereco
+           if(organizador.endereco){
+               //Guarda os dados do endereço do Organizador e remove do JSON Organizador
+               const organizerAddress = organizador.endereco
+               delete organizador.endereco
 
-                //Guarda o resultado da validação de dados do Organizador
-                let validate = await validateOrganizer(organizador)
+               //Guarda o resultado da validação de dados do Organizador
+               let validate = await validateOrganizer(organizador)
+            
+               if(!validate){
+                   let resultOrganizer = await organizerDAO.insertOrganizer(organizador)
 
-                if(!validate){
-                    let resultOrganizer = await organizerDAO.insertOrganizer(organizador)
+                   if(resultOrganizer){
 
-                    if(resultOrganizer){
+                       let lastId = await organizerDAO.getLastId()
+                        
+                       if(lastId){
+                           organizador.id = lastId
+                           //Adiciona o ID do Organizador no Endereco para ser cadastrado com FK
+                           organizerAddress.id_organizador = lastId
 
-                        let lastId = await organizerDAO.getLastId()
+                           //Chama a função da controller para validar o Endereco do Organizador e enviar para a model
+                           const resultAddress = await controllerOrganizerAddress.setOrganizerAddress(organizerAddress, contentType)
+                           
+                               if(resultAddress.status != false){
+                                   //Adiciona o Endereço cadastrado no Evento para retorno
+                                   organizador.endereco = resultAddress.items
 
-                        if(lastId){
-                            organizador.id = lastId
-                            //Adiciona o ID do Organizador no Endereco para ser cadastrado com FK
-                            organizerAddress.id_organizador = lastId
+                                   MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_CREATED_ITEM.status
+                                   MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_CREATED_ITEM.status_code
+                                   MESSAGES.DEFAULT_HEADER.message = MESSAGES.SUCCESS_CREATED_ITEM.message
+                                   MESSAGES.DEFAULT_HEADER.items = organizador
 
-                            //Chama a função da controller para validar o Endereco do Organizador e enviar para a model
-                            const resultAddress = await controllerOrganizerAddress.setOrganizerAddress(organizerAddress, contentType)
-                            
-                            if(resultAddress){
-                                //Adiciona o Endereço cadastrado no Organizador para retorno
-                                organizador.endereco = resultAddress.items
+                                   return MESSAGES.DEFAULT_HEADER
+                               }else{
+                                   return resultAddress
+                               }
 
-                                MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_CREATED_ITEM.status
-                                MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_CREATED_ITEM.status_code
-                                MESSAGES.DEFAULT_HEADER.message = MESSAGES.SUCCESS_CREATED_ITEM.message
-                                MESSAGES.DEFAULT_HEADER.items = organizador
+                       }else{
+                           return MESSAGES.ERROR_INTERNAL_SERVER_MODEL
+                       }
 
-                                return MESSAGES.DEFAULT_HEADER
-                            }else{
-                                return resultAddress
-                            }
+                   }else{
+                   return MESSAGES.ERROR_INTERNAL_SERVER_MODEL 
+                   }
 
-                        }else{
-                            return MESSAGES.ERROR_INTERNAL_SERVER_MODEL
-                        }
+               }else{
+                   return validate
+               }
 
-                    }else{
-                    return MESSAGES.ERROR_INTERNAL_SERVER_MODEL 
-                    }
+           }else{
+               MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [Endereco Incorreto]'
+               return MESSAGES.ERROR_REQUIRED_FIELDS
+           }
+        }else{
+           return MESSAGES.ERROR_CONTENT_TYPE
+        }
 
-                }else{
-                    return validate
-                }
-
-            }else{
-                MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [Endereco Incorreto]'
-                return MESSAGES.ERROR_REQUIRED_FIELDS
-            }
-         }else{
-            return MESSAGES.ERROR_CONTENT_TYPE
-         }
-
-     }catch(error){
-        return MESSAGES.ERROR_INTERNAL_SERVER_CONTROLLER
-     }
+    }catch(error){
+       return MESSAGES.ERROR_INTERNAL_SERVER_CONTROLLER
+    }
 }
 
 const setUpdateOrganizer = async function(organizador, id, contentType){
