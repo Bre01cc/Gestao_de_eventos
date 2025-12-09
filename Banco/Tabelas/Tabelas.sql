@@ -46,7 +46,7 @@ CREATE TABLE tb_evento (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     descricao VARCHAR(500) NOT NULL,
-    capa_url VARCHAR(200) NOT NULL,
+    capa_url VARCHAR(500) NOT NULL,
     data DATE NOT NULL,
     id_organizador INT NOT NULL,
     id_status_evento INT NOT NULL,
@@ -61,6 +61,8 @@ CREATE TABLE tb_evento (
         FOREIGN KEY (id_endereco_evento)
         REFERENCES tb_endereco_evento(id)
 );
+
+
 -----------------------------------------------------------------------------------------------------------------------------
 -- CRIAÇÃO DA TABELA DE CATEGORIA DO EVENTO --
 CREATE TABLE tb_categoria (
@@ -143,6 +145,7 @@ CREATE TABLE tb_setor (
     nome VARCHAR(100) NOT NULL,
     capacidade INT NOT NULL,
     id_evento INT NOT NULL,
+    capacidade_atual INT NOT NULL,
     CONSTRAINT fk_setor_evento
         FOREIGN KEY (id_evento)
         REFERENCES tb_evento(id)
@@ -151,7 +154,7 @@ CREATE TABLE tb_setor (
 -- CRIAÇÃO DA TABELA DE LOTE DE INGRESSOS --
 CREATE TABLE tb_lote_ingresso (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    numero INT NOT NULL,
+    lote INT NOT NULL,
     quantidade INT NOT NULL,
     valor DECIMAL(11,2) NOT NULL,
     data_inicio_venda DATE NOT NULL,
@@ -200,7 +203,6 @@ CREATE TABLE tb_forma_pagamento (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(20) NOT NULL
 );
-
 -----------------------------------------------------------------------------------------------------------------------------
 -- CRIAÇÃO DA TABELA DE TIPOS DE INGRESSO --
 CREATE TABLE tb_tipo_ingresso (
