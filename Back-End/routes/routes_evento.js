@@ -55,7 +55,7 @@ router.put('/v1/webeventos/evento/:id', cors(), bodyParserJSON, async(request, r
 })
 
 //Deleta uma produtora filtando pelo ID passado pelo parâmetro
-router.delete('/v1/webeventos/organizador/:id', cors(), async(request, response) => {
+router.delete('/v1/webeventos/evento/:id', cors(), async(request, response) => {
     let eventID = request.params.id
     
     let event = await controller_event.setDeleteEvent(eventID)

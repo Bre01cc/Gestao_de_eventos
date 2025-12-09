@@ -98,19 +98,19 @@ const setEvent = async function(evento, contentType){
                             //Chama a função da controller para validar o Endereco do Organizador e enviar para a model
                             const resultAddress = await controllerEventAddress.setEventAddress(eventAddress, contentType)
                             
-                            if(resultAddress){
-                                //Adiciona o Endereço cadastrado no Organizador para retorno
-                                evento.endereco = resultAddress.items
+                                if(resultAddress.status != false){
+                                    //Adiciona o Endereço cadastrado no Evento para retorno
+                                    evento.endereco = resultAddress.items
 
-                                MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_CREATED_ITEM.status
-                                MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_CREATED_ITEM.status_code
-                                MESSAGES.DEFAULT_HEADER.message = MESSAGES.SUCCESS_CREATED_ITEM.message
-                                MESSAGES.DEFAULT_HEADER.items = evento
+                                    MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_CREATED_ITEM.status
+                                    MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_CREATED_ITEM.status_code
+                                    MESSAGES.DEFAULT_HEADER.message = MESSAGES.SUCCESS_CREATED_ITEM.message
+                                    MESSAGES.DEFAULT_HEADER.items = evento
 
-                                return MESSAGES.DEFAULT_HEADER
-                            }else{
-                                return resultAddress
-                            }
+                                    return MESSAGES.DEFAULT_HEADER
+                                }else{
+                                    return resultAddress
+                                }
 
                         }else{
                             return MESSAGES.ERROR_INTERNAL_SERVER_MODEL
@@ -147,6 +147,7 @@ const setUpdateEvent = async function(evento, id, contentType){
             if(evento.endereco){
                 //Guarda os dados do endereço do Organizador e remove do JSON Organizador
                 const eventAddress = evento.endereco
+                eventAddress.id_evento = Number(id)
                 delete evento.endereco
                 
                 //Guarda o resultado da validação de dados do Organizador
@@ -161,32 +162,29 @@ const setUpdateEvent = async function(evento, id, contentType){
                         let resultEvent = await eventDAO.updateEvent(evento)
 
                         if(resultEvent){
-
-                            evento.id = lastId
-                            eventAddress.id_evento = lastId
                             
-                            const addressID = await controllerEventAddress.listEventAdresessByEventID(id)
-                            if(addressID){
+                            const validateAddressID = await controllerEventAddress.listEventAdresessByEventID(id)
+                            const addressID = validateAddressID.items[0].id
+                            
 
-                                const resultAddress = await controllerEventAddress.setUpdateEventAddress(addressID, eventAddress, contentType)
+                            const resultAddress = await controllerEventAddress.setUpdateEventAddress(eventAddress, addressID, contentType)
 
-                                if(resultAddress){
-                                    evento.endereco = resultAddress
-                                    
-                                    MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_CREATED_ITEM.status
-                                    MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_CREATED_ITEM.status_code
-                                    MESSAGES.DEFAULT_HEADER.message = MESSAGES.SUCCESS_CREATED_ITEM.message
-                                    MESSAGES.DEFAULT_HEADER.items = evento
+                                if(resultAddress || resultAddress.status != false){
+                                    evento.endereco = resultAddress.items
+                                        
+                                        MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_CREATED_ITEM.status
+                                        MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_CREATED_ITEM.status_code
+                                        MESSAGES.DEFAULT_HEADER.message = MESSAGES.SUCCESS_CREATED_ITEM.message
+                                        MESSAGES.DEFAULT_HEADER.items = evento
 
-                                    return MESSAGES.DEFAULT_HEADER //201
+                                        return MESSAGES.DEFAULT_HEADER //201
 
                                 }else{
                                     return resultAddress
                                 }
 
-                            }else{
-                                return addressID
-                            }
+                           
+ 
                         }else{
                         return MESSAGES.ERROR_INTERNAL_SERVER_MODEL // 500
                         }
@@ -222,6 +220,7 @@ const setDeleteEvent = async function(id){
             
         let validarId = await listEventByID(id)
         
+        
         if(validarId.status_code == 200){
                 
             let resultEvent = await eventDAO.deleteEvent(Number(id))
@@ -246,6 +245,7 @@ const setDeleteEvent = async function(id){
             return MESSAGES.ERROR_INTERNAL_SERVER_CONTROLLER //500
         }
 }
+
 
 module.exports = {
     listEvents,

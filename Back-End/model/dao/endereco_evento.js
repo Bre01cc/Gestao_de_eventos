@@ -14,7 +14,9 @@ const prisma = new PrismaClient()
 //Retorna uma lista de todos os Endereços Referente aos Organizadores no BD
 const getAllEventsAddresses = async function(){
     try{
-        let result = await prisma.$queryRaw(`select * from tb_endereco_evento order by id desc`)
+        let sql = `select * from tb_endereco_evento order by id desc`
+
+        let result = await prisma.$queryRaw(sql) 
         
         if(Array.isArray(result))
             return result
@@ -29,7 +31,10 @@ const getAllEventsAddresses = async function(){
 //Retorna um Endereço de organizador filtrando pelo ID do Endereço
 const getEventAddressByAddressID = async function(id){
     try {
-        let result = await prisma.$queryRaw(`select * from tb_endereco_evento where id = ${id}`)
+        let sql = `select * from tb_endereco_evento where id = ${id}`
+
+        let result = await prisma.$queryRawUnsafe(sql)
+        console.log(result)
 
         if(Array.isArray(result))
             return result
@@ -42,10 +47,12 @@ const getEventAddressByAddressID = async function(id){
 }
 
 //Retorna um Endereço de organizador filtrando pelo ID do Organizador
-const getEventAddressByEventID = async function(organizerID){
+const getEventAddressByEventID = async function(eventoID){
     try {
-        let result = await prisma.$queryRaw(`select * from tb_endereco_evento where id_evento = ${organizerID}`)
+        let sql = `select * from tb_endereco_evento where id_evento = ${eventoID}`
 
+        let result = await prisma.$queryRawUnsafe(sql)
+    
         if(Array.isArray(result))
             return result
         else
@@ -81,16 +88,16 @@ const insertEventAddress = async function(endereco){
                     cidade,
                     bairro,
                     numero,
-                    endereco,
+                    logradouro,
                     id_uf,
-                    id_organizador)
+                    id_evento)
                 values ('${endereco.cep}',
                         '${endereco.cidade}',
                         '${endereco.bairro}',
                         '${endereco.numero}',
-                        '${endereco.endereco}',
+                        '${endereco.logradouro}',
                         '${endereco.id_uf}',
-                        '${endereco.id_endereco}');`
+                        '${endereco.id_evento}');`
     
     //executeRawUnsafe() -> Executa o script SQL que não tem retorno de valores
     let result = await prisma.$executeRawUnsafe(sql)
@@ -108,19 +115,19 @@ const insertEventAddress = async function(endereco){
 //Altera um Endereço de um Organizador
 const updateEventAddress = async function(endereco){
     try {
-        let sql = `update tb__endereco_evento set
+        let sql = `update tb_endereco_evento set
                         cep = '${endereco.cep}',
                         cidade = '${endereco.cidade}',
                         bairro = '${endereco.bairro}',
                         numero = '${endereco.numero}',
-                        endereco = '${endereco.endereco}',
+                        logradouro = '${endereco.logradouro}',
                         id_uf = '${endereco.id_uf}',
-                        id_organizador = '${endereco.id_evento}'
+                        id_evento = '${endereco.id_evento}'
                     where id = ${endereco.id};`
-                
+    
     //executeRawUnsafe() -> Executa o script SQL que não tem retorno de valores
     let result = await prisma.$executeRawUnsafe(sql)
-
+    
     if(result)
         return true
     else

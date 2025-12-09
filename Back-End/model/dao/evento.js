@@ -14,7 +14,9 @@ const prisma = new PrismaClient()
 //Retorna uma lista de todos os Organizadores no BD
 const getAllEvents = async function(){
     try{
-        let result = await prisma.$queryRaw(`select * from tb_evento order by id desc`)
+        let sql = `select * from vw_evento_endereco;`
+
+        let result = await prisma.$queryRawUnsafe(sql)
         
         if(Array.isArray(result))
             return result
@@ -29,7 +31,9 @@ const getAllEvents = async function(){
 //Retorna um organizador filtrando pelo ID
 const getEventById = async function(id){
     try {
-        let result = await prisma.$queryRaw(`select * from tb_evento where id = ${id}`)
+        let sql = `select * from vw_evento_endereco where id = ${id};`
+
+        let result = await prisma.$queryRawUnsafe(sql)
 
         if(Array.isArray(result))
             return result
@@ -67,13 +71,13 @@ const insertEvent = async function(evento){
                     capa_url,
                     data,
                     id_organizador,
-                    id_status)
+                    id_status_evento)
                 values ('${evento.nome}',
                         '${evento.descricao}',
                         '${evento.capa_url}',
                         '${evento.data}',
                         '${evento.id_organizador}',
-                        '${evento.id_status}');`
+                        '${evento.id_status_evento}');`
     
     //executeRawUnsafe() -> Executa o script SQL que não tem retorno de valores
     let result = await prisma.$executeRawUnsafe(sql)

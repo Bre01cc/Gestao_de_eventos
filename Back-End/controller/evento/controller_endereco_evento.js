@@ -36,11 +36,11 @@ const listEventsAddresess = async function(){
 const listEventAdresessByAddressID = async function(id){
     //Criando um objeto para as mensagens
     let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
-
     try {
         //Validação do ID
         if(!isNaN(id) || id != '' || id > 0){
             let resultAddress = await event_addressDAO.getEventAddressByAddressID(id)
+            
 
             if(resultAddress){
 
@@ -81,7 +81,7 @@ const listEventAdresessByEventID = async function(eventID){
                 if(resultAddress != null){
                     MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_REQUEST.status
                     MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_REQUEST.status_code
-                    MESSAGES.DEFAULT_HEADER.item = resultAddress
+                    MESSAGES.DEFAULT_HEADER.items = resultAddress
 
                     return MESSAGES.DEFAULT_HEADER //200(sucesso)
                 }else{
@@ -158,30 +158,21 @@ const setUpdateEventAddress = async function(address, id, contentType){
             let validate = await validateEventAddress(address)
             if(!validate){
     
-                let validateID = await listEventAdresessByAddressIDByID(id)
-                if(validateID.status_code == 200){
     
-                    address.id = Number(id)
+                address.id = Number(id)
     
-                    let resultAddress = await event_addressDAO.updateEventAddress(address)
+                let resultAddress = await event_addressDAO.updateEventAddress(address)
+                
+                    if(resultAddress){
+                        MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_CREATED_ITEM.status
+                        MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_CREATED_ITEM.status_code
+                        MESSAGES.DEFAULT_HEADER.message = MESSAGES.SUCCESS_CREATED_ITEM.message
+                        MESSAGES.DEFAULT_HEADER.items = address
     
-                        if(resultAddress){
-    
-                            address.id = lastId
-    
-                            MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_CREATED_ITEM.status
-                            MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_CREATED_ITEM.status_code
-                            MESSAGES.DEFAULT_HEADER.message = MESSAGES.SUCCESS_CREATED_ITEM.message
-                            MESSAGES.DEFAULT_HEADER.items = address
-    
-                            return MESSAGES.DEFAULT_HEADER //201
-    
-                        }else{
-                        return MESSAGES.ERROR_INTERNAL_SERVER_MODEL // 500
-                        }
+                        return MESSAGES.DEFAULT_HEADER //201
     
                     }else{
-                        return validateID //Referente a validação da função de busca por ID poderá retornar (400 | 404 | 500)
+                        return MESSAGES.ERROR_INTERNAL_SERVER_MODEL // 500
                     }
     
             }else{
@@ -198,6 +189,7 @@ const setUpdateEventAddress = async function(address, id, contentType){
 
 
 
+
 // Função para validar todos os dados do endereco enviado
 const validateEventAddress = async function(address){
     let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
@@ -211,7 +203,7 @@ const validateEventAddress = async function(address){
         MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [cidade incorreta]' 
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
 
-    }else if(address.bairro == '' || address.bairro == undefined || address.bairro == null || address.bairro.length != 14){
+    }else if(address.bairro == '' || address.bairro == undefined || address.bairro == null || address.bairro.length > 200){
         MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [bairro incorreto]' 
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
     }
@@ -219,7 +211,7 @@ const validateEventAddress = async function(address){
         MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [numero incorreto]' 
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
 
-    }else if(address.endereco == '' || address.endereco == undefined || address.endereco == null || address.endereco.length > 200){
+    }else if(address.logradouro == '' || address.logradouro == undefined || address.logradouro == null || address.logradouro.length > 200){
         MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [endereco incorreto]' 
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
 
