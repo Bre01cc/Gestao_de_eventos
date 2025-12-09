@@ -122,7 +122,7 @@ const insertTicketLot = async function (lote) {
         ${lote.valor},
         ${lote.data_inicio_venda},
         ${lote.id_setor},
-        ${lote.id_tipo}
+        ${lote.id_tipo_ingresso}
     );`
         if (result)
             return true
@@ -130,6 +130,7 @@ const insertTicketLot = async function (lote) {
             return false
 
     } catch (error) {
+        console.log(error)
         return false
     }
 }

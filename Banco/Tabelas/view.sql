@@ -120,3 +120,16 @@ JOIN tb_setor setor
         ON setor.id = lote.id
 JOIN tb_evento evento 
         ON evento.id = setor.id_evento;
+
+-- View com detalhes do setor
+create view vw_setor
+as
+select
+setor.id,
+setor.nome,
+setor.capacidade,
+setor.capacidade_atual,
+evento.id id_evento,
+evento.nome nome_evento
+from tb_setor setor join tb_evento evento on
+evento.id = setor.id_evento;

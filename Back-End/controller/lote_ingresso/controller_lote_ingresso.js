@@ -6,6 +6,7 @@
  ***********************************************************************************************************/
 const loteIngresso = require('../../model/dao/lote_ingresso.js')
 const controllerTipoIngresso = require('../tipo_ingresso/controller_tipo_ingresso.js')
+const controllerSetor = require('../setor/controller_setor.js')
 const DEFAULT_MESSAGES = require('../modulo/response_messages.js')
 
 const listTicketLots = async function () {
@@ -186,10 +187,17 @@ const setTicketLot = async function (lote, contentType) {
             let validar = await validarLoteIngresso(lote)
             if (!validar) {
 
-                let validarIDTipoIngresso = await controllerTipoIngresso.listTicketByID(lote.id_tipo)
+                let validarIDTipoIngresso = await controllerTipoIngresso.listTicketByID(lote.id_tipo_ingresso)
                 
                 if (validarIDTipoIngresso.status_code != 200) {
                     MESSAGES.ERROR_REQUIRED_FIELDS.message += '[Id tipo ingresso não foi encontrado]'
+                    return MESSAGES.ERROR_REQUIRED_FIELDS
+                }
+
+                  let validarIDSetor = await controllerSetor.listSetorByID(lote.id_setor)
+                
+                if (validarIDSetor.status_code != 200) {
+                    MESSAGES.ERROR_REQUIRED_FIELDS.message += '[Id setor não foi encontrado]'
                     return MESSAGES.ERROR_REQUIRED_FIELDS
                 }
 
@@ -302,7 +310,7 @@ const validarLoteIngresso = async function (lote) {
         return MESSAGES.ERROR_REQUIRED_FIELDS
     }
 
-    else if (lote.data_inicio_venda == '' || lote.data_inicio_venda == undefined || lote.data_inicio_venda == null) {
+    else if (lote.data_inicio_venda == '' || lote.data_inicio_venda == undefined || lote.data_inicio_venda == null || lote.data_inicio_venda.length !=10) {
         MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [data_inicio_venda incorreta]'
         return MESSAGES.ERROR_REQUIRED_FIELDS
     }
@@ -312,8 +320,8 @@ const validarLoteIngresso = async function (lote) {
         return MESSAGES.ERROR_REQUIRED_FIELDS
     }
 
-    else if (lote.id_tipo == '' || lote.id_tipo == undefined || lote.id_tipo == null || isNaN(lote.id_tipo) || lote.id_tipo <= 0) {
-        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [id_tipo incorreto]'
+    else if (lote.id_tipo_ingresso == '' || lote.id_tipo_ingresso == undefined || lote.id_tipo_ingresso == null || isNaN(lote.id_tipo_ingresso) || lote.id_tipo_ingresso <= 0) {
+        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [id_tipo_ingresso incorreto]'
         return MESSAGES.ERROR_REQUIRED_FIELDS
     }
 
