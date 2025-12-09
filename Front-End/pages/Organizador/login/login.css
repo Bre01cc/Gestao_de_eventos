@@ -172,6 +172,11 @@ body {
         width: 100px;
         border-radius: 5px;
         cursor: pointer;
+        transition: all 0.5s;
+      }
+      .acessar:hover {
+        background-color: #a4612a;
+        transform: scale(1.025);
       }
 
       .senha {

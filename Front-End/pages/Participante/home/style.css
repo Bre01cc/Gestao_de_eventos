@@ -1,0 +1,80 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.active {
+    display: flex;
+}
+
+.disable {
+    display: none;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+    font-family: "Inter", sans-serif;
+    overflow: hidden;
+    background-color: #2F3032;
+}
+
+header {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    align-items: center;
+    background-color: #2F3032;
+}
+
+header img {
+    width: 30%;
+}
+
+.icon {
+    color: #fff;
+}
+
+main{
+    width: 100%;
+    height: 80%;
+}
+.banner{
+    display: flex;
+    width: 100%;
+    height: 35%;
+    color: #fff;
+    font-weight: 700;
+    position: relative;
+   
+}
+.banner .info-banner{
+    bottom: 5%;
+    left: 5%;
+    position: absolute;
+}
+.banner img{
+    width: 100%;
+}
+
+.pesquisa-evento{
+    background-color: aqua;
+    height: 15%;
+    width: 100%;
+}
+.pesquisa{
+    height: 50%;
+    width: 100%;
+}
+.filtro{
+    height: 50%;
+    width: 100%;
+}
