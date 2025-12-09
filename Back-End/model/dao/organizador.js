@@ -14,8 +14,10 @@ const prisma = new PrismaClient()
 //Retorna uma lista de todos os Organizadores no BD
 const getAllOrganizers = async function(){
     try{
-        let result = await prisma.$queryRaw(`select * from tb_organizador order by id desc`)
-        
+        let sql = `select * from vw_organizador_endereco;`
+
+        let result = await prisma.$queryRawUnsafe(sql)
+                
         if(Array.isArray(result))
             return result
         else
@@ -29,8 +31,10 @@ const getAllOrganizers = async function(){
 //Retorna um organizador filtrando pelo ID
 const getOrganizerById = async function(id){
     try {
-        let result = await prisma.$queryRaw(`select * from tb_organizador where id = ${id}`)
-
+        let sql = `select * from vw_organizador_endereco where id_organizador = ${id}`
+        
+        let result = await prisma.$queryRawUnsafe(sql)
+        
         if(Array.isArray(result))
             return result
         else
@@ -75,7 +79,6 @@ const insertOrganizer = async function(organizador){
                         '${organizador.telefone}',
                         '${organizador.senha}');`
     
-    //executeRawUnsafe() -> Executa o script SQL que não tem retorno de valores
     let result = await prisma.$executeRawUnsafe(sql)
 
     if(result)
@@ -89,7 +92,7 @@ const insertOrganizer = async function(organizador){
 }
 
 //Altera um Organizador
-const updateOrganizaer = async function(organizador){
+const updateOrganizer = async function(organizador){
     try {
         let sql = `update tb_organizador set
                         nome_fantasia = '${organizador.nome_fantasia}',
@@ -100,7 +103,6 @@ const updateOrganizaer = async function(organizador){
                         senha = '${organizador.senha}'
                     where id = ${organizador.id};`
                 
-    //executeRawUnsafe() -> Executa o script SQL que não tem retorno de valores
     let result = await prisma.$executeRawUnsafe(sql)
 
     if(result)
@@ -135,6 +137,6 @@ module.exports = {
     getOrganizerById,
     getLastId,
     insertOrganizer,
-    updateOrganizaer,
+    updateOrganizer,
     deleteOrganizer
 }

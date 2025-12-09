@@ -18,7 +18,7 @@ const listOrganizersAddresess = async function(){
             if(resultAdresess != null){
                 MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_REQUEST.status
                 MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_REQUEST.status_code
-                MESSAGES.DEFAULT_HEADER.item = resultAdresess
+                MESSAGES.DEFAULT_HEADER.items = resultAdresess
 
                 return MESSAGES.DEFAULT_HEADER //200(sucesso)
             }else{
@@ -78,10 +78,10 @@ const listOrganizerAdresessByOrganizerID = async function(organizerID){
 
             if(resultAddress){
 
-                if(resultAddress != null){
+                if(resultAddress.length > 0){
                     MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_REQUEST.status
                     MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_REQUEST.status_code
-                    MESSAGES.DEFAULT_HEADER.item = resultAddress
+                    MESSAGES.DEFAULT_HEADER.items = resultAddress
 
                     return MESSAGES.DEFAULT_HEADER //200(sucesso)
                 }else{

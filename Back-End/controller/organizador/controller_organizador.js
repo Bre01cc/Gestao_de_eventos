@@ -5,6 +5,7 @@
  * Versão: 1.0
  ***********************************************************************************************************/
 const organizerDAO = require('../../model/dao/organizador.js')
+const controllerOrganizerAddress = require('./controller_endereco_organizador.js')
 const DEFAULT_MESSAGES = require('../modulo/response_messages.js')
 
 const listOrganizers = async function(){
@@ -13,12 +14,12 @@ const listOrganizers = async function(){
 
     try{
        let resultOrganizers = await organizerDAO.getAllOrganizers()
-       
+              
        if(resultOrganizers){
-            if(resultOrganizers != null){
+            if(resultOrganizers.length > 0){
                 MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_REQUEST.status
                 MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_REQUEST.status_code
-                MESSAGES.DEFAULT_HEADER.item = resultOrganizers
+                MESSAGES.DEFAULT_HEADER.items = resultOrganizers
 
                 return MESSAGES.DEFAULT_HEADER //200(sucesso)
             }else{
@@ -40,14 +41,14 @@ const listOrganizerByID = async function(id){
     try {
         //Validação do ID
         if(!isNaN(id) || id != '' || id > 0){
-            let resultOrganizer = await statsDAO.getEventStatsByID(id)
-
+            let resultOrganizer = await organizerDAO.getOrganizerById(id)
+            
             if(resultOrganizer){
 
-                if(resultOrganizer != null){
+                if(resultOrganizer.length > 0){
                     MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_REQUEST.status
                     MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_REQUEST.status_code
-                    MESSAGES.DEFAULT_HEADER.item = resultOrganizer
+                    MESSAGES.DEFAULT_HEADER.items = resultOrganizer
 
                     return MESSAGES.DEFAULT_HEADER //200(sucesso)
                 }else{
@@ -70,38 +71,62 @@ const setOrganizer = async function(organizador, contentType){
      //Criando um objeto para as mensagens
      let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
 
-     try{
-         //Validação do tipo de conteúdo da requisição (Obrigatório ser um JSON)
-         if(String(contentType).toUpperCase() == 'APPLICATION/JSON'){
-            //Guarda o resultado da validação de dados do Organizador
-            let validate = await validateOrganizer(organizador)
-            if(!validate){
-                let resultOrganizer = await organizerDAO.insertOrganizer(organizador)
+    try{
+        //Validação do tipo de conteúdo da requisição (Obrigatório ser um JSON)
+        if(String(contentType).toUpperCase() == 'APPLICATION/JSON'){
 
-                if(resultOrganizer){
+            if(organizador.endereco){
+                //Guarda os dados do endereço do Organizador e remove do JSON Organizador
+                const organizerAddress = organizador.endereco
+                delete organizador.endereco
 
-                    let lastId = await organizerDAO.getLastId()
+                //Guarda o resultado da validação de dados do Organizador
+                let validate = await validateOrganizer(organizador)
 
-                    if(lastId){
-                        organizador.id = lastId
+                if(!validate){
+                    let resultOrganizer = await organizerDAO.insertOrganizer(organizador)
 
-                        MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_CREATED_ITEM.status
-                        MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_CREATED_ITEM.status_code
-                        MESSAGES.DEFAULT_HEADER.message = MESSAGES.SUCCESS_CREATED_ITEM.message
-                        MESSAGES.DEFAULT_HEADER.items = organizador
+                    if(resultOrganizer){
 
-                        return MESSAGES.DEFAULT_HEADER
+                        let lastId = await organizerDAO.getLastId()
+
+                        if(lastId){
+                            organizador.id = lastId
+                            //Adiciona o ID do Organizador no Endereco para ser cadastrado com FK
+                            organizerAddress.id_organizador = lastId
+
+                            //Chama a função da controller para validar o Endereco do Organizador e enviar para a model
+                            const resultAddress = await controllerOrganizerAddress.setOrganizerAddress(organizerAddress, contentType)
+                            
+                            if(resultAddress){
+                                //Adiciona o Endereço cadastrado no Organizador para retorno
+                                organizador.endereco = resultAddress.items
+
+                                MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_CREATED_ITEM.status
+                                MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_CREATED_ITEM.status_code
+                                MESSAGES.DEFAULT_HEADER.message = MESSAGES.SUCCESS_CREATED_ITEM.message
+                                MESSAGES.DEFAULT_HEADER.items = organizador
+
+                                return MESSAGES.DEFAULT_HEADER
+                            }else{
+                                return resultAddress
+                            }
+
+                        }else{
+                            return MESSAGES.ERROR_INTERNAL_SERVER_MODEL
+                        }
 
                     }else{
-                        return MESSAGES.ERROR_INTERNAL_SERVER_MODEL
+                    return MESSAGES.ERROR_INTERNAL_SERVER_MODEL 
                     }
 
                 }else{
-                   return MESSAGES.ERROR_INTERNAL_SERVER_MODEL 
+                    return validate
                 }
 
             }else{
-                return validate
+                MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [Endereco Incorreto]'
+                return MESSAGES.ERROR_REQUIRED_FIELDS
             }
          }else{
             return MESSAGES.ERROR_CONTENT_TYPE
@@ -119,39 +144,69 @@ const setUpdateOrganizer = async function(organizador, id, contentType){
      try{
          //Validação do tipo de conteúdo da requisição (Obrigatório ser um JSON)
          if(String(contentType).toUpperCase() == 'APPLICATION/JSON'){
-            //Guarda o resultado da validação de dados do Organizador
-            let validate = await validateOrganizer(organizador)
-            if(!validate){
+            if(organizador.endereco){
+                //Guarda os dados do endereço do Organizador e remove do JSON Organizador
+                const organizerAddress = organizador.endereco
+                delete organizador.endereco
+                
+                //Guarda o resultado da validação de dados do Organizador
+                let validate = await validateOrganizer(organizador)
+                if(!validate){
 
-                let validateID = await listOrganizerByID(id)
-                if(validateID.status_code == 200){
+                    let validateID = await listOrganizerByID(id)
+                    if(validateID.status_code == 200){
 
-                    organizador.id = Number(id)
+                        organizador.id = Number(id)
 
-                    let resultOrganizer = await organizerDAO.updateOrganizaer(organizador)
+                        let resultOrganizer = await organizerDAO.updateOrganizer(organizador)
 
-                    if(resultOrganizer){
+                        if(resultOrganizer){
 
-                        organizador.id = lastId
+                            organizador.id = lastId
+                            organizerAddress.id_organizador = lastId
+                            
+                            const addressID = await controllerOrganizerAddress.listOrganizerAdresessByOrganizerID(id)
+                            if(addressID){
 
-                        MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_CREATED_ITEM.status
-                        MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_CREATED_ITEM.status_code
-                        MESSAGES.DEFAULT_HEADER.message = MESSAGES.SUCCESS_CREATED_ITEM.message
-                        MESSAGES.DEFAULT_HEADER.items = organizador
+                            const resultAddress = await controllerOrganizerAddress.setUpdateOrganizerAddress(addressID, organizerAddress, contentType)
 
-                        return MESSAGES.DEFAULT_HEADER //201
+                            if(resultAddress){
+                                organizador.endereco = resultAddress
+                                
+                                MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_CREATED_ITEM.status
+                                MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_CREATED_ITEM.status_code
+                                MESSAGES.DEFAULT_HEADER.message = MESSAGES.SUCCESS_CREATED_ITEM.message
+                                MESSAGES.DEFAULT_HEADER.items = organizador
+
+                                return MESSAGES.DEFAULT_HEADER //201
+
+                            }else{
+                                return resultAddress
+                            }
+
+                            
+
+                            }else{
+                                return addressID
+                            }
+                        }else{
+                        return MESSAGES.ERROR_INTERNAL_SERVER_MODEL // 500
+                        }
 
                     }else{
-                    return MESSAGES.ERROR_INTERNAL_SERVER_MODEL // 500
+                        return validateID //Referente a validação da função de busca por ID poderá retornar (400 | 404 | 500)
                     }
 
                 }else{
-                    return validateID //Referente a validação da função de busca por ID poderá retornar (400 | 404 | 500)
+                    return validate //400 Referente a  validação dos dados
                 }
 
             }else{
-                return validate //400 Referente a  validação dos dados
+                MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [Endereco Incorreto]'
+                return MESSAGES.ERROR_REQUIRED_FIELDS
             }
+
+            
          }else{
             return MESSAGES.ERROR_CONTENT_TYPE //415
          }
@@ -232,5 +287,6 @@ const validateOrganizer = async function(organizador){
         MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [senha incorreta]' 
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
     }
+    
 
 }
