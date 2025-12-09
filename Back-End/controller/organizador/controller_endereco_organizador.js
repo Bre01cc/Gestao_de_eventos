@@ -109,8 +109,10 @@ const setOrganizerAddress = async function(address, contentType){
         if(String(contentType).toUpperCase() == 'APPLICATION/JSON'){
             //Guarda o resultado da validação de dados do Organizador
             let validate = await validateOrganizerAddress(address)
+            
             if(!validate){
                 let resultAddress = await organizer_addressDAO.insertOrganizerAddress(address)
+                
 
                 if(resultAddress){
 
@@ -155,33 +157,24 @@ const setUpdateOrganizerAddress = async function(address, id, contentType){
         //Validação do tipo de conteúdo da requisição (Obrigatório ser um JSON)
         if(String(contentType).toUpperCase() == 'APPLICATION/JSON'){
             //Guarda o resultado da validação de dados do Organizador
-            let validate = await validateOrganizer(address)
+            let validate = await validateOrganizerAddress(address)
             if(!validate){
     
-                let validateID = await listOrganizerByID(id)
-                if(validateID.status_code == 200){
     
-                    address.id = Number(id)
+                address.id = Number(id)
+                
+                let resultAddress = await organizer_addressDAO.updateOrganizerAddress(address)
+                
+                    if(resultAddress){
+                        MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_CREATED_ITEM.status
+                        MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_CREATED_ITEM.status_code
+                        MESSAGES.DEFAULT_HEADER.message = MESSAGES.SUCCESS_CREATED_ITEM.message
+                        MESSAGES.DEFAULT_HEADER.items = address
     
-                    let resultAddress = await organizerDAO.updateOrganizaer(address)
-    
-                        if(resultAddress){
-    
-                            address.id = lastId
-    
-                            MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_CREATED_ITEM.status
-                            MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_CREATED_ITEM.status_code
-                            MESSAGES.DEFAULT_HEADER.message = MESSAGES.SUCCESS_CREATED_ITEM.message
-                            MESSAGES.DEFAULT_HEADER.items = address
-    
-                            return MESSAGES.DEFAULT_HEADER //201
-    
-                        }else{
-                        return MESSAGES.ERROR_INTERNAL_SERVER_MODEL // 500
-                        }
+                        return MESSAGES.DEFAULT_HEADER //201
     
                     }else{
-                        return validateID //Referente a validação da função de busca por ID poderá retornar (400 | 404 | 500)
+                        return MESSAGES.ERROR_INTERNAL_SERVER_MODEL // 500
                     }
     
             }else{
@@ -219,7 +212,7 @@ const validateOrganizerAddress = async function(address){
         MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [cidade incorreta]' 
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
 
-    }else if(address.bairro == '' || address.bairro == undefined || address.bairro == null || address.bairro.length != 14){
+    }else if(address.bairro == '' || address.bairro == undefined || address.bairro == null || address.bairro.length > 200){
         MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [bairro incorreto]' 
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
     }
@@ -227,15 +220,15 @@ const validateOrganizerAddress = async function(address){
         MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [numero incorreto]' 
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
 
-    }else if(address.endereco == '' || address.endereco == undefined || address.endereco == null || address.endereco.length > 200){
-        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [endereco incorreto]' 
+    }else if(address.logradouro == '' || address.logradouro == undefined || address.logradouro == null || address.logradouro.length > 200){
+        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [logradouro incorreto]' 
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
 
-    }else if(address.id_uf == '' || address.id_uf == undefined || address.id_uf == null || isNaN(address.id_uf) || address.id_uf <= 0 ){
+    }else if(address.id_uf == undefined || address.id_uf == null || isNaN(address.id_uf) || address.id_uf == ''){
         MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [id_uf incorreto]' 
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
 
-    }else if(address.id_organizador == '' || address.id_organizador == undefined || address.id_organizador == null || isNaN(address.id_organizador) || address.id_organizador <= 0){
+    }else if(address.id_organizador == undefined || address.id_organizador == null || isNaN(address.id_organizador) || address.id_organizador == ''){
         MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [id_organizador incorreto]' 
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
     }

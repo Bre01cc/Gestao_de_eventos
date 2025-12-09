@@ -87,20 +87,19 @@ const insertOrganizerAddress = async function(endereco){
                     cidade,
                     bairro,
                     numero,
-                    endereco,
+                    logradouro,
                     id_uf,
                     id_organizador)
                 values ('${endereco.cep}',
                         '${endereco.cidade}',
                         '${endereco.bairro}',
                         '${endereco.numero}',
-                        '${endereco.endereco}',
+                        '${endereco.logradouro}',
                         '${endereco.id_uf}',
                         '${endereco.id_organizador}');`
-    
     //executeRawUnsafe() -> Executa o script SQL que não tem retorno de valores
     let result = await prisma.$executeRawUnsafe(sql)
-
+    
     if(result)
         return true
     else
@@ -119,7 +118,7 @@ const updateOrganizerAddress = async function(endereco){
                         cidade = '${endereco.cidade}',
                         bairro = '${endereco.bairro}',
                         numero = '${endereco.numero}',
-                        endereco = '${endereco.endereco}',
+                        logradouro = '${endereco.logradouro}',
                         id_uf = '${endereco.id_uf}',
                         id_organizador = '${endereco.id_organizador}'
                     where id = ${endereco.id};`
