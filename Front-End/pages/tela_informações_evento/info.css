@@ -13,6 +13,7 @@ header {
     height: 7%;
     width: 100%;
     padding: 2px;
+    gap: 15px;
 }
 
 header img {
@@ -38,24 +39,39 @@ main {
     justify-content: center;
     flex-grow: 1;
     padding: 10px;
-    background-color: aqua;
 }
 
 .banner {
+    display: flex;
+    flex-direction: column;
     width: 80%;
     height: 60%;
-    background-color: tomato;
+    gap: 20px;
+}
+
+.banner span {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #ffff;
 }
 
 .media {
     width: 100%;
     height: 200px;
+    object-fit: cover;
 }
 
 .media img {
     width: 100%;
     height: 100%;
     border-radius: 10px;
+}
+
+@media (min-width: 1280px){
+    .media{
+        height: 450px;
+        object-fit: cover;
+    }
 }
 
 
