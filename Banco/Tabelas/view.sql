@@ -117,7 +117,7 @@ FROM tb_lote_ingresso lote
 JOIN tb_tipo_ingresso tipo_ingresso 
         ON tipo_ingresso.id = lote.id_tipo
 JOIN tb_setor setor 
-        ON setor.id = lote.id
+        ON setor.id = lote.id_setor
 JOIN tb_evento evento 
         ON evento.id = setor.id_evento;
 
