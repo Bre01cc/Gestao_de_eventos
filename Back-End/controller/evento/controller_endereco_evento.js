@@ -1,24 +1,24 @@
 /*******************************************************************************************************************
- * Objetivo: Arquivo responsável pela manipulação de dados entre APP e MODEL referente a Endereço de Organiozadores
+ * Objetivo: Arquivo responsável pela manipulação de dados entre APP e MODEL referente a Endereço dos Eventos
  * Data: 01/12/2025
  * Autor: Enzo Carrilho
  * Versão: 1.0
  ******************************************************************************************************************/
-const organizer_addressDAO = require('../../model/dao/endereco_organizador.js')
+const event_addressDAO = require('../../model/dao/endereco_evento.js')
 const DEFAULT_MESSAGES = require('../modulo/response_messages.js')
 
-const listOrganizersAddresess = async function(){
+const listEventsAddresess = async function(){
     //Criando objeto para as mensagens
     let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
 
     try{
-       let resultAdresess = await organizer_addressDAO.getAllOrganizersAddresses()
+       let resultAdresess = await event_addressDAO.getAllEventsAddresses()
        
        if(resultAdresess){
             if(resultAdresess != null){
                 MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_REQUEST.status
                 MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_REQUEST.status_code
-                MESSAGES.DEFAULT_HEADER.items = resultAdresess
+                MESSAGES.DEFAULT_HEADER.item = resultAdresess
 
                 return MESSAGES.DEFAULT_HEADER //200(sucesso)
             }else{
@@ -33,14 +33,14 @@ const listOrganizersAddresess = async function(){
     }
 }
 
-const listOrganizerAdresessByAddressID = async function(id){
+const listEventAdresessByAddressID = async function(id){
     //Criando um objeto para as mensagens
     let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
-
     try {
         //Validação do ID
         if(!isNaN(id) || id != '' || id > 0){
-            let resultAddress = await organizer_addressDAO.getOrganizerAddressByAddressID(id)
+            let resultAddress = await event_addressDAO.getEventAddressByAddressID(id)
+            
 
             if(resultAddress){
 
@@ -66,19 +66,19 @@ const listOrganizerAdresessByAddressID = async function(id){
     }
 }
 
-const listOrganizerAdresessByOrganizerID = async function(organizerID){
+const listEventAdresessByEventID = async function(eventID){
     //Criando um objeto para as mensagens
     let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
 
     try {
         //Validação do ID
-        if(!isNaN(organizerID) || organizerID != '' || organizerID > 0){
+        if(!isNaN(eventID) || eventID != '' || eventID > 0){
 
-            let resultAddress = await organizer_addressDAO.getOrganizerAddressByOrganizerID(organizerID)
+            let resultAddress = await event_addressDAO.getEventAddressByEventID(eventID)
 
             if(resultAddress){
 
-                if(resultAddress.length > 0){
+                if(resultAddress != null){
                     MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_REQUEST.status
                     MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_REQUEST.status_code
                     MESSAGES.DEFAULT_HEADER.items = resultAddress
@@ -91,7 +91,7 @@ const listOrganizerAdresessByOrganizerID = async function(organizerID){
                 return MESSAGES.ERROR_INTERNAL_SERVER_MODEL //500(erro interno)
             }
         }else{
-            MESSAGES.ERROR_REQUIRED_FIELDS += ' [ID Organizador Inválido]'
+            MESSAGES.ERROR_REQUIRED_FIELDS += ' [ID Evento Inválido]'
             return MESSAGES.ERROR_REQUIRED_FIELDS //400
         }
         
@@ -100,7 +100,7 @@ const listOrganizerAdresessByOrganizerID = async function(organizerID){
     }
 }
 
-const setOrganizerAddress = async function(address, contentType){
+const setEventAddress = async function(address, contentType){
     //Criando um objeto para as mensagens
     let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
     
@@ -108,13 +108,13 @@ const setOrganizerAddress = async function(address, contentType){
         //Validação do tipo de conteúdo da requisição (Obrigatório ser um JSON)
         if(String(contentType).toUpperCase() == 'APPLICATION/JSON'){
             //Guarda o resultado da validação de dados do Organizador
-            let validate = await validateOrganizerAddress(address)
+            let validate = await validateEventAddress(address)
             if(!validate){
-                let resultAddress = await organizer_addressDAO.insertOrganizerAddress(address)
+                let resultAddress = await event_addressDAO.insertEventAddress(address)
 
                 if(resultAddress){
 
-                    let lastID = await organizer_addressDAO.getLastId()
+                    let lastID = await event_addressDAO.getLastId()
 
                     if(lastID){
                         address.id = lastID
@@ -147,7 +147,7 @@ const setOrganizerAddress = async function(address, contentType){
     }
 }
 
-const setUpdateOrganizerAddress = async function(address, id, contentType){
+const setUpdateEventAddress = async function(address, id, contentType){
     //Criando um objeto para as mensagens
     let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
     
@@ -155,33 +155,24 @@ const setUpdateOrganizerAddress = async function(address, id, contentType){
         //Validação do tipo de conteúdo da requisição (Obrigatório ser um JSON)
         if(String(contentType).toUpperCase() == 'APPLICATION/JSON'){
             //Guarda o resultado da validação de dados do Organizador
-            let validate = await validateOrganizer(address)
+            let validate = await validateEventAddress(address)
             if(!validate){
     
-                let validateID = await listOrganizerByID(id)
-                if(validateID.status_code == 200){
     
-                    address.id = Number(id)
+                address.id = Number(id)
     
-                    let resultAddress = await organizerDAO.updateOrganizaer(address)
+                let resultAddress = await event_addressDAO.updateEventAddress(address)
+                
+                    if(resultAddress){
+                        MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_CREATED_ITEM.status
+                        MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_CREATED_ITEM.status_code
+                        MESSAGES.DEFAULT_HEADER.message = MESSAGES.SUCCESS_CREATED_ITEM.message
+                        MESSAGES.DEFAULT_HEADER.items = address
     
-                        if(resultAddress){
-    
-                            address.id = lastId
-    
-                            MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_CREATED_ITEM.status
-                            MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_CREATED_ITEM.status_code
-                            MESSAGES.DEFAULT_HEADER.message = MESSAGES.SUCCESS_CREATED_ITEM.message
-                            MESSAGES.DEFAULT_HEADER.items = address
-    
-                            return MESSAGES.DEFAULT_HEADER //201
-    
-                        }else{
-                        return MESSAGES.ERROR_INTERNAL_SERVER_MODEL // 500
-                        }
+                        return MESSAGES.DEFAULT_HEADER //201
     
                     }else{
-                        return validateID //Referente a validação da função de busca por ID poderá retornar (400 | 404 | 500)
+                        return MESSAGES.ERROR_INTERNAL_SERVER_MODEL // 500
                     }
     
             }else{
@@ -196,18 +187,11 @@ const setUpdateOrganizerAddress = async function(address, id, contentType){
     }
 }
 
-module.exports = {
-    listOrganizersAddresess,
-    listOrganizerAdresessByAddressID,
-    listOrganizerAdresessByOrganizerID,
-    setOrganizerAddress,
-    setUpdateOrganizerAddress
-}
 
 
 
 // Função para validar todos os dados do endereco enviado
-const validateOrganizerAddress = async function(address){
+const validateEventAddress = async function(address){
     let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
 
     //Validações de todas entradas de dados
@@ -219,7 +203,7 @@ const validateOrganizerAddress = async function(address){
         MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [cidade incorreta]' 
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
 
-    }else if(address.bairro == '' || address.bairro == undefined || address.bairro == null || address.bairro.length != 14){
+    }else if(address.bairro == '' || address.bairro == undefined || address.bairro == null || address.bairro.length > 200){
         MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [bairro incorreto]' 
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
     }
@@ -227,7 +211,7 @@ const validateOrganizerAddress = async function(address){
         MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [numero incorreto]' 
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
 
-    }else if(address.endereco == '' || address.endereco == undefined || address.endereco == null || address.endereco.length > 200){
+    }else if(address.logradouro == '' || address.logradouro == undefined || address.logradouro == null || address.logradouro.length > 200){
         MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [endereco incorreto]' 
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
 
@@ -235,11 +219,17 @@ const validateOrganizerAddress = async function(address){
         MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [id_uf incorreto]' 
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
 
-    }else if(address.id_organizador == '' || address.id_organizador == undefined || address.id_organizador == null || isNaN(address.id_organizador) || address.id_organizador <= 0){
-        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [id_organizador incorreto]' 
+    }else if(address.id_evento == '' || address.id_evento == undefined || address.id_evento == null || isNaN(address.id_evento) || address.id_evento <= 0){
+        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [id_evento incorreto]' 
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
     }
 
 }
 
-
+module.exports = {
+    listEventsAddresess,
+    listEventAdresessByAddressID,
+    listEventAdresessByEventID,
+    setEventAddress,
+    setUpdateEventAddress
+}

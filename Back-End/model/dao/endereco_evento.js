@@ -1,6 +1,6 @@
 /***********************************************************************************************************
- * Objetivo: Arquivo responsável pelo CRUD de dados no MySQL referente a Endereços de Organizadores 
- * Data: 01/12/2025
+ * Objetivo: Arquivo responsável pelo CRUD de dados no MySQL referente a Endereços dos Eventos 
+ * Data: 09/12/2025
  * Autor: Enzo Carrilho
  * Versão: 1.0
  ***********************************************************************************************************/
@@ -12,11 +12,11 @@ const { PrismaClient } = require('../../generated/prisma')
 const prisma = new PrismaClient()
 
 //Retorna uma lista de todos os Endereços Referente aos Organizadores no BD
-const getAllOrganizersAddresses = async function(){
+const getAllEventsAddresses = async function(){
     try{
-        let sql = `select * from tb_endereco_organizador order by id desc`
+        let sql = `select * from tb_endereco_evento order by id desc`
 
-        let result = await prisma.$queryRawUnsafe(sql)
+        let result = await prisma.$queryRaw(sql) 
         
         if(Array.isArray(result))
             return result
@@ -29,11 +29,12 @@ const getAllOrganizersAddresses = async function(){
 }
 
 //Retorna um Endereço de organizador filtrando pelo ID do Endereço
-const getOrganizerAddressByAddressID = async function(id){
+const getEventAddressByAddressID = async function(id){
     try {
-        let sql = `select * from tb_endereco_organizador where id = ${id}`
+        let sql = `select * from tb_endereco_evento where id = ${id}`
 
         let result = await prisma.$queryRawUnsafe(sql)
+        console.log(result)
 
         if(Array.isArray(result))
             return result
@@ -46,12 +47,12 @@ const getOrganizerAddressByAddressID = async function(id){
 }
 
 //Retorna um Endereço de organizador filtrando pelo ID do Organizador
-const getOrganizerAddressByOrganizerID = async function(organizerID){
+const getEventAddressByEventID = async function(eventoID){
     try {
-        let sql = `select * from tb_endereco_organizador where id_organizador = ${organizerID}`
+        let sql = `select * from tb_endereco_evento where id_evento = ${eventoID}`
 
         let result = await prisma.$queryRawUnsafe(sql)
-        
+    
         if(Array.isArray(result))
             return result
         else
@@ -66,7 +67,7 @@ const getOrganizerAddressByOrganizerID = async function(organizerID){
 const getLastId = async function(){
     try {
         //Script SQL que retorna apenas o último ID do BD
-        let sql = `select id from tb_endereco_organizador order by id desc limit 1;`
+        let sql = `select id from tb_endereco_evento order by id desc limit 1;`
 
         let result = await prisma.$queryRawUnsafe(sql)
 
@@ -80,23 +81,23 @@ const getLastId = async function(){
 }
 
 //Insere um Organizador novo no Banco de Dados
-const insertOrganizerAddress = async function(endereco){
+const insertEventAddress = async function(endereco){
     try {
-        let sql = `insert into tb_endereco_organizador(
+        let sql = `insert into tb_endereco_evento(
                     cep,
                     cidade,
                     bairro,
                     numero,
-                    endereco,
+                    logradouro,
                     id_uf,
-                    id_organizador)
+                    id_evento)
                 values ('${endereco.cep}',
                         '${endereco.cidade}',
                         '${endereco.bairro}',
                         '${endereco.numero}',
-                        '${endereco.endereco}',
+                        '${endereco.logradouro}',
                         '${endereco.id_uf}',
-                        '${endereco.id_organizador}');`
+                        '${endereco.id_evento}');`
     
     //executeRawUnsafe() -> Executa o script SQL que não tem retorno de valores
     let result = await prisma.$executeRawUnsafe(sql)
@@ -112,21 +113,21 @@ const insertOrganizerAddress = async function(endereco){
 }
 
 //Altera um Endereço de um Organizador
-const updateOrganizerAddress = async function(endereco){
+const updateEventAddress = async function(endereco){
     try {
-        let sql = `update tb_endereco_organizador set
+        let sql = `update tb_endereco_evento set
                         cep = '${endereco.cep}',
                         cidade = '${endereco.cidade}',
                         bairro = '${endereco.bairro}',
                         numero = '${endereco.numero}',
-                        endereco = '${endereco.endereco}',
+                        logradouro = '${endereco.logradouro}',
                         id_uf = '${endereco.id_uf}',
-                        id_organizador = '${endereco.id_organizador}'
+                        id_evento = '${endereco.id_evento}'
                     where id = ${endereco.id};`
-                
+    
     //executeRawUnsafe() -> Executa o script SQL que não tem retorno de valores
     let result = await prisma.$executeRawUnsafe(sql)
-
+    
     if(result)
         return true
     else
@@ -137,13 +138,12 @@ const updateOrganizerAddress = async function(endereco){
     }
 }
 
-
-
-module.exports = {
-    getAllOrganizersAddresses,
-    getOrganizerAddressByAddressID,
-    getOrganizerAddressByOrganizerID,
+module.exports ={
+    getAllEventsAddresses,
+    getEventAddressByAddressID,
+    getEventAddressByEventID,
     getLastId,
-    insertOrganizerAddress,
-    updateOrganizerAddress
+    insertEventAddress,
+    updateEventAddress
 }
+
