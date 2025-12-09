@@ -268,7 +268,8 @@ const validarDadosFilmeGenero = async function(eventCategory) {
     if(eventCategory.id_evento <= 0 || isNaN(eventCategory.id_evento) || eventCategory.id_evento == '' || eventCategory.id_evento == undefined || eventCategory.id_evento == null){
         MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [filme_id Incorreto]'
         return MESSAGES.ERROR_REQUIRED_FIELDS
-    
+
+        
     }else if(eventCategory.id_categoria <= 0 || isNaN(eventCategory.id_categoria) || eventCategory.id_categoria == '' || eventCategory.id_categoria == undefined || eventCategory.id_categoria == null){
         MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [genero_id Incorreto]'
         return MESSAGES.ERROR_REQUIRED_FIELDS
