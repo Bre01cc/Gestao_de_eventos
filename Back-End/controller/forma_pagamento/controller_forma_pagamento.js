@@ -1,30 +1,26 @@
 /***********************************************************************************************************
- * Objetivo: Arquivo responsável pela manipulação de dados entre APP e MODEL referente a UF 
- * Data: 27/11/2025
- * Autor: Enzo Carrilho
- * Versão: 1.0
- ***********************************************************************************************************/
-/***********************************************************************************************************
- * Objetivo: Verificar e corrigir o funcionamento funções
+ * Objetivo: Arquivo responsável pela manipulação de dados entre APP e MODEL referente a formas de pagamento
  * Data: 03/12/2025
  * Autor: Breno
  * Versão: 1.0
  ***********************************************************************************************************/
-const ufDAO = require('../../model/dao/uf.js')
+
+const formaPagamentoDAO = require('../../model/dao/forma_pagamento')
 const DEFAULT_MESSAGES = require('../modulo/response_messages.js')
 
-const listUfs = async function(){
+const listPayments = async function(){
     //Criando objeto para as mensagens
     let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
 
     try{
-       let resultUf = await ufDAO.getAllUfs()
+       let resultFormaPagamento = await formaPagamentoDAO.getAllPayments()
        
-       if(resultUf){
-            if(resultUf != null && resultUf.length>0){
-                MESSAGES.DEFAULT_HEADER.items.uf = resultUf
+       if(resultFormaPagamento){
+            if(resultFormaPagamento != null && resultFormaPagamento.length>0){
+                MESSAGES.DEFAULT_HEADER.development = 'Breno Oliveira Assis Reis'
                 MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_REQUEST.status
                 MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_REQUEST.status_code
+                MESSAGES.DEFAULT_HEADER.items.forma_pagamento = resultFormaPagamento
 
                 return MESSAGES.DEFAULT_HEADER //200(sucesso)
             }else{
@@ -39,22 +35,22 @@ const listUfs = async function(){
     }
 }
 
-const listUfByID = async function name(id){
+const listPaymentsByID = async function(id){
     //Criando um objeto para as mensagens
     let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
 
     try {
         //Validação do ID
         if(!isNaN(id) && id != '' && id > 0){
-            
-            let resultUf = await ufDAO.getUfByID(id)
+            let resultFormaPagamento = await formaPagamentoDAO.getPaymentsByID(id)
 
-            if(resultUf){
+            if(resultFormaPagamento){
 
-                if(resultUf != null && resultUf.length>0){
+                if(resultFormaPagamento != null && resultFormaPagamento.length>0){
+                    MESSAGES.DEFAULT_HEADER.development = 'Breno Oliveira Assis Reis'
                     MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_REQUEST.status
                     MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_REQUEST.status_code
-                    MESSAGES.DEFAULT_HEADER.items.uf = resultUf
+                    MESSAGES.DEFAULT_HEADER.items.forma_pagamento = resultFormaPagamento
 
                     return MESSAGES.DEFAULT_HEADER //200(sucesso)
                 }else{
@@ -74,6 +70,6 @@ const listUfByID = async function name(id){
 }
 
 module.exports = {
-    listUfs,
-    listUfByID
+    listPayments,
+    listPaymentsByID
 }
