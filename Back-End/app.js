@@ -8,12 +8,16 @@
 //Import das dependências
 const express =    require('express')
 const cors =       require('cors') 
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./swagger');
 
 //Retorna a porta do sevidor atual ou colocamos uma porta local
 const PORT = process.PORT || 8080
 
 //Criando uma instância de uma classe do express
 const app = express()
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 //Configuraçõs do cors
 app.use((request, response, next)=>{
