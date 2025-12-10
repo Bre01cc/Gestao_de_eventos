@@ -80,7 +80,7 @@ const insertOrganizer = async function(organizador){
                         '${organizador.senha}');`
     
     let result = await prisma.$executeRawUnsafe(sql)
-
+    
     if(result)
         return true
     else

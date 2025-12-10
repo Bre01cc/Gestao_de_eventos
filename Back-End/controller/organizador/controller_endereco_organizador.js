@@ -221,7 +221,7 @@ const validateOrganizerAddress = async function(address){
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
 
     }else if(address.logradouro == '' || address.logradouro == undefined || address.logradouro == null || address.logradouro.length > 200){
-        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [endereco incorreto]' 
+        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [logradouro incorreto]' 
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
 
     }else if(address.id_uf == undefined || address.id_uf == null || isNaN(address.id_uf) || address.id_uf == ''){
