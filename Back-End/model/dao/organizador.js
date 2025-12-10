@@ -31,7 +31,7 @@ const getAllOrganizers = async function(){
 //Retorna um organizador filtrando pelo ID
 const getOrganizerById = async function(id){
     try {
-        let sql = `select * from vw_organizador_endereco where id_organizador = ${id}`
+        let sql = `select * from vw_organizador_endereco where id = ${id}`
         
         let result = await prisma.$queryRawUnsafe(sql)
         

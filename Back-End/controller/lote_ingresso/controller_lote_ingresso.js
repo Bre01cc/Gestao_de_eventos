@@ -253,7 +253,7 @@ const setUpdatTicketLot = async function (lote, id, contentType) {
 
                 if (validarID.status_code == 200) {
 
-                    let validarIDTipoIngresso = await controllerTipoIngresso.listTicketByID(lote.id_tipo)
+                    let validarIDTipoIngresso = await controllerTipoIngresso.listTicketByID(lote.id_tipo_ingresso)
                  
                     if (validarIDTipoIngresso.status_code != 200) {
                         MESSAGES.ERROR_REQUIRED_FIELDS.message += '[Id tipo ingresso não foi encontrado]'

@@ -116,7 +116,7 @@ const updateParticipant = async function (participante) {
                         senha = ${participante.senha}
                     where id = ${participante.id};`
 
-
+        
         if (result)
             return true
         else

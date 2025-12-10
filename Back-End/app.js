@@ -53,6 +53,7 @@ app.use(routes_pedido)
 app.use(routes_ingressos_pedido)
 app.use(routes_lote_ingresso)
 app.use(routes_setor)
+app.use(routes_forma_pagamento)
 
 
 app.listen(PORT, () => {

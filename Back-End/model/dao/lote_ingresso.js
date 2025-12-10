@@ -146,7 +146,7 @@ const updateTicketLot = async function (lote) {
         valor = ${lote.valor},
         data_inicio_venda = ${lote.data_inicio_venda},
         id_setor = ${lote.id_setor},
-        id_tipo = ${lote.id_tipo}
+        id_tipo = ${lote.id_tipo_ingresso}
     WHERE id = ${lote.id};`
 
         if (result)
