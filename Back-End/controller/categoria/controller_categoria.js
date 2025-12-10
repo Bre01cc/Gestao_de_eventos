@@ -33,7 +33,7 @@ const listCategorys = async function(){
     }
 }
 
-const listCategoryByID = async function name(id){
+const listCategoryByID = async function (id){
     //Criando um objeto para as mensagens
     let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
 
