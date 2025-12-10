@@ -94,9 +94,10 @@ const setOrganizer = async function(organizador, contentType){
                             organizador.id = lastId
                             //Adiciona o ID do Organizador no Endereco para ser cadastrado com FK
                             organizerAddress.id_organizador = lastId
-
+                            
                             //Chama a função da controller para validar o Endereco do Organizador e enviar para a model
                             const resultAddress = await controllerOrganizerAddress.setOrganizerAddress(organizerAddress, contentType)
+                            
                             
                             if(resultAddress){
                                 //Adiciona o Endereço cadastrado no Organizador para retorno
@@ -147,6 +148,7 @@ const setUpdateOrganizer = async function(organizador, id, contentType){
             if(organizador.endereco){
                 //Guarda os dados do endereço do Organizador e remove do JSON Organizador
                 const organizerAddress = organizador.endereco
+                organizerAddress.id_organizador = Number(id)
                 delete organizador.endereco
                 
                 //Guarda o resultado da validação de dados do Organizador
@@ -161,34 +163,27 @@ const setUpdateOrganizer = async function(organizador, id, contentType){
                         let resultOrganizer = await organizerDAO.updateOrganizer(organizador)
 
                         if(resultOrganizer){
-
-                            organizador.id = lastId
-                            organizerAddress.id_organizador = lastId
                             
-                            const addressID = await controllerOrganizerAddress.listOrganizerAdresessByOrganizerID(id)
-                            if(addressID){
-
-                            const resultAddress = await controllerOrganizerAddress.setUpdateOrganizerAddress(addressID, organizerAddress, contentType)
-
-                            if(resultAddress){
-                                organizador.endereco = resultAddress
-                                
-                                MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_CREATED_ITEM.status
-                                MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_CREATED_ITEM.status_code
-                                MESSAGES.DEFAULT_HEADER.message = MESSAGES.SUCCESS_CREATED_ITEM.message
-                                MESSAGES.DEFAULT_HEADER.items = organizador
-
-                                return MESSAGES.DEFAULT_HEADER //201
-
-                            }else{
-                                return resultAddress
-                            }
-
+                            const validateAddressID = await controllerOrganizerAddress.listOrganizerAdresessByOrganizerID(id)
+                            const addressID = validateAddressID.items[0].id
+                            
+                            const resultAddress = await controllerOrganizerAddress.setUpdateOrganizerAddress(organizerAddress, addressID, contentType)
                             
 
-                            }else{
-                                return addressID
-                            }
+                                if(resultAddress || resultAddress.status != false){
+                                    organizador.endereco = resultAddress.items
+                                        
+                                        MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_CREATED_ITEM.status
+                                        MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_CREATED_ITEM.status_code
+                                        MESSAGES.DEFAULT_HEADER.message = MESSAGES.SUCCESS_CREATED_ITEM.message
+                                        MESSAGES.DEFAULT_HEADER.items = organizador
+
+                                        return MESSAGES.DEFAULT_HEADER //201
+
+                                }else{
+                                    return resultAddress
+                                }
+
                         }else{
                         return MESSAGES.ERROR_INTERNAL_SERVER_MODEL // 500
                         }

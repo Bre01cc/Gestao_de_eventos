@@ -82,25 +82,24 @@ const getLastId = async function(){
 //Insere um Organizador novo no Banco de Dados
 const insertOrganizerAddress = async function(endereco){
     try {
-        let sql = `insert into tb_organizador(
+        let sql = `insert into tb_endereco_organizador(
                     cep,
                     cidade,
                     bairro,
                     numero,
-                    endereco,
+                    logradouro,
                     id_uf,
                     id_organizador)
                 values ('${endereco.cep}',
                         '${endereco.cidade}',
                         '${endereco.bairro}',
                         '${endereco.numero}',
-                        '${endereco.endereco}',
+                        '${endereco.logradouro}',
                         '${endereco.id_uf}',
                         '${endereco.id_organizador}');`
-    
     //executeRawUnsafe() -> Executa o script SQL que não tem retorno de valores
     let result = await prisma.$executeRawUnsafe(sql)
-
+    
     if(result)
         return true
     else
@@ -114,12 +113,12 @@ const insertOrganizerAddress = async function(endereco){
 //Altera um Endereço de um Organizador
 const updateOrganizerAddress = async function(endereco){
     try {
-        let sql = `update tb_organizador set
+        let sql = `update tb_endereco_organizador set
                         cep = '${endereco.cep}',
                         cidade = '${endereco.cidade}',
                         bairro = '${endereco.bairro}',
                         numero = '${endereco.numero}',
-                        endereco = '${endereco.endereco}',
+                        logradouro = '${endereco.logradouro}',
                         id_uf = '${endereco.id_uf}',
                         id_organizador = '${endereco.id_organizador}'
                     where id = ${endereco.id};`
