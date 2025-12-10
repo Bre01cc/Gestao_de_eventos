@@ -9,7 +9,7 @@ const eventCategoryDAO = require('../../model/dao/categoria_evento.js')
 
 
 //Import do arquivo de mensagens
-const DEFAULT_MESSAGES = require('../modulo/config_messages.js')
+const DEFAULT_MESSAGES = require('../modulo/response_messages.js')
 
 const listEventsCategorys = async function() {
     
@@ -84,8 +84,8 @@ const listCategorysByEventID = async function(idEvent){
     try {
         //Validando a chegada do ID
         if(!isNaN(idEvent) && idEvent != '' && idEvent > 0){
-            let resultEventCategory = await eventCategoryDAO.getCategorysByEventID()
-
+            let resultEventCategory = await eventCategoryDAO.getCategorysByEventID(idEvent)
+            
             if(resultEventCategory){
 
                 if(resultEventCategory.length > 0){
@@ -179,9 +179,9 @@ const setInsertEventCategory = async function(eventCategory, contentType){
                     return MESSAGES.DEFAULT_HEADER
 
                 }else{
-                    MESSAGES.ERROR_INTERNAL_SERVER_MODEL
+                   return MESSAGES.ERROR_INTERNAL_SERVER_MODEL
                 }            
-                return MESSAGES.DEFAULT_HEADER //201
+                
             }else{
                 return MESSAGES.ERROR_INTERNAL_SERVER_MODEL
             }
@@ -251,13 +251,48 @@ const setUpdateEventCategory = async function (eventCategory, id, contentType){
 
 }
 
+const setDeleteEventCategoryByEventID = async function(idEvent){
+
+    let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
+    
+    try {
+            
+        let validarId = await listCategorysByEventID(idEvent)
+            
+        if(validarId.status_code == 200){
+                
+            let resultEventCategory = await eventCategoryDAO.deleteEventCategoryssByEventID(Number(idEvent))
+            
+            if(resultEventCategory){
+                MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_DELETED_ITEM.status
+                MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_DELETED_ITEM.status_code
+                MESSAGES.DEFAULT_HEADER.message = MESSAGES.SUCCESS_DELETED_ITEM.message
+                delete MESSAGES.DEFAULT_HEADER.items
+                    
+                return MESSAGES.DEFAULT_HEADER //200
+            }else{
+                return MESSAGES.ERROR_NOT_FOUND //404
+                }
+    
+            }else{
+                return validarId
+            }
+    
+        } catch (error) {
+            return MESSAGES.ERROR_INTERNAL_SERVER_CONTROLLER //500
+        }
+        
+    
+}
+
 module.exports = {
     listEventsCategorys,
     searchEventCategoryID,
     listCategorysByEventID,
     listEventsByCategoryID,
     setInsertEventCategory,
-    setUpdateEventCategory
+    setUpdateEventCategory,
+    setDeleteEventCategoryByEventID
 }
 
 
@@ -265,13 +300,13 @@ module.exports = {
 const validarDadosFilmeGenero = async function(eventCategory) {
     let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
 
-    if(eventCategory.id_evento <= 0 || isNaN(eventCategory.id_evento) || eventCategory.id_evento == '' || eventCategory.id_evento == undefined || eventCategory.id_evento == null){
-        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [filme_id Incorreto]'
+    if(eventCategory.evento_id <= 0 || isNaN(eventCategory.evento_id) || eventCategory.evento_id == '' || eventCategory.evento_id == undefined || eventCategory.evento_id == null){
+        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [evento_id Incorreto]'
         return MESSAGES.ERROR_REQUIRED_FIELDS
 
         
-    }else if(eventCategory.id_categoria <= 0 || isNaN(eventCategory.id_categoria) || eventCategory.id_categoria == '' || eventCategory.id_categoria == undefined || eventCategory.id_categoria == null){
-        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [genero_id Incorreto]'
+    }else if(eventCategory.categoria_id <= 0 || isNaN(eventCategory.categoria_id) || eventCategory.categoria_id == '' || eventCategory.categoria_id == undefined || eventCategory.categoria_id == null){
+        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [categoria_id Incorreto]'
         return MESSAGES.ERROR_REQUIRED_FIELDS
 
     }else{

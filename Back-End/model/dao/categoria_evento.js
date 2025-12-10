@@ -15,7 +15,7 @@ const prisma = new PrismaClient()
 const getllEventsCategorys = async function(){
     try {
 
-        let sql = `select * from tb_categoria_evento order by id desc;`
+        let sql = `select * from vw_eventos_categorias;`
 
         let result = await prisma.$queryRawUnsafe(sql)
         
@@ -32,7 +32,7 @@ const getllEventsCategorys = async function(){
 //Retorna um Gênero Filtrando pelo ID
 const getEventsCategorysByID = async function(id){
     try {
-        let sql = `select * from tb_categoria_evento where id = ${id};`
+        let sql = `select * from vw_eventos_categorias where id = ${id};`
 
         let result = await prisma.$queryRawUnsafe(sql)
 
@@ -49,13 +49,7 @@ const getEventsCategorysByID = async function(id){
 //Retorna uma lista de Gêneros filtrando pelo ID do filme
 const getCategorysByEventID = async function(idEvento){
     try {
-        let sql = `select tb_categoria.id, tb_categoria.nome
-                        from tb_evento
-                            inner join tb_categoria_evento
-                                on tb_categoria.id = tb_categoria_evento.id_evento
-                            inner join tb_categoria 
-                                on tb_categoria.id = tb_categoria_evento.id_categoria 
-                        where tb_evento.id = ${idEvento};`
+        let sql = `select * from vw_eventos_categorias where evento_id = ${idEvento};`
 
         let result = await prisma.$queryRawUnsafe(sql)
         
@@ -72,13 +66,7 @@ const getCategorysByEventID = async function(idEvento){
 //Retorna uma lista de Filmes filtando pelo gênero
 const getEventsByCategoryID = async function(idCategoria){
     try {
-        let sql = `select tb_evento.id, tb_evento.nome
-                        from tb_evento
-                            inner join tb_categoria_evento
-                                on tb_evento.id = tb_categoria_evento.id_evento
-                            inner join tb_categoria 
-                                on tb_categoria.id = tb_categoria_evento.id_categoria 
-                        where tb_categoria.id = ${idCategoria};`
+        let sql = `select * from vw_eventos_categorias where categoria_id = ${idCategoria};`
 
         let result = await prisma.$queryRawUnsafe(sql)
 
@@ -96,7 +84,7 @@ const getEventsByCategoryID = async function(idCategoria){
 const getLastId = async function(){
     try {
         //Script SQL que retorna apenas o último ID do BD
-        let sql = `select id from tbl_categoria_evento order by id desc limit 1;`
+        let sql = `select id from tb_categoria_evento order by id desc limit 1;`
 
         let result = await prisma.$queryRawUnsafe(sql)
 
@@ -109,11 +97,11 @@ const getLastId = async function(){
     }
 }
 
-const insertEventCategory = async function(filmeGenero){
+const insertEventCategory = async function(eventoCategoria){
     try {
 
         let sql = `INSERT INTO tb_categoria_evento (evento_id, categoria_id)
-                    values( ${filmeGenero.evento_id}, ${filmeGenero.categoria_id} );`
+                    values( ${eventoCategoria.evento_id}, ${eventoCategoria.categoria_id} );`
 
         let result = await prisma.$executeRawUnsafe(sql)
         
@@ -123,17 +111,17 @@ const insertEventCategory = async function(filmeGenero){
             return false
 
     } catch (error) {
-        
+        console.log(error)
         return false
     }
 }
 
-const updateEventCategory = async function(filmeGenero){
+const updateEventCategory = async function(eventoCategoria){
     try {
         let sql = `UPDATE tb_categoria_evento SET 
-                    evento_id = ${filmeGenero.evento_id} 
-                    categoria_id = ${filmeGenero.categoria_id} 
-                    WHERE id = ${filmeGenero.id};`
+                    evento_id = ${eventoCategoria.evento_id} 
+                    categoria_id = ${eventoCategoria.categoria_id} 
+                    WHERE id = ${eventoCategoria.id};`
 
         let result = await prisma.$executeRawUnsafe(sql)
 
@@ -146,6 +134,24 @@ const updateEventCategory = async function(filmeGenero){
         return false
     }
         
+}
+
+const deleteEventCategoryssByEventID = async function(id){
+    try {
+        
+        let sql = `delete from tb_categoria_evento where evento_id = ${id};`
+
+        let result = await prisma.$executeRawUnsafe(sql)
+        
+
+        if(result)
+            return result
+        else
+            return false
+
+    } catch (error) {
+        return false
+    }
 }
 
 module.exports = {
@@ -155,6 +161,7 @@ module.exports = {
     getEventsByCategoryID,
     getLastId,
     insertEventCategory,
-    updateEventCategory
+    updateEventCategory,
+    deleteEventCategoryssByEventID
     
 }

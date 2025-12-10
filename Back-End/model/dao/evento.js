@@ -2,7 +2,7 @@
  * Objetivo: Arquivo responsável pelo CRUD de dados no MySQL referente a Eventos 
  * Data: 09/12/2025
  * Autor: Enzo Carrilho
- * Versão: 1.0
+ * Versão: 1.0 
  ***********************************************************************************************************/
 
 //Import da dependência do Prisma
