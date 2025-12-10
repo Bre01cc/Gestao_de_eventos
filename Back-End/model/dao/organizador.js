@@ -119,7 +119,7 @@ const updateOrganizer = async function(organizador){
 const deleteOrganizer = async function(id){
     try {
 
-        let sql = `delete from tb_organizador where id = ${id}`
+        let sql = `delete from tb_organizador where id = ${id};`
         
         let result = await prisma.$executeRawUnsafe(sql)
         

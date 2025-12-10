@@ -217,12 +217,11 @@ const setDeleteOrganizer = async function(id){
     
     try {
             
-        let validarId = await buscarProdutoraID(id)
+        let validarId = await listOrganizerByID(id)
         
         if(validarId.status_code == 200){
                 
             let resultOrganizer = await organizerDAO.deleteOrganizer(Number(id))
-           
     
             if(resultOrganizer){
                 MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_DELETED_ITEM.status
