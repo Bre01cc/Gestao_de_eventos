@@ -8,30 +8,35 @@ document.getElementById('voltar').onclick = ()=>{
 }
 
 
-function CriarNovoParticipante(){
+async function CriarNovoParticipante(){
     
     const novoParticipante = {
         "nome": document.getElementById('nome').value,
         "cpf": document.getElementById('cpf').value,
+        "data-nascimento": document.getElementById('data-nascimento').value,
         "email": document.getElementById('email').value,
         "telefone": document.getElementById('telefone').value,
         "senha": document.getElementById('senha').value,
         "senha_confirmada": document.getElementById('confirmar-senha').value
     }
+    console.log(novoParticipante)
 
     if(novoParticipante.senha == novoParticipante.senha_confirmada){
-        criarParticipante(novoParticipante)
-        
+        delete novoParticipante.senha_confirmada
+        const inserir = await criarParticipante(novoParticipante)
+        console.log(inserir)
+        return inserir
     }
     else{
-        alert('Senhas não correspondem')
+        return alert('Senhas não correspondem')
     }
 
 }
 
 const buttonFinalizar = document.querySelector('.finalizar')
-buttonFinalizar.addEventListener('click', () => {
-    const inserirParticipante = CriarNovoParticipante()
+buttonFinalizar.addEventListener('click', async (e)  => {
+    e.preventDefault()
+    const inserirParticipante = await CriarNovoParticipante()
 
     if(inserirParticipante.status == true)
         alert('Criado com Sucesso')

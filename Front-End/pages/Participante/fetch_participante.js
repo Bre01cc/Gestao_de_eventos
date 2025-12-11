@@ -40,30 +40,25 @@ export async function deletarParticipante(id){
     return response.ok
 }
 
-export async function atualizarParticipante(id, contato){
+export async function atualizarParticipante(id, participante){
     const url = `http://localhost:8080/v1/webeventos/participante/${id}`
     const options = {
         method: "PUT",
         headers: {
             "content-type": "application/json"
         },
-        body: JSON.stringify(contato)
+        body: JSON.stringify(participante)
     }
 
     const response = await fetch(url, options) 
     return response.ok
 }
 
-const PARTICIPANTE = {
+const participante = {
     "nome": "Weslei Santos",
     "cpf": "12345678910",
     "data_nascimento": "2001-10-18",
     "telefone": "(11)90000-0001",
-    "status": 1,
     "email": "fulano@email.com",
     "senha": "senhaWeslei123"
 }
-
-await criarParticipante(PARTICIPANTE)
-
-console.log(await lerParticipantes())
