@@ -67,7 +67,144 @@ const options = {
             },
             required:['id', 'nome_fantasia', 'razao_social', 'email', 'cnpj', 'telefone', 'endereco'],       
         },
-        
+        Evento: {
+          type: 'object',
+          properties: {
+            id: { type: 'integer', example: 1 },
+            nome: { type: 'string', example: 'Show Linkin Park' },
+            descricao: { type: 'string', example: 'Show ao vivo' },
+            capa_url: { type: 'string', example: 'https://example.com/imagem.jpg' },
+            data: { type: 'string', format: 'date-time', example: '2026-01-20T00:00:00.000Z' },
+
+            id_endereco: { type: 'integer', example: 2 },
+            logradouro: { type: 'string', example: 'Rua Farah Dib Bechara' },
+            bairro: { type: 'string', example: 'Jardim Das Belezas' },
+            numero: { type: 'string', example: '57' },
+            sigla: { type: 'string', example: 'AC' },
+
+            Organizador: { type: 'string', example: 'Music Live' },
+            status: { type: 'string', example: 'Ativo' },
+
+            categorias: {
+              type: 'array',
+              items: { $ref: '#/components/schemas/EventoCategoria' } },
+          },
+            required: [
+              'id', 'nome', 'descricao', 'capa_url', 'data',
+              'id_endereco', 'logradouro', 'bairro', 'numero',
+              'sigla', 'Organizador', 'status', 'categorias'
+            ],
+        },
+        EventoCategoria: {
+          type: 'object',
+          properties: {
+            id: { type: 'integer', example: 13 },
+            evento_id: { type: 'integer', example: 1 },
+            evento_nome: { type: 'string', example: 'Show Linkin Park' },
+            categoria_id: { type: 'integer', example: 6 },
+            categoria_nome: { type: 'string', example: 'Esportes' },
+          },
+          required: [
+            'id', 'evento_id', 'evento_nome',
+            'categoria_id', 'categoria_nome'
+          ],
+        },
+        EventoCreate: {
+          type: 'object',
+          properties: {
+            nome: { type: 'string', example: 'Show Linkin Park' },
+            descricao: { type: 'string', example: 'Show ao vivo' },
+            capa_url: { type: 'string', example: 'https://example.com/imagem.jpg' },
+            data: { type: 'string', format: 'date', example: '2026-01-20' },
+            
+            id_organizador: { type: 'integer', example: 2 },
+            id_status_evento: { type: 'integer', example: 1 },
+
+            endereco: {
+              type: 'object',
+              properties: {
+                cep: { type: 'string', example: '06315140' },
+                logradouro: { type: 'string', example: 'Rua Farah Dib Bechara' },
+                cidade: { type: 'string', example: 'Carapicuíba' },
+                bairro: { type: 'string', example: 'Jardim Das Belezas' },
+                numero: { type: 'string', example: '57' },
+                id_uf: { type: 'integer', example: 1 },
+              },
+              required: ['cep','logradouro','cidade','bairro','numero','id_uf'],
+            },
+
+            categoria: {
+              type: 'array',
+              items: {
+                type: 'object',
+                properties: {
+                  categoria_id: { type: 'integer', example: 5 },
+                },
+                required: ['categoria_id'],
+              },
+            },
+          },
+
+          required: [
+            'nome', 'descricao', 'capa_url', 'data',
+            'id_organizador', 'id_status_evento',
+            'endereco', 'categoria'
+          ],
+        },
+        LoteIngresso: {
+          type: 'object',
+          properties: {
+            id: { type: 'integer', example: 4 },
+            quantidade: { type: 'integer', example: 200 },
+            valor: { type: 'string', example: '80' },
+            data_inicio_venda: { type: 'string', format: 'date-time', example: '2025-12-20T00:00:00.000Z' },
+            disponibilidade: { type: 'integer', example: 1 },
+
+            tipo_ingresso: {
+              type: 'array',
+              items: { $ref: '#/components/schemas/TipoIngresso' }
+            },
+
+            setor: {
+              type: 'array',
+              items: { $ref: '#/components/schemas/Setor' }
+            },
+
+            evento: {
+              type: 'array',
+              items: { $ref: '#/components/schemas/EventoRelacionamento' }
+            },
+          },
+
+          required: [
+            'id', 'quantidade', 'valor', 'data_inicio_venda',
+            'disponibilidade', 'tipo_ingresso', 'setor', 'evento'
+          ],
+        },
+
+        LoteIngressoCreate: {
+          type: 'object',
+          properties: {
+            numero: { type: 'integer', example: 1 },
+            quantidade: { type: 'integer', example: 200 },
+            valor: { type: 'string', example: '80' },
+            data_inicio_venda: {
+              type: 'string',
+              format: 'date',
+              example: '2025-12-20'
+            },
+            id_setor: { type: 'integer', example: 11 },
+            id_tipo_ingresso: { type: 'integer', example: 1 },
+            id: { type: 'integer', example: 5 },
+          },
+
+          required: [
+            'numero', 'quantidade', 'valor',
+            'data_inicio_venda', 'id_setor',
+            'id_tipo_ingresso', 'id'
+          ],
+        },    
+
       },
     },
   },
