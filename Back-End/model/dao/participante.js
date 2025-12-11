@@ -14,7 +14,7 @@ const prisma = new PrismaClient()
 //Retorna uma lista de todos os Participantes no BD
 const getAllParticipants = async function () {
     try {
-        let result = await prisma.$queryRaw`select * from vw_endereco_participante;`
+        let result = await prisma.$queryRaw`select * from vw_participante_endereco;`
 
         if (Array.isArray(result))
             return result
@@ -44,7 +44,7 @@ const getParticipantById = async function (id) {
 //Retorna um participante juntamente com o seu endereço
 const getParticipantAdressById = async function (id) {
     try {
-        let result = await prisma.$queryRaw`select * from vw_endereco_participante where id = ${id}`
+        let result = await prisma.$queryRaw`select * from vw_participante_endereco where id = ${id}`
 
         if (Array.isArray(result))
             return result

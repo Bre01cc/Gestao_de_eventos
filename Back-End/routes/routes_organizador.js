@@ -16,14 +16,51 @@ const router = express.Router()
 
 const controller_organizer = require('../controller/organizador/controller_organizador.js')
 
-//Retorna todas os organizadores
+/**
+ * @swagger
+ * /v1/webeventos/organizador:
+ *   get:
+ *     summary: Retorna todos os organizadores
+ *     tags: [Organizadores]
+ *     responses:
+ *       200:
+ *         description: Lista de organizadores retornada com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Organizador'
+*/
 router.get('/v1/webeventos/organizador', cors(), async (request, response) => {
     let organizer = await controller_organizer.listOrganizers()
 
     response.status(organizer.status_code).json(organizer)
 })
 
-//Retorna um organizador filtando pelo ID
+/**
+ * @swagger
+ * /v1/webeventos/organizador/{id}:
+ *   get:
+ *     summary: Retorna um organizador pelo ID
+ *     tags: [Organizadores]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID do organizador
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Organizador encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Organizador'
+ *       404:
+ *         description: Organizador não encontrado
+ */
 router.get('/v1/webeventos/organizador/:id', cors(), async(request, response) => {
     //Obtendo o ID do Gênero
     let organizerID = request.params.id
@@ -33,7 +70,50 @@ router.get('/v1/webeventos/organizador/:id', cors(), async(request, response) =>
     response.status(organizer.status_code).json(organizer)
 })
 
-//Envia os dados da organizadora para a Controller
+/**
+ * @swagger
+ * /v1/webeventos/organizador:
+ *   post:
+ *     summary: Cria um novo organizador
+ *     tags: [Organizadores]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               nome_fantasia:
+ *                 type: string
+ *                 example: "Music Live"
+ *               razao_social:
+ *                 type: string
+ *                 example: "Music Live Produções LTDA"
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 example: "contato@musiclive.com"
+ *               cnpj:
+ *                 type: string
+ *                 example: "20394857000155"
+ *               telefone:
+ *                 type: string
+ *                 example: "11999887766"
+ *               senha:
+ *                 type: string
+ *                 example: "1234"
+ *               endereco:
+ *                 $ref: '#/components/schemas/EnderecoOrganizador'
+ *     responses:
+ *       201:
+ *         description: Organizador criado com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Organizador'
+ *       400:
+ *         description: Dados inválidos
+ */
 router.post('/v1/webeventos/organizador', cors(), bodyParserJSON, async (request, response) => {
     let dadosBody = request.body
 
@@ -44,7 +124,37 @@ router.post('/v1/webeventos/organizador', cors(), bodyParserJSON, async (request
     response.status(organizer.status_code).json(organizer)
 })
 
-//Envia os dados da organizadora à controller para ser atualizada
+/**
+ * @swagger
+ * /v1/webeventos/organizador/{id}:
+ *   put:
+ *     summary: Atualiza os dados de um organizador pelo ID
+ *     tags: [Organizadores]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID do organizador
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Organizador'
+ *     responses:
+ *       200:
+ *         description: Organizador atualizado com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Organizador'
+ *       400:
+ *         description: Dados inválidos
+ *       404:
+ *         description: Organizador não encontrado
+ */
 router.put('/v1/webeventos/organizador/:id', cors(), bodyParserJSON, async(request, response) => {
     let organizerID = request.params.id
     let dadosBody = request.body
@@ -54,7 +164,25 @@ router.put('/v1/webeventos/organizador/:id', cors(), bodyParserJSON, async(reque
     response.status(organizer.status_code).json(organizer)
 })
 
-//Deleta uma produtora filtando pelo ID passado pelo parâmetro
+/**
+ * @swagger
+ * /v1/webeventos/organizador/{id}:
+ *   delete:
+ *     summary: Deleta um organizador pelo ID
+ *     tags: [Organizadores]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID do organizador
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Organizador deletado com sucesso
+ *       404:
+ *         description: Organizador não encontrado
+ */
 router.delete('/v1/webeventos/organizador/:id', cors(), async(request, response) => {
     let organizerID = request.params.id
     
