@@ -22,6 +22,7 @@ const getAllParticipantsAddresses = async function(){
             return false
 
     }catch(error){
+        console.log(error)
         return false
     }
 }
@@ -44,7 +45,7 @@ const getParticipantAddressByAddressID = async function(id){
 //Retorna um Endereço de participante filtrando pelo ID do participante
 const getParticipantAddressByParticipantID = async function(participanteID){
     try {
-        let result = await prisma.$queryRaw`select * from vw_participante_endereco where id_participante = ${participanteID}`
+        let result = await prisma.$queryRaw`select * from vw_participante_endereco where id = ${participanteID}`
 
         if(Array.isArray(result))
             return result
@@ -52,6 +53,7 @@ const getParticipantAddressByParticipantID = async function(participanteID){
             return false
 
     } catch (error) {
+        console.log(error)
         return false
     }
 }

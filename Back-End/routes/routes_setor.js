@@ -18,7 +18,7 @@ const controller_setor = require('../controller/setor/controller_setor')
 
 /**
  * @swagger
- * /setores:
+ * /v1/webeventos/setor:
  *   get:
  *     summary: Retorna todos os setores
  *     description: Obtém a lista completa de setores cadastrados.
@@ -35,7 +35,7 @@ router.get('/v1/webeventos/setor', cors(), async (request, response) => {
 })
 /**
  * @swagger
- * /setores/{id}:
+ * /v1/webeventos/setor/{id}:
  *   get:
  *     summary: Retorna um setor pelo ID
  *     description: Busca um setor específico usando seu ID.
@@ -65,7 +65,7 @@ router.get('/v1/webeventos/setor/:id', cors(), async(request, response) => {
 
 /**
  * @swagger
- * /setores/evento/{id_evento}:
+ * /v1/webeventos/setor/evento/{id_evento}:
  *   get:
  *     summary: Retorna setores vinculados a um evento
  *     description: Lista todos os setores pertencentes ao evento informado.
@@ -95,7 +95,7 @@ router.get('/v1/webeventos/setor/evento/:id', cors(), async(request, response) =
 
 /**
  * @swagger
- * /setores:
+ * /v1/webeventos/setor:
  *   post:
  *     summary: Cria um novo setor
  *     description: Cria um setor com base no corpo da requisição.
@@ -126,28 +126,7 @@ router.post('/v1/webeventos/setor', cors(), bodyParserJSON, async (request, resp
 
 /**
  * @swagger
- * /setores:
- *   post:
- *     summary: Cria um novo setor
- *     description: Cria um setor com base no corpo da requisição.
- *     tags:
- *       - Setores
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/SetorCreate'
- *     responses:
- *       201:
- *         description: Setor criado com sucesso.
- *       400:
- *         description: Dados inválidos.
- */
-
-/**
- * @swagger
- * /setores/{id}:
+ * /v1/webeventos/setor/{id}:
  *   put:
  *     summary: Atualiza um setor existente
  *     description: Atualiza os dados de um setor baseado no ID informado.
