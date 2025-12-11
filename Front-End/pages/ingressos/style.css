@@ -5,6 +5,25 @@
     font-family: "Inter", sans-serif;
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: #2D2E30;
+    height: 100vh;
+    width: 100vw;
+    justify-content: space-between;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;    
+    flex-grow: 1;
+    padding: 10px;
+}
+
+/* HEADER */
+
 header {
     display: flex;
     flex-direction: row;
@@ -12,17 +31,127 @@ header {
     background-color: #121212;
 }
 
+.back {
+display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+    width: 20%;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.back i {
+    color: white;
+    font-size: 150%;
+    transition: 0.5s;
+}
+
+.back i:hover {
+    transform: scale(1.1);
+}
+
 .header-content {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
-    padding: 2px;
+    padding-right: 50px;
     gap: 15px;
+}
+
+header img {
+    height: 90%;
+    width: auto;
 }
 
 header p {
     font-size: 1.3rem;
     font-weight: 900;
     color: #ffff;
+}
+
+.ingressos {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    padding: 10px;
+}
+
+.adc-ingresso {
+    width: 100%;
+}
+
+.tipo-ingresso{
+    display: flex;
+    flex-direction: column; 
+    width: 500;
+    height: 80%;
+    background-color: #3F4042;
+    justify-content: space-between;
+    border-radius: 10px;
+}
+
+.tipo-ingresso h3 {
+    color: white;
+    margin: 5px;
+}
+
+.line-ticket {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 10px;
+    border-bottom: 1px solid #ffffff;
+}
+
+.line-ticket p {
+    margin: 0;
+}
+
+.nome-ingresso {
+    width: 120px;
+    font-weight: 600;
+}
+
+.line-ticket i {
+    font-size: 20px;
+    color: #1A1B1C;
+}
+
+.nome-ingresso {
+    color: #1A1B1C;
+}
+
+.valor {
+    width: 80px;
+    text-align: center;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.quantidade {
+    width: 20px;
+    text-align: center;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.adicionar,
+.remover {
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    border: none;
+    background-color: #8D33A3;
+    color: white;
+    cursor: pointer;
+}
+
+.adicionar:hover,
+.remover:hover {
+    background-color: #4a1e55;
 }
