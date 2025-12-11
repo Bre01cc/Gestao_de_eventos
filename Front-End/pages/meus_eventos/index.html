@@ -7,6 +7,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <title>WEB-Eventos</title>
 </head>
@@ -17,14 +18,121 @@
             <img src="/Front-End/img/Logo-Transparente.png" alt="">
             <p>WEB Eventos</p>
         </div>
+
         <div class="perfil">
             <img src="/Front-End/img/Group.svg" alt="">
         </div>
     </header>
     <main>
-        <div class="Eventos"></div>
+        <div class="eventos">
+            <div class="texto">
+                <h3>Meus Eventos</h3>
+            </div>
+            <button class="cadastrar">Cadastrar Eventos</button>
+        </div>
+
+        <div class="layout-eventos">
+            <div class="pesquisa">
+                <select name="UF" class="UF">
+                    <option value="">UF</option>
+                    <option value="">AC</option>
+                    <option value="">AL</option>
+                    <option value="">AP</option>
+                    <option value="">AM</option>
+                    <option value="">BA</option>
+                    <option value="">CE</option>
+                    <option value="">DF</option>
+                    <option value="">ES</option>
+                    <option value="">GO</option>
+                    <option value="">MA</option>
+                    <option value="">MT</option>
+                    <option value="">MS</option>
+                    <option value="">MG</option>
+                    <option value="">PA</option>
+                    <option value="">PB</option>
+                    <option value="">PR</option>
+                    <option value="">PE</option>
+                    <option value="">PÍ</option>
+                    <option value="">RJ</option>
+                    <option value="">RN</option>
+                    <option value="">RS</option>
+                    <option value="">RR</option>
+                    <option value="">SC</option>
+                    <option value="">SP</option>
+                    <option value="">SE</option>
+                    <option value="">TO</option>
+                </select>
+                <select name="filtro" class="filtro">
+                    <option value=""><i class="fa-solid fa-caret-down">Categorias</i></option>
+                    <option value="">Música</option>
+                    <option value="">Teatro</option>
+                    <option value="">Tecnologia</option>
+                    <option value="">Livros</option>
+                </select>
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Buscar...">
+                </div>
+            </div>
+
+            <div class="container-eventos">
+                <div class="evento">
+                    <p class="nome-evento">Rock Sunset Festival
+                        <br>
+                        <span>Data</span>
+                    </p>
+                    <img src="/Front-End/img/Rock_Morumbi (1).png" alt="">
+                    <div class="transparencia"></div>
+                    <div class="linha"></div>
+                </div>
+                <div class="evento">
+                    <p class="nome-evento">Yoga no Parque
+                        <br>
+                        <span>Data</span>
+                    </p>
+                    <img src="/Front-End/img/yoga.png" alt="">
+                    <div class="transparencia"></div>
+                    <div class="linha"></div>
+                </div>
+                <div class="evento">
+                    <p class="nome-evento">Evento Cosplay
+                        <br>
+                        <span>Data</span>
+                    </p>
+                    <img src="/Front-End/img/Evento-Cosplay.png" alt="">
+                    <div class="transparencia"></div>
+                    <div class="linha"></div>
+                </div>
+                <div class="evento">
+                    <p class="nome-evento">Bienal do Livro
+                        <br>
+                        <span>Data</span>
+                    </p>
+                    <img src="/Front-End/img/Bienal-DoLivro.png" alt="">
+                    <div class="transparencia"></div>
+                    <div class="linha"></div>
+                </div>
+            </div>
+        </div>
     </main>
-    <footer></footer>
+    <footer>
+        <div class="redes-sociais">
+            <i class="fa-brands fa-linkedin icon-s"></i>
+            <i class="fab fa-facebook-square icon-s"></i>
+            <i class="fab fa-twitter-square icon-s"></i>
+            <i class="fab fa-youtube icon-s"></i>
+        </div>
+        <div class="links">
+            <p>Central de ajuda</p>
+            <p>Fale conosco</p>
+            <p>Política de privacidade</p>
+            <p>GitHub</p>
+        </div>
+        <div class="what">
+            <i class="fab fa-whatsapp icon-s"></i>
+            <p>Ajuda</p>
+        </div>
+    </footer>
 </body>
 
 </html>

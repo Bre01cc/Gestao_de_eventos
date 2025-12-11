@@ -122,6 +122,11 @@ main {
     border-radius: 10px;
     cursor: pointer;
     color: #ffff;
+    transition: 0.5s;
+}
+
+.comprar:hover {
+    scale: 1.1;
 }
 
 .local {
