@@ -172,6 +172,11 @@ body {
         width: 100px;
         border-radius: 5px;
         cursor: pointer;
+        transition: all 0.5s;
+      }
+      .acessar:hover {
+        background-color: #a4612a;
+        transform: scale(1.025);
       }
 
       .senha {
@@ -284,6 +289,7 @@ body {
 @media (min-width: 1020px) {
   body {
     background-size: cover;
+    background-image: url(../../../img/banner.png);
     background-position: center;
   }
   .transparencia {
