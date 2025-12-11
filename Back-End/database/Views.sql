@@ -81,7 +81,7 @@ JOIN tb_categoria categoria ON categoria.id = ce.categoria_id;
 
 
 
-CREATE VIEW vw_participante_endereco AS
+CREATE VIEW vw_endereco_participante AS
 SELECT
     participante.id AS id,
     participante.nome AS participante,
@@ -105,6 +105,25 @@ JOIN tb_endereco_participante endereco
 JOIN tb_uf uf
         ON endereco.id_uf = uf.id;
 
+-- VISUALIZAR AS INFORMAÇÕES DO ENDEREÇO COM ALGUNS DADOS DO PARTICIPANTE
+CREATE VIEW vw_participante_endereco AS
+SELECT 
+    endereco.id,
+    endereco.cep,
+    endereco.cidade,
+    uf.sigla,
+    endereco.id_uf,
+    endereco.bairro,
+    endereco.numero,
+    endereco.logradouro,
+    participante.id AS id_participante,
+    participante.nome AS participante,
+    participante.status
+FROM tb_participante participante
+JOIN tb_endereco_participante endereco 
+        ON participante.id = endereco.id_participante
+JOIN tb_uf uf 
+        ON endereco.id_uf = uf.id;
 
 
 
