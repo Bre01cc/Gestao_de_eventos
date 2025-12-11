@@ -24,11 +24,6 @@ header {
 header img {
     height: 90%;
     width: auto;
-    transition: 0.5s;
-}
-
-header img:hover {
-    transform: scale(1.1);
 }
 
 header p {
@@ -67,6 +62,11 @@ main {
 .perfil img {
     height: 40%;
     width: auto;
+    transition: 0.5s;
+}
+
+.perfil img:hover {
+    transform: scale(1.1);
 }
 
 .eventos {

@@ -1,0 +1,28 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    height: 7%;
+    background-color: #121212;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 2px;
+    gap: 15px;
+}
+
+header p {
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: #ffff;
+}
