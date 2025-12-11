@@ -2,10 +2,12 @@
  * Objetivo: Arquivo responsável pela manipulação de dados entre APP e MODEL referente a Evento
  * Data: 09/12/2025
  * Autor: Enzo Carrilho
- * Versão: 1.0
+ * Versão: 1.0 (CRUD do Evento sem tabela de relacionamente)
+ * Versão 1.1 (CRUD do Evento com relação da tabela Categoria)
  ***********************************************************************************************************/
 const eventDAO = require('../../model/dao/evento.js')
 const controllerEventAddress = require('./controller_endereco_evento.js')
+const controllerEventCategory = require('./controller_evento_categoria.js')
 const DEFAULT_MESSAGES = require('../modulo/response_messages.js')
 
 const listEvents = async function(){
@@ -17,9 +19,17 @@ const listEvents = async function(){
               
        if(resultEvents){
             if(resultEvents.length > 0){
+
+                for(evento of resultEvents){
+                    let resultEventCategorys = await controllerEventCategory.listCategorysByEventID(evento.id)
+                    if(resultEventCategorys.status_code == 200)
+                        evento.categorias = resultEventCategorys.items.evento_categoria
+                    
+                }
+                
                 MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_REQUEST.status
                 MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_REQUEST.status_code
-                MESSAGES.DEFAULT_HEADER.items = resultEvents
+                MESSAGES.DEFAULT_HEADER.items.eventos = resultEvents
 
                 return MESSAGES.DEFAULT_HEADER //200(sucesso)
             }else{
@@ -48,7 +58,14 @@ const listEventByID = async function(id){
                 if(resultEvent.length > 0){
                     MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_REQUEST.status
                     MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_REQUEST.status_code
-                    MESSAGES.DEFAULT_HEADER.items = resultEvent
+                    MESSAGES.DEFAULT_HEADER.items.evento = resultEvent
+                    
+
+                    //Atribuindo categorias ao evento 
+                    let resultEventCategorys = await controllerEventCategory.listCategorysByEventID(id)
+                    
+                    if(resultEventCategorys.status_code == 200)
+                        MESSAGES.DEFAULT_HEADER.items.evento[0].categorias = resultEventCategorys.items.evento_categoria
 
                     return MESSAGES.DEFAULT_HEADER //200(sucesso)
                 }else{
@@ -63,6 +80,7 @@ const listEventByID = async function(id){
         }
         
     } catch(error) {
+        console.log(error)
         return MESSAGES.ERROR_INTERNAL_SERVER_CONTROLLER //500(erro interno)
     }
 }
@@ -84,9 +102,9 @@ const setEvent = async function(evento, contentType){
                 let validate = await validateEvent(evento)
 
                 if(!validate){
-                    let resultOrganizer = await eventDAO.insertEvent(evento)
+                    let resultEvent = await eventDAO.insertEvent(evento)
 
-                    if(resultOrganizer){
+                    if(resultEvent){
 
                         let lastId = await eventDAO.getLastId()
 
@@ -102,9 +120,32 @@ const setEvent = async function(evento, contentType){
                                     //Adiciona o Endereço cadastrado no Evento para retorno
                                     evento.endereco = resultAddress.items
 
+                                    for(categoria of evento.categoria){
+                                        
+                                        let eventCategory = {evento_id: lastId, categoria_id: categoria.categoria_id}
+                                    
+                                        //Encaminha o JSON com o ID do Filme e do Gênero para a controller FilmeGenero
+                                        let resultEventCategory = await controllerEventCategory.setInsertEventCategory(eventCategory, contentType)
+                                        
+                                        if(resultEventCategory.status_code != 201)
+                                            return MESSAGES.ERROR_RELATIONAL_INSERTION //500 Problema na tabela de relação
+                                        
+                                    }
+
+                                    evento.id = lastId
                                     MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_CREATED_ITEM.status
                                     MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_CREATED_ITEM.status_code
                                     MESSAGES.DEFAULT_HEADER.message = MESSAGES.SUCCESS_CREATED_ITEM.message
+
+
+                                                   
+                                    delete evento.categoria
+                                    //Pesquisa no BD todos os generos que foram associados ao filme
+                                    let resultDataCategory = await controllerEventCategory.listCategorysByEventID(lastId)
+                                    //Cria novamente o atributo genero e coloca o resultado do BD com os generos
+                                    evento.categoria = resultDataCategory.items.evento_categoria
+
+
                                     MESSAGES.DEFAULT_HEADER.items = evento
 
                                     return MESSAGES.DEFAULT_HEADER
@@ -133,6 +174,7 @@ const setEvent = async function(evento, contentType){
          }
 
      }catch(error){
+        
         return MESSAGES.ERROR_INTERNAL_SERVER_CONTROLLER
      }
 }
@@ -152,6 +194,7 @@ const setUpdateEvent = async function(evento, id, contentType){
                 
                 //Guarda o resultado da validação de dados do Organizador
                 let validate = await validateEvent(evento)
+                
                 if(!validate){
 
                     let validateID = await listEventByID(id)
@@ -171,6 +214,31 @@ const setUpdateEvent = async function(evento, id, contentType){
 
                                 if(resultAddress || resultAddress.status != false){
                                     evento.endereco = resultAddress.items
+                                    delete evento.endereco.id_evento
+
+                                if(evento.categoria){
+                                let resultEventCategory = await controllerEventCategory.listCategorysByEventID(id)
+                                    if(resultEventCategory.status_code == 200){
+                                        await controllerEventCategory.setDeleteEventCategoryByEventID(id)
+                                        
+                                    }
+
+                                    for(categoria of evento.categoria){
+                                            //filme.genero.forEach(async (genero) => {
+                                                //Cria o JSON com o ID do filme e o ID do gênero
+                                                
+                                        let EventCategory = {evento_id: id, categoria_id: categoria.categoria_id}
+                                        
+                                                
+                                        //Encaminha o JSON com o ID do Filme e do Gênero para a controller FilmeGenero
+                                        let resultEventCategory = await controllerEventCategory.setInsertEventCategory(EventCategory, contentType)
+                                                
+                                        if(resultEventCategory.status_code != 201)
+                                            return MESSAGES.ERROR_RELATIONAL_INSERTION //500 Problema na tabela de relação
+                                                
+                                    }      
+
+                                }
                                         
                                         MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_CREATED_ITEM.status
                                         MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_CREATED_ITEM.status_code
@@ -183,8 +251,6 @@ const setUpdateEvent = async function(evento, id, contentType){
                                     return resultAddress
                                 }
 
-                           
- 
                         }else{
                         return MESSAGES.ERROR_INTERNAL_SERVER_MODEL // 500
                         }
@@ -278,11 +344,11 @@ const validateEvent = async function(evento){
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
 
     }else if(evento.id_organizador <= 0 || isNaN(evento.id_organizador)  || evento.id_organizador == null || evento.id_organizador.length == '' || evento.id_organizador == undefined ){
-        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [telefone incorreto]' 
+        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [id_organizador incorreto]' 
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
 
     }else if(evento.id_status_evento == '' || evento.id_status_evento == undefined || evento.id_status_evento == null || evento.id_status_evento <= 0 || isNaN(evento.id_status_evento) ){
-        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [senha incorreta]' 
+        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [status incorreto]' 
         return MESSAGES.ERROR_REQUIRED_FIELDS //400
     }
     
