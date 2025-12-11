@@ -10,17 +10,61 @@
     <title>Home Participante</title>
     <link rel="stylesheet" href="style.css">
     <script type="module" src="./carrossel.js"></script>
+    <script type="module" src="./home.js"></script>
 </head>
 
-<body>
+<body id="body">
+    <div class="menu" id="menu">
+        <div class="itens">
+            <div class="header-menu">
+                <div class="menu-style">
+                    <i class="fa-solid fa-bars icon-menu"></i>
+                    <p>Menu</p>
+                </div>
+
+                <div class="caixa-seta" id="fechar-menu">
+                    <i class="fa-solid fa-angle-left"></i>
+                </div>
+
+            </div>
+            <div class="componente">
+                <i class="fa-solid fa-cart-shopping icon-m"></i>
+                <p>Minhas Compras</p>
+                <i class="fa-solid fa-angle-down icon-arrow"></i>
+            </div>
+            <div class="componente">
+                <i class="fa-solid fa-heart icon-m"></i>
+                <p>Favoritos</p>
+                <i class="fa-solid fa-angle-down icon-arrow"></i>
+            </div>
+            <div class="componente">
+                <i class="fa-regular fa-calendar-days icon-m"></i>
+                <p>Eventos</p>
+                <i class="fa-solid fa-angle-down icon-arrow"></i>
+            </div>
+            <div class="componente">
+                <i class="fa-solid fa-gear icon-m"></i>
+                <p>Configuração</p>
+                <i class="fa-solid fa-angle-down icon-arrow"></i>
+            </div>
+            <div class="componente">
+                <i class="fa-solid fa-user icon-m"></i>
+                <p>Perfil</p>
+                <i class="fa-solid fa-angle-down icon-arrow"></i>
+            </div>
+        </div>
+        <div class="info-menu"></div>
+        <!-- <div class="fundo-menu"></div> -->
+    </div>
     <header>
-        <i class="fa-solid fa-bars icon"></i>
+        <i class="fa-solid fa-bars icon" id="abrir-menu"></i>
         <img src="../../../img/Logo-Transparente.png" alt="Logo">
         <i class="fa-solid fa-user icon"></i>
     </header>
     <main>
         <div class="banner">
             <img src="../../../img/banner.png" alt="Logo">
+            <div class="transparencia"></div>
             <p class="info-banner">Seu próximo evento
                 <br> começa aqui.
             </p>

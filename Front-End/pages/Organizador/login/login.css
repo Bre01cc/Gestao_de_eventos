@@ -210,8 +210,8 @@ body {
   footer span {
     font-weight: 700;
   }
-  footer a{
-     transition: all 0.5s;
+  footer a {
+    transition: all 0.5s;
   }
   footer a:hover {
     color: #8d33a3;
@@ -288,6 +288,7 @@ body {
 
 @media (min-width: 1020px) {
   body {
+    background-image: url(../../../img/banner.png);
     background-size: cover;
     background-position: center;
   }
@@ -329,4 +330,3 @@ body {
     }
   }
 }
-
