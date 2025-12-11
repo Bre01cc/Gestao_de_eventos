@@ -1,10 +1,12 @@
 'use strict'
 
+import { criarParticipante } from "../fetch_participante.js" 
+
+
 document.getElementById('voltar').onclick = ()=>{
     window.location.href = "../login/index.html"
 }
 
-const fetch = require('../fetch_participante.js')
 
 function CriarNovoParticipante(){
     
@@ -18,7 +20,8 @@ function CriarNovoParticipante(){
     }
 
     if(novoParticipante.senha == novoParticipante.senha_confirmada){
-        fetch.criarParticipante(novoParticipante)
+        criarParticipante(novoParticipante)
+        
     }
     else{
         alert('Senhas não correspondem')
