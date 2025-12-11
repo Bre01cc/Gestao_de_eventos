@@ -22,7 +22,7 @@ body {
   width: 100vw;
   font-family: "Inter", sans-serif;
   overflow: hidden;
-  background-image: url(./Front-End/img/fundo.png);
+  background-image: url(./Front-End/img/banner.png);
   background-repeat: no-repeat;
   background-size: cover;
 }
