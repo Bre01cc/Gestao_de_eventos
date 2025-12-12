@@ -203,7 +203,40 @@ const options = {
             'data_inicio_venda', 'id_setor',
             'id_tipo_ingresso', 'id'
           ],
-        },    
+        },
+        
+        Setor: {
+          type: 'object',
+          properties: {
+            nome: { type: 'string', example: 'Pista' },
+            capacidade: { type: 'integer', example: 5000 },
+            capacidade_atual: { type: 'integer', example: 3200 },
+            id_evento: { type: 'integer', example: 10 }
+          },
+          required: [
+            'nome',
+            'capacidade',
+            'capacidade_atual',
+            'id_evento'
+          ]
+        },  
+
+        SetorCreate: {
+          type: 'object',
+          properties: {
+            id: { type: 'integer', example: 3 },
+            nome: { type: 'string', example: 'Pista' },
+            capacidade: { type: 'integer', example: 5000 },
+            capacidade_atual: { type: 'integer', example: 3200 },
+            evento: {
+              type: 'object',
+              properties: {
+                id_evento: { type: 'integer', example: 10 },
+                nome: { type: 'string', example: 'Show de Rock' }
+              }
+            }
+          }
+        }
 
       },
     },
