@@ -330,3 +330,51 @@ body {
     }
   }
 }
+
+
+@media (min-width: 650px) {
+  header .voltar .icon {
+  font-size: 1.6rem;
+}
+header .voltar {
+  font-size: 1.1rem;
+}
+header .titulo {
+  font-size: 0.9rem;
+}
+  main .campo-cadastro{
+    width: 85%;
+  }
+  main .campo-cadastro .input-box input {
+    height: 30px;
+  }
+  main .finalizar {
+    width: 35%;
+  }
+}
+
+@media (min-width: 1020px) {
+ header {
+  width: 100%;
+  height: 13%;
+}
+header .voltar .icon {
+  font-size: 1.8rem;
+}
+header .voltar {
+  font-size: 1.25rem;
+}
+header .titulo {
+  font-size: 1.125rem;
+}
+  main .campo-cadastro{
+    width: 60%;
+  }
+  main .campo-cadastro .input-box input {
+    height: 40px;
+  }
+  main .finalizar {
+    width: 25%;
+  }
+  
+}

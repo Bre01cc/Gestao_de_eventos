@@ -60,9 +60,11 @@ body {
     width: 54%;
   }
 }
-.animacao-menu{
-  animation:menu 3s ease ;
+
+.animacao-menu {
+  animation: menu 3s ease;
 }
+
 @keyframes fechar-menu {
   0% {
     width: 54%;
@@ -73,7 +75,7 @@ body {
   }
 }
 
-.animacao-fechar-menu{
+.animacao-fechar-menu {
   animation: fechar-menu ease-in-out;
 }
 
@@ -87,7 +89,7 @@ body {
   }
 }
 
-.animacao-componentes{
+.animacao-componentes {
   animation: componentes 3s ease-in-out;
 }
 
@@ -252,7 +254,7 @@ main {
 }
 
 .filtro {
-  height: 50%;
+  height: auto;
   display: flex;
   justify-content: space-between;
   padding-inline: 20px;
@@ -277,6 +279,10 @@ main {
 .conteudo {
   width: 100%;
   color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background-color: #3f4042;
   padding-block: 20px;
 }
@@ -288,6 +294,10 @@ main {
 .eventos {
   width: 100%;
   height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5vw;
   /* background-color: aqua; */
   padding: 10px;
 }
@@ -300,6 +310,17 @@ main {
   gap: 20px;
   overflow: hidden;
   height: 180px;
+}
+
+.action-button {
+  padding: 10px;
+  padding-inline: 15px;
+  background-color: #8d33a3;
+  border-radius: 100%;
+  transition: all 0.3s;
+}
+.action-button:hover{
+  transform: scale(1.2)
 }
 
 .evento {
@@ -399,3 +420,58 @@ footer {
   color: #fff;
   border-radius: 20px;
 }
+
+@media (min-width: 650px) {
+  header {
+    height: 55px;
+  }
+
+  header img {
+    width: 20%;
+  }
+
+  header .icon {
+    font-size: 1.8rem;
+  }
+
+  main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .banner {
+    height: 25%;
+    width: 85%
+  }
+
+  .transparencia {
+    border-radius: 10px;
+  }
+
+  .banner img {
+    border-radius: 10px;
+  }
+
+  .info-banner {
+    font-size: 1.8rem;
+  }
+
+  .pesquisa-evento {
+    width: 91%;
+  }
+
+  .categoria {
+    width: 80px;
+    height: 40px;
+  }
+
+  .filtro .icon-f {
+    color: #fff;
+    padding: 15px;
+    font-size: 1.3rem;
+  }
+}
+
+@media (min-width: 1020px) {}
