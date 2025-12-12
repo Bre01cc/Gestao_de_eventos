@@ -17,7 +17,7 @@ document.getElementById('acessar').addEventListener('click', async (event) => {
     
     if(verificar){
         sessionStorage.setItem('organizador', JSON.stringify(verificar))
-        window.location.href('../home/index.html')        
+        window.location.href = '../home/index.html'        
     }
     else{
         mensagemErro.classList.remove('disable');
