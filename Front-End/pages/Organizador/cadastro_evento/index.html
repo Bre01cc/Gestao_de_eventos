@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="style.css">
     <title>Cadastro de evento</title>
 </head>
 
@@ -29,22 +29,141 @@
             <p class="detalhes">
                 Detalhes do evento
             </p>
-            <div class="dados-evento">
+            <form class="dados-evento">
                 <div class="img-evento">
-                    <p>Foto de capa do evento</p>
-                    <i class="fa-solid fa-cloud"></i>
-                    <i class="fa-solid fa-camera"></i>
-                    
+                    <p class="titulo-foto">Foto de capa do evento</p>
+
+                    <i class="fa-solid fa-camera icon-camera"></i>
+
                     <p class="carregar">
                         Carregar imagem
                     </p>
                 </div>
-            </div>
+                <div class="campos-dados">
+                    <div class="input-box">
+                        <input type="text" placeholder="Nome fantasia" required>
+                    </div>
+                    <div class="input-box">
+                        <input type="text" placeholder="Descrição" required>
+                    </div>
+                    <div class="sei">
+                        <div class="input-box uf">
+                            <input type="text" placeholder="Uf" required>
+                        </div>
+                        <div class="input-box cep">
+                            <input type="text" placeholder="CEP" required>
+                        </div>
+                    </div>
+                    <div class="seila">
+                        <div class="input-box bai">
+                            <input type="text" placeholder="Nome fantasia" required>
+                        </div>
+                        <div class="input-box bai">
+                            <input type="text" placeholder="Descrição" required>
+                        </div>
+                    </div>
+                    <div class="seime">
+                        <div class="input-box logradouro">
+                            <input type="text" placeholder="Logradouro" required>
+                        </div>
+                        <div class="input-box numero">
+                            <input type="text" placeholder="N" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="categoria">
+                    <p>Categorias</p>
+                    <div class="container-categoria">
+                        <div class="item-categoria">
+                            <p>Musica</p>
+                        </div>
+                        <div class="item-categoria">
+                            <p>Musica</p>
+                        </div>
+                        <div class="item-categoria">
+                            <p>Musica</p>
+                        </div>
+                        <div class="item-categoria">
+                            <p>Musica</p>
+                        </div>
+                        <div class="item-categoria">
+                            <p>Musica</p>
+                        </div>
+                        <div class="item-categoria">
+                            <p>Musica</p>
+                        </div>
+                        <div class="item-categoria">
+                            <p>Musica</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="setor-ingresso">
+                    <h4>Setores e Ingressos</h4>
+                    <div class="container-setor-ingresso">
+                        <section class="setor cadastro-setor">
+                            <p>Setor</p>
+
+                            <div class="input-box">
+                                <input type="text" placeholder="Nome setor" required>
+                            </div>
+                            <div class="input-box">
+                                <input type="text" placeholder="Capacidade" required>
+                            </div>
+                            <div class="input-box">
+                                <input type="text" placeholder="Capacidade_atual" required>
+                            </div>
+                            <button class="Adicionar">
+                                +
+                            </button>
+                        </section>
+                        <section class="setor cadastro-ingresso">
+                            <p>Ingresso</p>
+
+                            <div class="input-box">
+                                <input type="text" placeholder="Numero" required>
+                            </div>
+                            <div class="input-box">
+                                <input type="text" placeholder="Quantidade" required>
+                            </div>
+                            <div class="input-box">
+                                <input type="text" placeholder="Valor" required>
+                            </div>
+                            <div class="input-box">
+                                <input type="text" placeholder="data inicio venda" required>
+                            </div>
+                            <div class="input-box">
+                                <input type="text" placeholder="Tipo" required>
+                            </div>
+                            <button class="Adicionar">
+                                +
+                            </button>
+                        </section>
+                    </div>
+                </div>
+                <button class="Cadastrar">Cadastrar</button>
+            </form>
 
         </div>
-        
+
     </main>
-    <footer></footer>
+    <footer>
+        <div class="redes-sociais">
+            <i class="fa-brands fa-linkedin icon-s"></i>
+            <i class="fab fa-facebook-square icon-s"></i>
+            <i class="fab fa-twitter-square icon-s"></i>
+            <i class="fab fa-youtube icon-s"></i>
+        </div>
+        <div class="links">
+            <p>Central de ajuda</p>
+            <p>Fale conosco</p>
+            <p>Política de privacidade</p>
+            <p>GitHub</p>
+        </div>
+        <div class="what">
+            <i class="fab fa-whatsapp icon-s"></i>
+            <p>Ajuda</p>
+        </div>
+    </footer>
 
 </body>
 
