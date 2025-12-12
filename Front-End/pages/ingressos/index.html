@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
@@ -13,58 +13,97 @@
 </head>
 
 <body>
-    <header>
-        <div class="back">
+
+    <header class="header">
+        <button class="back">
             <i class="fa-solid fa-reply"></i>
-        </div>
+        </button>
 
         <div class="header-content">
-            <img src="/Front-End/img/Logo-Transparente.png" alt="">
+            <img src="/Front-End/img/Logo-Transparente.png" alt="Logo WEB Eventos">
             <p>WEB Eventos</p>
         </div>
     </header>
 
-    <main>
-        <div class="adc-ingresso">
-            <div class="ingressos">
-                <h3>Ingressos</h3> <i class="fa-solid fa-ticket"></i>
+    <main class="container">
+
+        <!-- BLOCO DE INGRESSOS -->
+        <section class="card">
+            <div class="card-title">
+                <h3>Ingressos</h3>
+                <i class="fa-solid fa-ticket"></i>
             </div>
-            <div class="tipo-ingresso">
-                <h3>Tipos de Ingresso</h3>
-                <div class="line-ticket">
-                    <p class="nome-ingresso">Meia Estudante</p>
+
+            <div class="ticket-list">
+
+                <div class="ticket-row">
+                    <span class="ticket-name">Meia Estudante</span>
                     <i class="fa-solid fa-graduation-cap"></i>
-                    <p class="valor">R$50,00</p>
-                    <button class="remover">-</button>
-                    <p class="quantidade">2</p>
-                    <button class="adicionar">+</button>
+                    <span class="ticket-price">R$ 50,00</span>
+
+                    <div class="qty-box">
+                        <button class="btn-rem">-</button>
+                        <span class="qty">2</span>
+                        <button class="btn-add">+</button>
+                    </div>
                 </div>
-                <div class="line-ticket">
-                    <p class="nome-ingresso">Meia Idoso</p>
+
+                <div class="ticket-row">
+                    <span class="ticket-name">Meia Idoso</span>
                     <i class="fa-solid fa-person-cane"></i>
-                    <p class="valor">R$50,00</p>
-                    <button class="remover">-</button>
-                    <p class="quantidade">0</p>
-                    <button class="adicionar">+</button>
+                    <span class="ticket-price">R$ 50,00</span>
+
+                    <div class="qty-box">
+                        <button class="btn-rem">-</button>
+                        <span class="qty">0</span>
+                        <button class="btn-add">+</button>
+                    </div>
                 </div>
-                <div class="line-ticket">
-                    <p class="nome-ingresso">Meia PCD</p>
-                    <i class="fa-solid fa-person-cane"></i>
-                    <p class="valor">R$50,00</p>
-                    <button class="remover">-</button>
-                    <p class="quantidade">1</p>
-                    <button class="adicionar">+</button>
+
+                <div class="ticket-row">
+                    <span class="ticket-name">Meia PCD</span>
+                    <i class="fa-solid fa-wheelchair"></i>
+                    <span class="ticket-price">R$ 50,00</span>
+
+                    <div class="qty-box">
+                        <button class="btn-rem">-</button>
+                        <span class="qty">1</span>
+                        <button class="btn-add">+</button>
+                    </div>
                 </div>
-                <div class="line-ticket">
-                    <p class="nome-ingresso">Inteira</p>
-                    <i class="fa-solid fa-person-cane"></i>
-                    <p class="valor">R$100,00</p>
-                    <button class="remover">-</button>
-                    <p class="quantidade">3</p>
-                    <button class="adicionar">+</button>
+
+                <div class="ticket-row">
+                    <span class="ticket-name">Inteira</span>
+                    <i class="fa-solid fa-ticket-simple"></i>
+                    <span class="ticket-price">R$ 100,00</span>
+
+                    <div class="qty-box">
+                        <button class="btn-rem">-</button>
+                        <span class="qty">3</span>
+                        <button class="btn-add">+</button>
+                    </div>
                 </div>
+
             </div>
-        </div>
+        </section>
+
+        <!-- RESUMO -->
+        <section class="card">
+            <div class="card-title">
+                <h3>Resumo do Pedido</h3>
+                <i class="fa-solid fa-clipboard-list"></i>
+            </div>
+
+            <div class="resumo-list">
+                <p>2x Meia Estudante</p>
+                <p>1x Meia PCD</p>
+                <p>3x Inteira</p>
+            </div>
+
+            <button class="continuar">Continuar</button>
+        </section>
+
     </main>
-    <footer></footer>
+
 </body>
+</html>
