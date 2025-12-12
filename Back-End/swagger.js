@@ -11,6 +11,7 @@ const options = {
     servers: [
       { url: 'http://localhost:8080' },
     ],
+    
     components: {
       schemas: {
         Endereco: {
@@ -203,8 +204,109 @@ const options = {
             'data_inicio_venda', 'id_setor',
             'id_tipo_ingresso', 'id'
           ],
-        },    
+        },
+        
+        Setor: {
+          type: 'object',
+          properties: {
+            nome: { type: 'string', example: 'Pista' },
+            capacidade: { type: 'integer', example: 5000 },
+            capacidade_atual: { type: 'integer', example: 3200 },
+            id_evento: { type: 'integer', example: 10 }
+          },
+          required: [
+            'nome',
+            'capacidade',
+            'capacidade_atual',
+            'id_evento'
+          ]
+        },  
 
+        SetorCreate: {
+          type: 'object',
+          properties: {
+            id: { type: 'integer', example: 3 },
+            nome: { type: 'string', example: 'Pista' },
+            capacidade: { type: 'integer', example: 5000 },
+            capacidade_atual: { type: 'integer', example: 3200 },
+            evento: {
+              type: 'object',
+              properties: {
+                id_evento: { type: 'integer', example: 10 },
+                nome: { type: 'string', example: 'Show de Rock' }
+              }
+            }
+          }
+        },
+        EnderecoParticipante: {
+          type: 'object',
+          properties: {
+            id:{ type: 'integer', example: 5 },
+            cpf:{type: 'string', example: '33221144556'},
+            data_nascimento: { type: 'string', format: 'date-time', example: '1999-03-21T00:00:00.000Z' },
+            telefone:{ type: 'string', example: '(11)90000-0005'},
+            email:{ type: 'string', format: 'email', example: 'fernanda.costa@email.com' },
+            senha:{type: 'string', example: 'senhaFernanda123'},
+            id_endereco:{ type: 'integer', example: 5},
+            cep:{ type: 'string', example: '51011020'},
+            cidade:{type: 'string', example: 'Recife'},
+            bairro:{ type: 'string', example: 'Boa Viagem'},
+            numero: { type: 'string', example: '999'},
+            logradouro: {type: 'string', example: 'Rua do Sol'},
+              
+            participante_info: {
+              type: 'array',
+              items:{ 
+                type: 'object',
+                properties: {
+                  nome:{ type: 'string', example: 'Fernanda Costa'},
+                  status: { type: 'integer', example: 0},
+                },
+                  
+              },
+            },
+               
+            estado: {
+              type: 'array',
+              items: {
+                type: 'object',
+                properties: {
+                  id:{ type: 'integer',example: 4},
+                  sigla: { type: 'string', example: 'AM'},
+                },
+              },
+            },       
+          },
+          required: [
+            'id','cpf', 'data_nascimento',
+            'telefone','email','senha',
+            'id_endereco','cep','cidade',
+            'bairro','numero','logradouro',
+            'participante_info', 'estado'
+          ]
+        },
+        EnderecoParticipanteCreate: {
+          type: 'object',
+          properties: {
+            cep: { type: 'string', example: '51011020' },
+            cidade: { type: 'string', example: 'Recife' },
+            bairro: { type: 'string', example: 'Boa Viagem' },
+            numero: { type: 'string', example: '999' },
+            logradouro: { type: 'string', example: 'Rua do Sol' },
+            id_uf: { type: 'integer', example: 1 },
+            id_participante: { type: 'integer', example: 3 },
+          },
+          required: [
+            'cep',
+            'cidade',
+            'bairro',
+            'numero',
+            'logradouro',
+            'id_uf',
+            'id_participante'
+          ]
+        },
+      
       },
     },
   },

@@ -18,7 +18,7 @@ const controller_event = require('../controller/evento/controller_evento.js')
 
 /**
  * @swagger
- * /eventos:
+ * /v1/webeventos/evento:
  *   get:
  *     tags:
  *       - Eventos
@@ -42,7 +42,7 @@ router.get('/v1/webeventos/evento', cors(), async (request, response) => {
 
 /**
  * @swagger
- * /eventos/{id}:
+ * /v1/webeventos/evento/{id}:
  *   get:
  *     tags:
  *       - Eventos
@@ -75,7 +75,7 @@ router.get('/v1/webeventos/evento/:id', cors(), async(request, response) => {
 
 /**
  * @swagger
- * /eventos:
+ * /v1/webeventos/evento:
  *   post:
  *     tags:
  *       - Eventos
@@ -104,7 +104,7 @@ router.post('/v1/webeventos/evento', cors(), bodyParserJSON, async (request, res
 
 /**
  * @swagger
- * /eventos/{id}:
+ * /v1/webeventos/evento/{id}:
  *   put:
  *     tags:
  *       - Eventos
@@ -141,7 +141,7 @@ router.put('/v1/webeventos/evento/:id', cors(), bodyParserJSON, async(request, r
 
 /**
  * @swagger
- * /eventos/{id}:
+ * /v1/webeventos/evento/{id}:
  *   delete:
  *     tags:
  *       - Eventos

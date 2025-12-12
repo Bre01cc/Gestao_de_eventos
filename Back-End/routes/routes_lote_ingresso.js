@@ -18,7 +18,7 @@ const controller_lote_ingresso = require('../controller/lote_ingresso/controller
 
 /**
  * @swagger
- * /lote_ingresso:
+ * /v1/webeventos/lote-ingresso:
  *   get:
  *     tags:
  *       - Lote Ingresso
@@ -42,7 +42,7 @@ router.get('/v1/webeventos/lote-ingresso', cors(), async (request, response) => 
 
 /**
  * @swagger
- * /lote_ingresso/{id}:
+ * /v1/webeventos/lote-ingresso/{id}:
  *   get:
  *     tags:
  *       - Lote Ingresso
@@ -75,7 +75,7 @@ router.get('/v1/webeventos/lote-ingresso/:id', cors(), async(request, response) 
 
 /**
  * @swagger
- * /lote_ingresso/setor/{id_setor}:
+ * /v1/webeventos/lote-ingresso/setor/{id_setor}:
  *   get:
  *     tags:
  *       - Lote Ingresso
@@ -110,7 +110,7 @@ router.get('/v1/webeventos/lote-ingresso/setor/:id', cors(), async(request, resp
 
 /**
  * @swagger
- * /lote_ingresso/tipo/{id_tipo}:
+ * /v1/webeventos/lote-ingresso/tipo/{id_tipo}:
  *   get:
  *     tags:
  *       - Lote Ingresso
@@ -145,7 +145,7 @@ router.get('/v1/webeventos/lote-ingresso/tipo/:id', cors(), async(request, respo
 
 /**
  * @swagger
- * /lote_ingresso/evento/{id_evento}:
+ * /v1/webeventos/lote-ingresso/evento/{id_evento}:
  *   get:
  *     tags:
  *       - Lote Ingresso
@@ -180,7 +180,7 @@ router.get('/v1/webeventos/lote-ingresso/evento/:id', cors(), async(request, res
 
 /**
  * @swagger
- * /lote_ingresso:
+ * /v1/webeventos/lote-ingresso:
  *   post:
  *     tags:
  *       - Lote Ingresso
@@ -209,7 +209,7 @@ router.post('/v1/webeventos/lote-ingresso', cors(), bodyParserJSON, async (reque
 
 /**
  * @swagger
- * /lote_ingresso/{id}:
+ * /v1/webeventos/lote-ingresso/{id}:
  *   put:
  *     tags:
  *       - Lote Ingresso
