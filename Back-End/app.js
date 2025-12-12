@@ -14,8 +14,21 @@ const PORT = process.env.PORT || 8080;
 
 const app = express();
 
-// Habilita CORS para todas as rotas e origens
-app.use(cors());
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+app.use(cors({
+    origin: '*',  
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+}))
+
+//Configuraçõs do cors
+//app.use((request, response, next)=>{
+    //response.header('Access-Control-Allow-Origin', '*')
+    //response.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+    
+    //app.use(cors())
+    //next() 
+//})
 
 // Configuração do Swagger
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
