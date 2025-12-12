@@ -27,6 +27,7 @@ body {
   background-size: cover;
 }
 
+/* TRANSPARÊNCIA */
 .transparencia {
   height: 100%;
   width: 100%;
@@ -37,185 +38,185 @@ body {
   justify-content: space-around;
   flex-direction: column;
   position: relative;
-
-  header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    flex-direction: column;
-    height: auto;
-    gap: 2.5rem;
-    color: #fff;
-    /* background-color: aquamarine; */
-
-    .titulo {
-      display: flex;
-      gap: 10px;
-      width: 100%;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      /* background-color: beige; */
-      height: auto;
-    }
-
-    .saudacoes {
-      font-weight: 700;
-      font-size: 1.25rem;
-    }
-  }
-
-  main {
-    height: 45%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    padding-top: 10%;
-    gap: 5vh;
-
-    .acessar-conta {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 3vh;
-      justify-content: center;
-      align-items: center;
-
-      .acesso {
-        width: 230px;
-        border-radius: 5px;
-        background-color: #fa862a;
-        border: none;
-        color: #fff;
-        font-size: 1rem;
-        height: 40px;
-        transition: all 0.5s;
-        cursor: pointer;
-      }
-
-      .acesso:hover {
-        background-color: #a4612a;
-        transform: scale(1.025);
-      }
-    }
-  }
-
-  footer {
-    /* background-color: aqua; */
-    text-align: center;
-    font-size: 12px;
-    padding-inline: 10px;
-    color: #fff;
-  }
-
-  footer span {
-    font-weight: 700;
-  }
-  footer a{
-     transition: all 0.5s;
-  }
-  footer a:hover {
-    color: #8d33a3;
-  }
 }
 
+/* HEADER DENTRO DA TRANSPARÊNCIA */
+.transparencia header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  flex-direction: column;
+  height: auto;
+  gap: 2.5rem;
+  color: #fff;
+}
+
+.transparencia header .titulo {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: auto;
+}
+
+.transparencia header .saudacoes {
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+/* MAIN */
+.transparencia main {
+  height: 45%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-top: 10%;
+  gap: 5vh;
+}
+
+.transparencia main .acessar-conta {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 3vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.transparencia main .acessar-conta .acesso {
+  width: 230px;
+  border-radius: 5px;
+  background-color: #fa862a;
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  height: 40px;
+  transition: all 0.5s;
+  cursor: pointer;
+}
+
+.transparencia main .acessar-conta .acesso:hover {
+  background-color: #a4612a;
+  transform: scale(1.025);
+}
+
+/* FOOTER */
+.transparencia footer {
+  text-align: center;
+  font-size: 12px;
+  padding-inline: 10px;
+  color: #fff;
+}
+
+.transparencia footer span {
+  font-weight: 700;
+}
+
+.transparencia footer a {
+  transition: all 0.5s;
+}
+
+.transparencia footer a:hover {
+  color: #8d33a3;
+}
+
+/* MEDIA 650px */
 @media (min-width: 650px) {
   .transparencia {
     padding-top: 20%;
     justify-content: center;
     gap: 4vh;
+  }
 
-    header {
-      font-size: 1.6rem;
-      height: auto;
+  .transparencia header {
+    font-size: 1.6rem;
+    height: auto;
+  }
 
-      .saudacoes {
-        font-size: 2rem;
-      }
-    }
-    header {
-      height: auto;
-    }
-    .titulo {
-      width: 100%;
+  .transparencia header .saudacoes {
+    font-size: 2rem;
+  }
 
-      .logo {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-      }
-      .logo img {
-        width: 40%;
-      }
-    }
-    main {
-      padding-top: 0;
-      align-items: start;
-      flex-grow: 1;
-      gap: 5vh;
-      justify-content: start;
+  .transparencia .titulo {
+    width: 100%;
+  }
 
-      .acessar-conta {
-        .acesso {
-          height: 50px;
-          font-size: 1.3rem;
-          width: 300px;
-        }
-      }
-    }
+  .transparencia .titulo .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
 
-    footer {
-      display: flex;
-      justify-content: end;
-      align-items: end;
-      font-size: 1.3rem;
-      padding-bottom: 20px;
-    }
+  .transparencia .titulo .logo img {
+    width: 40%;
+  }
+
+  .transparencia main {
+    padding-top: 0;
+    align-items: start;
+    flex-grow: 1;
+    gap: 5vh;
+    justify-content: start;
+  }
+
+  .transparencia main .acessar-conta .acesso {
+    height: 50px;
+    font-size: 1.3rem;
+    width: 300px;
+  }
+
+  .transparencia footer {
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    font-size: 1.3rem;
+    padding-bottom: 20px;
   }
 }
 
+/* MEDIA 1020px */
 @media (min-width: 1020px) {
   body {
     background-size: cover;
     background-position: center;
   }
+
   .transparencia {
-    /* background-color: #000000; */
     padding-top: 0;
     justify-content: center;
     gap: 4vh;
+  }
 
-    header {
-      .titulo {
-        .logo img {
-          width: 20%;
-        }
-      }
-    }
-    main {
-      .campos-cadastro {
-        gap: 35px;
-        /* background-color: aqua; */
+  .transparencia header .titulo .logo img {
+    width: 8%;
+  }
 
-        .input-box {
-          width: 35%;
-        }
-        .acessar {
-          width: 175px;
-          height: 40px;
-        }
-        .senha {
-          font-size: 1.1rem;
-        }
-      }
-      .criarConta {
-        font-size: 1.1rem;
-      }
-    }
-    footer {
-      font-size: 1.1rem;
-    }
+  .transparencia main .campos-cadastro {
+    gap: 35px;
+  }
+
+  .transparencia main .campos-cadastro .input-box {
+    width: 35%;
+  }
+
+  .transparencia main .campos-cadastro .acessar {
+    width: 175px;
+    height: 40px;
+  }
+
+  .transparencia main .campos-cadastro .senha {
+    font-size: 1.1rem;
+  }
+
+  .transparencia main .criarConta {
+    font-size: 1.1rem;
+  }
+
+  .transparencia footer {
+    font-size: 1.1rem;
   }
 }
