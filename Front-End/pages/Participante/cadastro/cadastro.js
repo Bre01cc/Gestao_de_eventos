@@ -32,7 +32,7 @@ async function CriarNovoParticipante(){
         email: document.getElementById('email').value,
         telefone: document.getElementById('telefone').value,
         senha: document.getElementById('senha').value,
-        senha_confirmada: document.getElementById('confirmar-senha').value // ← agora funciona
+        senha_confirmada: document.getElementById('confirmar-senha').value 
     }
 
     if(novoParticipante.senha == novoParticipante.senha_confirmada){
