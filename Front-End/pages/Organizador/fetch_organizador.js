@@ -67,3 +67,6 @@ export async function buscarUFId(id) {
     const uf = await response.json()
     return uf
 }
+
+
+
