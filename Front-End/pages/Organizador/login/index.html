@@ -11,7 +11,7 @@
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="./login.css">
-    <script src="./login.js" defer></script>
+    <script src="./login.js" defer type="module"></script>
     <title>WEB-Eventos</title>
 </head>
 
@@ -45,11 +45,11 @@
             <form class="campos-cadastro">
                
                     <div class="input-box">
-                        <input type="text" placeholder="Email/CNPJ" required>
+                        <input type="text" placeholder="Email/CNPJ" required id="meio-de-acesso">
 
                     </div>
                     <div class="input-box">
-                        <input placeholder="Senha" type="password" required>
+                        <input placeholder="Senha" type="password" required id="senha">
                     </div>
                     <button class="acessar" id="acessar">
                         <p>ENTRAR</p>
