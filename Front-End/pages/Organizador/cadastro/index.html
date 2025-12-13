@@ -8,7 +8,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="cadastro.css">
-    <script src="./cadastro.js" defer></script>
+    <script src="./cadastro.js" defer type="module"></script>
+    <script src="../fetch_organizador.js" defer type="module"></script>
     <title>Cadastrar</title>
 </head>
 
@@ -25,42 +26,48 @@
     <main>
         <form class="campo-cadastro">
             <div class="input-box">
-                <input type="text" placeholder="Razão Social" required>
+                <input type="text" placeholder="Razão Social"  id="razao-social">
             </div>
             <div class="input-box">
-                <input type="text" placeholder="Nome fantasia" required>
+                <input type="text" placeholder="Nome fantasia" required id="nome-fantasia">
             </div>
             <div class="input-box">
-                <input type="text" placeholder="CNPJ" required>
+                <input type="text" placeholder="CNPJ" required id="cnpj">
             </div>
             <div class="input-box">
-                <input type="text" placeholder="Email" required>
+                <input type="text" placeholder="Email" required id="email">
             </div>
             <div class="input-box">
-                <input type="text" placeholder="Telefone" required>
+                <input type="text" placeholder="Telefone" required id="telefone">
             </div>
             <div class="input-box">
-                <input type="text" placeholder="CEP" required>
+                <input type="text" placeholder="CEP" required id="cep">
+            </div>
+             <div class="input-box">
+                <input type="text" placeholder="Logradouro" required id="logradouro">
             </div>
             <div class="input-box">
-                <input type="text" placeholder="Bairro" required>
+                <input type="text" placeholder="Bairro" required id="bairro">
             </div>
             <div class="input-box">
-                <input type="text" placeholder="Cidade" required>
+                <input type="text" placeholder="Cidade" required id="cidade">
             </div>
             <div class="input-box">
-                <input type="text" placeholder="UF" required>
+                <label for="ufs">UF:</label>
+                <select id="ufs">
+                <!-- Opções serão adicionadas via JS -->
+                </select>
             </div>
             <div class="input-box">
-                <input type="text" placeholder="Número" required>
+                <input type="text" placeholder="Número" required id="numero">
             </div>
             <div class="input-box">
-                <input type="password"  placeholder="Senha" required>
+                <input type="password"  placeholder="Senha" required id="senha">
             </div>
             <div class="input-box">
-                <input type="password"  placeholder="Confirmar senha" required>
+                <input type="password"  placeholder="Confirmar senha" required id="confirmar-senha">
             </div>
-             <button class="finalizar">
+             <button class="finalizar" type="button">
             <p>Finalizar</p>
         </button>
         </form>
