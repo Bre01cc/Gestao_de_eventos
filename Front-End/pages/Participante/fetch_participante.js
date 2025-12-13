@@ -27,7 +27,7 @@ export async function criarParticipante(participante){
     }
 
     const response = await fetch(url, options)
-    return response.ok
+    return response.json()
 }
 
 export async function deletarParticipante(id){
@@ -37,7 +37,7 @@ export async function deletarParticipante(id){
     }
 
     const response = await fetch(url, options)
-    return response.ok
+    return response.json()
 }
 
 export async function atualizarParticipante(id, participante){
@@ -51,7 +51,7 @@ export async function atualizarParticipante(id, participante){
     }
 
     const response = await fetch(url, options) 
-    return response.ok
+    return response.json()
 }
 
 const participante = {
@@ -62,3 +62,17 @@ const participante = {
     "email": "fulano@email.com",
     "senha": "senhaWeslei123"
 }
+
+const participante2 = { 
+    nome: "ENZO FELIX CARRILHO",
+    cpf: "12345678910",
+    data_nascimento: "2005-09-25", // corrigido
+    email: "enzo25@gmail.com",
+    telefone: "(11)95978-8007", // coloque no mesmo formato do outro se necessário
+    senha: "123" // coloque uma senha válida
+}
+
+
+//const inserir = await criarParticipante(participante2)
+//console.log(inserir)
+

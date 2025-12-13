@@ -44,13 +44,19 @@
                 <input type="text" placeholder="CEP" required id="cep">
             </div>
             <div class="input-box">
+                <input type="text" placeholder="Logradouro" required id="logradouro">
+            </div>
+            <div class="input-box">
                 <input type="text" placeholder="Bairro" required id="bairro">
             </div>
             <div class="input-box">
                 <input type="text" placeholder="Cidade" required id="cidade">
             </div>
             <div class="input-box">
-                <input type="text" placeholder="UF" required id="uf">
+                <label for="ufs">UF:</label>
+                <select id="ufs">
+                <!-- Opções serão adicionadas via JS -->
+                </select>
             </div>
             <div class="input-box">
                 <input type="text" placeholder="Número" required id="numero">
@@ -61,7 +67,7 @@
             <div class="input-box">
                 <input type="password"  placeholder="Confirmar senha" required id="confirmar-senha">
             </div>
-             <button class="finalizar">
+             <button class="finalizar" type="button">
             <p>Finalizar</p>
         </button>
         </form>
