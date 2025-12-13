@@ -26,7 +26,7 @@ router.get('/v1/webeventos/uf', cors(), async (request, response) => {
 //Retorna todas as categorias
 router.get('/v1/webeventos/uf/:id', cors(), async (request, response) => {
     let ufID = request.params.id
-    let uf = await controller_uf.listCategoryByID(ufID)
+    let uf = await controller_uf.listUfByID(ufID)
     
     response.status(uf.status_code).json(uf)
 })

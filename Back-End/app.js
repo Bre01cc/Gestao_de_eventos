@@ -19,14 +19,19 @@ const app = express()
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
+app.use(cors({
+    origin: '*',  
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+}))
+
 //Configuraçõs do cors
-app.use((request, response, next)=>{
-    response.header('Acces-Control-Allow-Origin', '*')
-    response.header('Acces-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+//app.use((request, response, next)=>{
+    //response.header('Access-Control-Allow-Origin', '*')
+    //response.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
     
-    app.use(cors())
-    next() 
-})
+    //app.use(cors())
+    //next() 
+//})
 
 
 //Import das rotas
