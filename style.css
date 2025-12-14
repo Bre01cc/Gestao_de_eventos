@@ -1,221 +1,222 @@
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-a {
-  text-decoration: none;
-  color: #fff;
-}
-
-.active {
-  display: flex;
-}
-
-.disable {
-  display: none;
-}
-
-body {
-  height: 100vh;
-  width: 100vw;
-  font-family: "Inter", sans-serif;
-  overflow: hidden;
-  background-image: url(./Front-End/img/banner.png);
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-.transparencia {
-  height: 100%;
-  width: 100%;
-  background-color: rgba(41, 28, 44, 0.8);
-  align-items: center;
-  padding-top: 20%;
-  display: flex;
-  justify-content: space-around;
-  flex-direction: column;
-  position: relative;
-
-  header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    flex-direction: column;
-    height: auto;
-    gap: 2.5rem;
-    color: #fff;
-    /* background-color: aquamarine; */
-
-    .titulo {
-      display: flex;
-      gap: 10px;
-      width: 100%;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      /* background-color: beige; */
-      height: auto;
-    }
-
-    .saudacoes {
-      font-weight: 700;
-      font-size: 1.25rem;
-    }
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
   }
-
-  main {
-    height: 45%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    padding-top: 10%;
-    gap: 5vh;
-
-    .acessar-conta {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 3vh;
-      justify-content: center;
-      align-items: center;
-
-      .acesso {
-        width: 230px;
-        border-radius: 5px;
-        background-color: #fa862a;
-        border: none;
-        color: #fff;
-        font-size: 1rem;
-        height: 40px;
-        transition: all 0.5s;
-        cursor: pointer;
-      }
-
-      .acesso:hover {
-        background-color: #a4612a;
-        transform: scale(1.025);
-      }
-    }
-  }
-
-  footer {
-    /* background-color: aqua; */
-    text-align: center;
-    font-size: 12px;
-    padding-inline: 10px;
+  
+  a {
+    text-decoration: none;
     color: #fff;
   }
-
-  footer span {
-    font-weight: 700;
+  
+  .active {
+    display: flex;
   }
-  footer a{
-     transition: all 0.5s;
+  
+  .disable {
+    display: none;
   }
-  footer a:hover {
-    color: #8d33a3;
-  }
-}
-
-@media (min-width: 650px) {
-  .transparencia {
-    padding-top: 20%;
-    justify-content: center;
-    gap: 4vh;
-
-    header {
-      font-size: 1.6rem;
-      height: auto;
-
-      .saudacoes {
-        font-size: 2rem;
-      }
-    }
-    header {
-      height: auto;
-    }
-    .titulo {
-      width: 100%;
-
-      .logo {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-      }
-      .logo img {
-        width: 40%;
-      }
-    }
-    main {
-      padding-top: 0;
-      align-items: start;
-      flex-grow: 1;
-      gap: 5vh;
-      justify-content: start;
-
-      .acessar-conta {
-        .acesso {
-          height: 50px;
-          font-size: 1.3rem;
-          width: 300px;
-        }
-      }
-    }
-
-    footer {
-      display: flex;
-      justify-content: end;
-      align-items: end;
-      font-size: 1.3rem;
-      padding-bottom: 20px;
-    }
-  }
-}
-
-@media (min-width: 1020px) {
+  
   body {
+    height: 100vh;
+    width: 100vw;
+    font-family: "Inter", sans-serif;
+    overflow: hidden;
+    background-image: url(./Front-End/img/banner.png);
+    background-repeat: no-repeat;
     background-size: cover;
-    background-position: center;
   }
+  
   .transparencia {
-    /* background-color: #000000; */
-    padding-top: 0;
-    justify-content: center;
-    gap: 4vh;
-
+    height: 100%;
+    width: 100%;
+    background-color: rgba(41, 28, 44, 0.8);
+    align-items: center;
+    padding-top: 20%;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    position: relative;
+  
     header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      flex-direction: column;
+      height: auto;
+      gap: 2.5rem;
+      color: #fff;
+      /* background-color: aquamarine; */
+  
       .titulo {
-        .logo img {
-          width: 20%;
+        display: flex;
+        gap: 10px;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        /* background-color: beige; */
+        height: auto;
+      }
+  
+      .saudacoes {
+        font-weight: 700;
+        font-size: 1.25rem;
+      }
+    }
+  
+    main {
+      height: 45%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      padding-top: 10%;
+      gap: 5vh;
+  
+      .acessar-conta {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 3vh;
+        justify-content: center;
+        align-items: center;
+  
+        .acesso {
+          width: 230px;
+          border-radius: 5px;
+          background-color: #fa862a;
+          border: none;
+          color: #fff;
+          font-size: 1rem;
+          height: 40px;
+          transition: all 0.5s;
+          cursor: pointer;
+        }
+  
+        .acesso:hover {
+          background-color: #a4612a;
+          transform: scale(1.025);
         }
       }
     }
-    main {
-      .campos-cadastro {
-        gap: 35px;
-        /* background-color: aqua; */
-
-        .input-box {
-          width: 35%;
+  
+    footer {
+      /* background-color: aqua; */
+      text-align: center;
+      font-size: 12px;
+      padding-inline: 10px;
+      color: #fff;
+    }
+  
+    footer span {
+      font-weight: 700;
+    }
+    footer a{
+       transition: all 0.5s;
+    }
+    footer a:hover {
+      color: #8d33a3;
+    }
+  }
+  
+  @media (min-width: 650px) {
+    .transparencia {
+      padding-top: 20%;
+      justify-content: center;
+      gap: 4vh;
+  
+      header {
+        font-size: 1.6rem;
+        height: auto;
+  
+        .saudacoes {
+          font-size: 2rem;
         }
-        .acessar {
-          width: 175px;
-          height: 40px;
+      }
+      header {
+        height: auto;
+      }
+      .titulo {
+        width: 100%;
+  
+        .logo {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
         }
-        .senha {
+        .logo img {
+          width: 40%;
+        }
+      }
+      main {
+        padding-top: 0;
+        align-items: start;
+        flex-grow: 1;
+        gap: 5vh;
+        justify-content: start;
+  
+        .acessar-conta {
+          .acesso {
+            height: 50px;
+            font-size: 1.3rem;
+            width: 300px;
+          }
+        }
+      }
+  
+      footer {
+        display: flex;
+        justify-content: end;
+        align-items: end;
+        font-size: 1.3rem;
+        padding-bottom: 20px;
+      }
+    }
+  }
+  
+  @media (min-width: 1020px) {
+    body {
+      background-size: cover;
+      background-position: center;
+    }
+    .transparencia {
+      /* background-color: #000000; */
+      padding-top: 0;
+      justify-content: center;
+      gap: 4vh;
+  
+      header {
+        .titulo {
+          .logo img {
+            width: 8%;
+          }
+        }
+      }
+      main {
+        .campos-cadastro {
+          gap: 35px;
+          /* background-color: aqua; */
+  
+          .input-box {
+            width: 35%;
+          }
+          .acessar {
+            width: 175px;
+            height: 40px;
+          }
+          .senha {
+            font-size: 1.1rem;
+          }
+        }
+        .criarConta {
           font-size: 1.1rem;
         }
       }
-      .criarConta {
+      footer {
         font-size: 1.1rem;
       }
     }
-    footer {
-      font-size: 1.1rem;
-    }
   }
-}
+  

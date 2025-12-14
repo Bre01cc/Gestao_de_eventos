@@ -29,17 +29,18 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 5vh;
+  height: 6.25vh;
   padding: 15px;
   width: 100%;
-  background-color: #121212;
+  /* background-color: #121212; */
 }
 
 header img {
-  width: 25%;
+  width: 10%;
 }
 
 .icon {
+  font-size: 1.2rem;
   color: #fff;
 }
 
@@ -99,9 +100,6 @@ main {
 .dados-evento {
   display: flex;
   width: 100%;
-  /* background-color: burlywood; */
-  /* padding-top: 10px; */
-  /* height: 100vh; */
   align-items: center;
   flex-direction: column;
   margin-bottom: 20px;
@@ -191,8 +189,19 @@ main {
 .sei {
   display: flex;
   width: 100%;
-  padding-inline: 3%;
+  padding-inline: 2.8%;
   justify-content: space-around;
+}
+.se {
+  display: flex;
+  gap: 3vw;
+  padding-inline: 18px;
+}
+.data {
+  width: 70%;
+}
+.Status {
+  width: 30%;
 }
 .uf {
   width: 20%;
@@ -204,7 +213,7 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-inline: 5%;
+  padding-inline: 4.5%;
   gap: 2vw;
 }
 .bai {
@@ -212,7 +221,7 @@ main {
 }
 .seime {
   display: flex;
-  padding-inline: 6%;
+  padding-inline: 5%;
   justify-content: space-between;
   align-items: center;
   width: 100%;
@@ -233,8 +242,8 @@ main {
   padding-top: 30px;
   margin-bottom: 10vh;
 }
-.setor-ingresso h4{
-    font-size: 1.4rem;
+.setor-ingresso h4 {
+  font-size: 1.4rem;
 }
 .container-setor-ingresso {
   width: 100%;
@@ -243,16 +252,15 @@ main {
   height: 90%;
   background-color: #3f4042;
 }
-.setor{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    padding: 20px;
-    justify-content: center;
-    align-items: center;
-    gap: 2vh;
-    position: relative;
-
+.setor {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 2vh;
+  position: relative;
 }
 .setor::after {
   content: " ";
@@ -265,32 +273,32 @@ main {
   left: 5%;
   animation: borda 4s ease forwards;
 }
-.Adicionar{
-    border-radius: 100%;
-    width: 30px;
-    height: 28px;
-    border: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #85329E;
-    color: white;
-    font-size: 1.8rem;
+.Adicionar {
+  border-radius: 100%;
+  width: 30px;
+  height: 28px;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #85329e;
+  color: white;
+  font-size: 1.8rem;
 }
 
-.Cadastrar{
-    width: 40%;
-    height: 35px;
-    border-radius: 5px;
-    background-color: #FA862A;
-    border: none;
-    font-weight: 500;
-    font-size: 1rem;
-    color: #fff;
-    transition: ease-in 1s;
+.Cadastrar {
+  width: 40%;
+  height: 35px;
+  border-radius: 5px;
+  background-color: #fa862a;
+  border: none;
+  font-weight: 500;
+  font-size: 1rem;
+  color: #fff;
+  transition: ease-in 1s;
 }
-.Cadastrar:hover{
-    transform: scale(1.1);
+.Cadastrar:hover {
+  transform: scale(1.1);
 }
 
 @keyframes borda {
@@ -303,14 +311,9 @@ main {
   }
 }
 
-.setor p{
-    font-size: 1rem;
+.setor p {
+  font-size: 1rem;
 }
-
-
-
-
-
 
 footer {
   /* background-color: aqua; */
@@ -352,4 +355,70 @@ footer {
   color: #fff;
   border-radius: 20px;
 }
-
+@media (min-width: 650px) {
+  header img {
+    width: 8%;
+  }
+  .icon {
+    font-size: 1.8rem;
+  }
+  main {
+    padding-top: 1vh;
+  }
+  .banner {
+    height: 350px;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .titulo-evento {
+    font-size: 2.125rem;
+  }
+  .detalhes {
+    padding-left: 3%;
+    font-size: 1.3rem;
+  }
+  .img-evento {
+    width: 60%;
+    height: 260px;
+    font-size: 1.5rem;
+  }
+  .icon-camera {
+    font-size: 4.5rem;
+  }
+  .carregar {
+    font-size: 1.3rem;
+  }
+  .se {
+    width: 100%;
+    padding-inline: 5%;
+  }
+  .seila {
+    width: 100%;
+  }
+  .seime {
+    width: 100%;
+  }
+  .categoria{
+    margin-top: 20px;
+    padding-inline: 3%;
+  }
+  .categoria p {
+    font-size: 1.35rem;
+  }
+  .item-categoria p {
+    font-size: 1.2rem;
+  }
+  .container-setor-ingresso {
+    width: 90%;
+  }
+  .setor {
+    width: 100%;
+  }
+  .Cadastrar {
+    font-size: 1.3rem;
+    height: 40px;
+    width: 35%;
+  }
+}
+@media (min-width: 1020px) {
+}

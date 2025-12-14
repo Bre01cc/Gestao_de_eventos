@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+     <script type="module" src="./home.js" defer></script>
+    <link rel="stylesheet" href="style.css">
+    <title>WEB-Eventos</title>
+</head>
+
+<body id="body">
+     <div class="menu" id="menu">
+        <div class="itens" id="itens">
+            <div class="header-menu" id="header-menu">
+                <div class="menu-style">
+                    <i class="fa-solid fa-bars icon-menu"></i>
+                    <p>Menu</p>
+                </div>
+
+                <div class="caixa-seta" id="fechar-menu">
+                    <i class="fa-solid fa-angle-left"></i>
+                </div>
+
+            </div>
+            <div class="componente">
+                <i class="fa-solid fa-cart-shopping icon-m"></i>
+                <p>Minhas Compras</p>
+                <i class="fa-solid fa-angle-down icon-arrow"></i>
+            </div>
+            <div class="componente">
+                <i class="fa-solid fa-heart icon-m"></i>
+                <p>Favoritos</p>
+                <i class="fa-solid fa-angle-down icon-arrow"></i>
+            </div>
+            <div class="componente">
+                <i class="fa-regular fa-calendar-days icon-m"></i>
+                <p>Eventos</p>
+                <i class="fa-solid fa-angle-down icon-arrow"></i>
+            </div>
+            <div class="componente">
+                <i class="fa-solid fa-gear icon-m"></i>
+                <p>Configuração</p>
+                <i class="fa-solid fa-angle-down icon-arrow"></i>
+            </div>
+            <div class="componente">
+                <i class="fa-solid fa-user icon-m"></i>
+                <p>Perfil</p>
+                <i class="fa-solid fa-angle-down icon-arrow"></i>
+            </div>
+            <div class="componente">
+                <i class="fa-solid fa-circle-info icon-m"></i>
+                <p>Termo de Uso</p>
+                <i class="fa-solid fa-angle-down icon-arrow"></i>
+            </div>
+            <div class="componente">
+                <i class="fa-solid fa-lock icon-m"></i>
+                <p>Política de privacidade</p>
+                <i class="fa-solid fa-angle-down icon-arrow"></i>
+            </div>
+            <div class="componente">
+                <i class="fa-solid fa-circle-info icon-m"></i>
+                <p>Ajuda</p>
+                <i class="fa-solid fa-angle-down icon-arrow"></i>
+            </div>
+        </div>
+        <!-- <div class="fundo-menu"></div> -->
+    </div>
+    <header>
+        <i class="fa-solid fa-bars icon" id="abrir-menu"></i>
+        <img src="../../../img/Logo-Transparente.png" alt="Logo">
+        <i class="fa-solid fa-user icon" id="user"></i>
+    </header>
+    <main>
+        <div class="eventos">
+            <div class="texto">
+                <h3>Meus Eventos</h3>
+            </div>
+            <button class="cadastrar">Cadastrar Eventos</button>
+        </div>
+
+        <div class="layout-eventos">
+            <div class="pesquisa">
+                <select name="UF" class="UF">
+                    <option value="">UF</option>
+                    <option value="">AC</option>
+                    <option value="">AL</option>
+                    <option value="">AP</option>
+                    <option value="">AM</option>
+                    <option value="">BA</option>
+                    <option value="">CE</option>
+                    <option value="">DF</option>
+                    <option value="">ES</option>
+                    <option value="">GO</option>
+                    <option value="">MA</option>
+                    <option value="">MT</option>
+                    <option value="">MS</option>
+                    <option value="">MG</option>
+                    <option value="">PA</option>
+                    <option value="">PB</option>
+                    <option value="">PR</option>
+                    <option value="">PE</option>
+                    <option value="">PÍ</option>
+                    <option value="">RJ</option>
+                    <option value="">RN</option>
+                    <option value="">RS</option>
+                    <option value="">RR</option>
+                    <option value="">SC</option>
+                    <option value="">SP</option>
+                    <option value="">SE</option>
+                    <option value="">TO</option>
+                </select>
+                <select name="filtro" class="filtro">
+                    <option value=""><i class="fa-solid fa-caret-down">Categorias</i></option>
+                    <option value="">Música</option>
+                    <option value="">Teatro</option>
+                    <option value="">Tecnologia</option>
+                    <option value="">Livros</option>
+                </select>
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Buscar...">
+                </div>
+            </div>
+
+            <div class="container-eventos">
+                <div class="evento">
+                    <p class="nome-evento">Rock Sunset Festival
+                        <br>
+                        <span>Data</span>
+                    </p>
+                    <img src="../../../img/evento.png" alt="">
+                    <div class="transparencia"></div>
+                    <div class="linha"></div>
+                </div>
+                <div class="evento">
+                    <p class="nome-evento">Yoga no Parque
+                        <br>
+                        <span>Data</span>
+                    </p>
+                    <img src="../../../img/evento.png" alt="">
+                    <div class="transparencia"></div>
+                    <div class="linha"></div>
+                </div>
+                <div class="evento">
+                    <p class="nome-evento">Evento Cosplay
+                        <br>
+                        <span>Data</span>
+                    </p>
+                    <img src="../../../img/evento.png" alt="">
+                    <div class="transparencia"></div>
+                    <div class="linha"></div>
+                </div>
+                <div class="evento">
+                    <p class="nome-evento">Bienal do Livro
+                        <br>
+                        <span>Data</span>
+                    </p>
+                    <img src="../../../img/evento.png" alt="">
+                    <div class="transparencia"></div>
+                    <div class="linha"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="redes-sociais">
+            <i class="fa-brands fa-linkedin icon-s"></i>
+            <i class="fab fa-facebook-square icon-s"></i>
+            <i class="fab fa-twitter-square icon-s"></i>
+            <i class="fab fa-youtube icon-s"></i>
+        </div>
+        <div class="links">
+            <p>Central de ajuda</p>
+            <p>Fale conosco</p>
+            <p>Política de privacidade</p>
+            <p>GitHub</p>
+        </div>
+        <div class="what">
+            <i class="fab fa-whatsapp icon-s"></i>
+            <p>Ajuda</p>
+        </div>
+    </footer>
+</body>
+
+</html>

@@ -24,14 +24,15 @@ async function criarOptionsUfs() {
 
 async function CriarNovoParticipante(){
     
+    const data = document.getElementById('data-nascimento').value 
     const novoParticipante = {
         nome: document.getElementById('nome').value,
         cpf: document.getElementById('cpf').value,
-        data_nascimento : document.getElementById('data-nascimento').value,
+        data_nascimento : formatarData(data),
         email: document.getElementById('email').value,
         telefone: document.getElementById('telefone').value,
         senha: document.getElementById('senha').value,
-        senha_confirmada: document.getElementById('confirmar-senha').value // ← agora funciona
+        senha_confirmada: document.getElementById('confirmar-senha').value 
     }
 
     if(novoParticipante.senha == novoParticipante.senha_confirmada){
@@ -80,7 +81,9 @@ buttonFinalizar.addEventListener('click', async (event)  => {
             alert('Criado com Sucesso')
     }
 
-        
-    
 })
 
+function formatarData(data) {
+    const [dia, mes, ano] = data.split('/');
+    return `${ano}-${mes}-${dia}`;
+}
