@@ -45,6 +45,7 @@ header .voltar {
 
 header .voltar .icon {
   font-size: 1.3rem;
+  cursor: pointer;
 }
 
 header .titulo {
@@ -118,6 +119,7 @@ main .finalizar {
   font-size: 1.2rem;
   background-color: #85329e;
   transition: all 0.5s;
+  cursor: pointer;
 }
 
 main .finalizar:hover {

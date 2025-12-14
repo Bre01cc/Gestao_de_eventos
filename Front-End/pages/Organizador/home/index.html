@@ -8,20 +8,72 @@
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+     <script type="module" src="./home.js" defer></script>
     <link rel="stylesheet" href="style.css">
     <title>WEB-Eventos</title>
 </head>
 
-<body>
-    <header>
-        <div class="header-content">
-            <img src="/Front-End/img/Logo-Transparente.png" class="logo" alt="">
-            <p>WEB Eventos</p>
-        </div>
+<body id="body">
+     <div class="menu" id="menu">
+        <div class="itens" id="itens">
+            <div class="header-menu" id="header-menu">
+                <div class="menu-style">
+                    <i class="fa-solid fa-bars icon-menu"></i>
+                    <p>Menu</p>
+                </div>
 
-        <div class="perfil">
-            <img src="/Front-End/img/Group.svg" alt="">
+                <div class="caixa-seta" id="fechar-menu">
+                    <i class="fa-solid fa-angle-left"></i>
+                </div>
+
+            </div>
+            <div class="componente">
+                <i class="fa-solid fa-cart-shopping icon-m"></i>
+                <p>Minhas Compras</p>
+                <i class="fa-solid fa-angle-down icon-arrow"></i>
+            </div>
+            <div class="componente">
+                <i class="fa-solid fa-heart icon-m"></i>
+                <p>Favoritos</p>
+                <i class="fa-solid fa-angle-down icon-arrow"></i>
+            </div>
+            <div class="componente">
+                <i class="fa-regular fa-calendar-days icon-m"></i>
+                <p>Eventos</p>
+                <i class="fa-solid fa-angle-down icon-arrow"></i>
+            </div>
+            <div class="componente">
+                <i class="fa-solid fa-gear icon-m"></i>
+                <p>Configuração</p>
+                <i class="fa-solid fa-angle-down icon-arrow"></i>
+            </div>
+            <div class="componente">
+                <i class="fa-solid fa-user icon-m"></i>
+                <p>Perfil</p>
+                <i class="fa-solid fa-angle-down icon-arrow"></i>
+            </div>
+            <div class="componente">
+                <i class="fa-solid fa-circle-info icon-m"></i>
+                <p>Termo de Uso</p>
+                <i class="fa-solid fa-angle-down icon-arrow"></i>
+            </div>
+            <div class="componente">
+                <i class="fa-solid fa-lock icon-m"></i>
+                <p>Política de privacidade</p>
+                <i class="fa-solid fa-angle-down icon-arrow"></i>
+            </div>
+            <div class="componente">
+                <i class="fa-solid fa-circle-info icon-m"></i>
+                <p>Ajuda</p>
+                <i class="fa-solid fa-angle-down icon-arrow"></i>
+            </div>
         </div>
+        <!-- <div class="fundo-menu"></div> -->
+    </div>
+    <header>
+        <i class="fa-solid fa-bars icon" id="abrir-menu"></i>
+        <img src="../../../img/Logo-Transparente.png" alt="Logo">
+        <i class="fa-solid fa-user icon" id="user"></i>
     </header>
     <main>
         <div class="eventos">
@@ -115,6 +167,7 @@
             </div>
         </div>
     </main>
+    
     <footer>
         <div class="redes-sociais">
             <i class="fa-brands fa-linkedin icon-s"></i>

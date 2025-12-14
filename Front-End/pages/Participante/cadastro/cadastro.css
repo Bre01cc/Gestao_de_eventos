@@ -41,10 +41,12 @@ header .voltar {
   color: #fff;
   gap: 10px;
   font-size: 0.9rem;
+  
 }
 
 header .voltar .icon {
   font-size: 1.3rem;
+  cursor: pointer;
 }
 
 header .titulo {
@@ -108,7 +110,7 @@ main .campo-cadastro .input-box input {
   box-shadow: none;
 }
 
-/* BOTÃO FINALIZAR */
+
 main .finalizar {
   width: 70%;
   border: none;
@@ -118,13 +120,13 @@ main .finalizar {
   font-size: 1.2rem;
   background-color: #85329e;
   transition: all 0.5s;
+  cursor: pointer;
 }
 
 main .finalizar:hover {
   transform: scale(1.025);
 }
 
-/* RESPONSIVO */
 @media (min-width: 650px) {
   header .voltar .icon {
   font-size: 1.6rem;

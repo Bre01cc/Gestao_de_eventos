@@ -51,5 +51,3 @@ const fecharMenu = document.getElementById('fechar-menu').addEventListener('clic
 
 
 })
-
-
