@@ -49,7 +49,7 @@ O sistema permite o cadastro e organização de diferentes tipos de eventos, com
 
 # Autores
 ## Weslei Santos
-### Linkedin: www.linkedin.com/in/weslei-santos-8b1267224
+### Linkedin: www.linkedin.com/in/WesleiSantosProfile
 ### GitHub:   www.github.com/wees77
 ## Enzo Carrilho
 ### Linkedin: www.linkedin.com/in/enzocarrilho/
