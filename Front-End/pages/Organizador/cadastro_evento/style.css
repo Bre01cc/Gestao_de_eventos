@@ -318,7 +318,8 @@ main {
   font-weight: 500;
   font-size: 1rem;
   color: #fff;
-  margin-top: 15vh;
+  margin-top: 5vh;
+  margin-left: 30%;
   transition: ease-in 1s;
   cursor: pointer;
 }
@@ -452,7 +453,7 @@ footer {
     font-size: 1.3rem;
     height: 40px;
     width: 35%;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
   }
   .links {
     font-size: 1.2rem;
@@ -489,8 +490,8 @@ footer {
     font-size: 1.6rem;
   }
   .img-evento {
-    width: 45%;
-    height: 350px;
+    width: 30%;
+    height: 300px;
     font-size: 1.7rem;
     gap: 3vh;
   }
@@ -504,7 +505,11 @@ footer {
     width: 40%;
   }
   .campos-dados {
+    width: 80%;
     padding-inline: 8%;
+  }
+  .seime{
+    padding-inline: 65px;
   }
 
   .container-setor-ingresso {
@@ -519,7 +524,8 @@ footer {
     font-size: 1.3rem;
     height: 40px;
     width: 20%;
-    margin-bottom: 70px;
+    margin-left: 40%;
+    margin-bottom: 40px;
   }
   footer {
     height: 25vh;
