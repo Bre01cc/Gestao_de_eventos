@@ -2,7 +2,7 @@
 
 
 export async function criarEvento(evento){
-    const url = `http://localhost:8080/v1/webeventos/organizador/`
+    const url = `http://localhost:8080/v1/webeventos/evento/`
     const options = {
         method: "POST",
         headers: {
@@ -16,7 +16,7 @@ export async function criarEvento(evento){
 }
 
 export async function criarSetor(setor){
-    const url = `http://localhost:8080/v1/webeventos/organizador/`
+    const url = `http://localhost:8080/v1/webeventos/setor/`
     const options = {
         method: "POST",
         headers: {
@@ -30,7 +30,7 @@ export async function criarSetor(setor){
 }
 
 export async function criarLoteIngresso(lote){
-    const url = `http://localhost:8080/v1/webeventos/organizador/`
+    const url = `http://localhost:8080/v1/webeventos/lote-ingresso/`
     const options = {
         method: "POST",
         headers: {

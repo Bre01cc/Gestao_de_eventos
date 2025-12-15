@@ -5,6 +5,8 @@ import { uploadImageToAzure } from "./uploadAzure.js"
 import { lerTiposIngresso, lerUFs } from "./fetch_cadastro_evento.js"
 import { lerCategorias } from "./fetch_cadastro_evento.js"
 import { criarEvento } from "./fetch_cadastro_evento.js"
+import {criarSetor} from './fetch_cadastro_evento.js'
+import {criarLoteIngresso} from './fetch_cadastro_evento.js'
 
 let categoriasSelecionadas = []; 
 
@@ -75,7 +77,7 @@ async function uplodImge() {
         descricao: document.getElementById('descricao').value,
         data: formatarData(data),
         capa_url: image,
-        id_organizador: organizador.id,
+        id_organizador: 1,//organizador.id,
         id_status_evento: 1,
         endereco: {
             cep: document.getElementById('cep').value,
@@ -91,6 +93,36 @@ async function uplodImge() {
     console.log(novoEvento)
     const cadastro = await criarEvento(novoEvento)
     console.log(cadastro)
+
+    if(cadastro)
+        alert('Evento cadastrado com sucesso')
+    else
+        alert('Não foi possível cadastrar o Evento')
+
+    const setor = {
+        nome: document.querySelector('.InputSetor').value,
+        capacidade: document.querySelector('.Capacidade').value,
+        capacidade_atual: document.querySelector('.CapacidadeAtual').value,
+        id_evento: cadastro.items.id
+    }
+    
+    const inserirSetor = await criarSetor(setor)
+    
+    if(inserirSetor){
+        const dataVenda = document.getElementById('data-venda').value
+        const lote = {
+            numero: document.getElementById('numero-ingresso').value,
+            quantidade: document.getElementById('quantidade').value,
+            valor: document.getElementById('valor').value,
+            data_inicio_venda: formatarData(dataVenda),
+            id_setor: inserirSetor.items.setor.id,
+            id_tipo_ingresso: document.getElementById('tipos').value
+        }
+        console.log(lote)
+        
+        const inserirLote = await criarLoteIngresso(lote)
+        console.log(inserirLote)
+    }
 
     
 }
@@ -151,7 +183,10 @@ criarOptionsTipoIngresso()
 ativarSelecaoCategorias()
 
 
-document.getElementById('cadastrar').addEventListener('click', uplodImge)
+document.getElementById('cadastrar').addEventListener('click', async (event) => {
+    event.preventDefault()
+    await uplodImge()
+})
 
 
 
