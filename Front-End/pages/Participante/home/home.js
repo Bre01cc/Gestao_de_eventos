@@ -101,12 +101,19 @@ function criarCardEvento(evento){
     const transparencia = document.createElement('div')
     transparencia.className = 'transparencia'
 
-    const linha = document.createElement('linha')
+    const linha = document.createElement('div')
     linha.className = 'linha'
 
     container.appendChild(divEvento)
     divEvento.append(nomeEvento, imagemEvento, transparencia, linha)
     nomeEvento.append(br, dataEvento)
+
+    divEvento.addEventListener('click', () => {
+        sessionStorage.setItem("evento", JSON.stringify(evento))
+        window.location.href = "../../info_evento/index.html"
+    })
+
+    
 }
 
 const listarEventos = await lerEventos()
@@ -140,6 +147,8 @@ document.querySelector(".uf").addEventListener("change", async function () {
 
     for (const evento of listaEventosUF) {
         await criarCardEvento(evento)
+
+        
     }
 })
 

@@ -77,7 +77,7 @@ async function uplodImge() {
         descricao: document.getElementById('descricao').value,
         data: formatarData(data),
         capa_url: image,
-        id_organizador: 1,//organizador.id,
+        id_organizador: organizador.id,
         id_status_evento: 1,
         endereco: {
             cep: document.getElementById('cep').value,

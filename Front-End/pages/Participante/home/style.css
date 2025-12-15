@@ -368,6 +368,7 @@ main {
   background-color: rgba(75, 75, 75, 0.5);
   height: 100%;
   width: 100%;
+  pointer-events: none;
 }
 
 .linha {
