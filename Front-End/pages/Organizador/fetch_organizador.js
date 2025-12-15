@@ -67,3 +67,13 @@ export async function buscarUFId(id) {
     const uf = await response.json()
     return uf
 }
+
+export async function lerEventos(){
+
+    const url = "http://localhost:8080/v1/webeventos/evento/"
+    const response = await fetch(url)
+    const eventos = await response.json()
+    return eventos
+}
+
+

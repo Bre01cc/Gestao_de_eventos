@@ -14,7 +14,7 @@
 
 <body>
     <header>
-        <i class="fa-solid fa-bars icon" id="abrir-menu"></i>
+        <i class="fa-solid fa-arrow-left icon" id="voltar"></i>
         <img src="../../../img/Logo-Transparente.png" alt="">
         <i class="fa-solid fa-user icon"></i>
     </header>
@@ -32,6 +32,7 @@
             </p>
             <form class="dados-evento">
                 <div class="img-evento">
+                    <input type="file" id="foto-evento" accept="image/*" hidden>
                     <p class="titulo-foto">Foto de capa do evento</p>
 
                     <i class="fa-solid fa-camera icon-camera"></i>
@@ -46,6 +47,15 @@
                     </div>
                     <div class="input-box">
                         <input type="text" placeholder="Descrição" required id="descricao">
+                    </div>
+
+                    <div class="se">
+                        <div class="input-box data">
+                            <input type="text" placeholder="Data" required>
+                        </div>
+                        <div class="input-box Status">
+                            <input type="text" placeholder="Status" required>
+                        </div>
                     </div>
                     <div class="sei">
                         <div class="input-box uf">
@@ -109,23 +119,23 @@
                 <div class="setor-ingresso">
                     <h4>Setores e Ingressos</h4>
                     <div class="container-setor-ingresso">
-                        <section class="setor cadastro-setor">
+                        <section class="setor cadastro-setor" id="setor">
                             <p>Setor</p>
 
-                            <div class="input-box">
-                                <input type="text" placeholder="Nome setor" required>
+                            <div class="input-box nomeSetor">
+                                <input type="text" placeholder="Nome setor" class="InputSetor" required>
                             </div>
-                            <div class="input-box">
+                            <div class="input-box capacidadeSetor">
                                 <input type="text" placeholder="Capacidade" required>
                             </div>
-                            <div class="input-box">
+                            <div class="input-box capacidadeAtualSetor">
                                 <input type="text" placeholder="Capacidade_atual" required>
                             </div>
-                            <button class="Adicionar">
+                            <div class="Adicionar">
                                 +
-                            </button>
+                            </div>
                         </section>
-                        <section class="setor cadastro-ingresso">
+                        <section class="setor cadastro-ingresso" id="ingresso">
                             <p>Ingresso</p>
 
                             <div class="input-box">
@@ -146,13 +156,16 @@
                
                                 </select>
                             </div>
-                            <button class="Adicionar">
+                            <div class="input-box">
+                                <input type="text" placeholder="Setor" required>
+                            </div>
+                            <div class="Adicionar">
                                 +
-                            </button>
+                            </div>
                         </section>
                     </div>
                 </div>
-                <button class="Cadastrar">Cadastrar</button>
+                <button class="Cadastrar" id="cadastrar">Cadastrar</button>
             </form>
 
         </div>

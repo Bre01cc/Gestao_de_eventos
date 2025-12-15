@@ -14,7 +14,7 @@ const prisma = new PrismaClient()
 //Retorna uma lista de todos os Organizadores no BD
 const getAllEvents = async function(){
     try{
-        let sql = `select * from vw_evento_endereco;`
+        let sql = `select * from vw_evento_endereco order by id desc;`
 
         let result = await prisma.$queryRawUnsafe(sql)
         

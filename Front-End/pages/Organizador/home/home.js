@@ -1,7 +1,6 @@
 'use strict'
 
-import {lerUFs} from '../fetch_endereco_participante.js'
-import { lerEventos } from "../fetch_participante.js"
+import { lerEventos } from "../fetch_organizador.js"
 
 const body = document.getElementById('body')
 body.classList.add('scroll-horizontal')
@@ -16,7 +15,6 @@ const itens = document.getElementById('itens')
 const componentes = document.querySelectorAll('.componente')
 
 const menuHeader = document.getElementById('header-menu')
-
 
 //Função com objetivo de fazer o menu aparecer
 const abrirMenu = document.getElementById('abrir-menu').addEventListener('click', () => {
@@ -62,22 +60,45 @@ const fecharMenu = document.getElementById('fechar-menu').addEventListener('clic
 
 })
 
+const organizador = sessionStorage.getItem('organizador')
+console.log(organizador)
+
+const listarEventos = await lerEventos()
+const eventos = listarEventos.items.eventos
 
 
+//const eventosOrganizador = eventos.find(evento => evento.id_organizador == organizador.id)
+
+//eventosOrganizador.forEach((evento) => {
+    //criarCardEvento(evento)
+//})
 
 
-async function criarOptionsUfs() {
-    const listarUfs = await lerUFs()
-    const ufs = listarUfs.items.uf
+document.querySelector(".UF").addEventListener("change", async function () {
+    const containerEventos = document.querySelector(".container-eventos")
 
-    const select = document.getElementById('uf')
-    ufs.forEach(uf => {
-        const option = document.createElement('option')
-        option.value = uf.id
-        option.text = uf.sigla
-        select.appendChild(option)
-    });
-}
+    containerEventos.replaceChildren()
+    
+    const ufSelecionada = this.options[this.selectedIndex].text
+    const listaEventosUF = await filtarEventosUF(ufSelecionada)
+
+    for (const evento of listaEventosUF) {
+        await criarCardEvento(evento)
+    }
+})
+
+document.querySelector(".filtro").addEventListener("change", async function () {
+    const containerEventos = document.querySelector(".container-eventos")
+
+    containerEventos.replaceChildren()
+    
+    const categoriaSelecionada = this.options[this.selectedIndex].text
+    const listaEventosCategoria = await filtrarEventosCategoria(categoriaSelecionada)
+
+    for (const evento of listaEventosCategoria) {
+        await criarCardEvento(evento)
+    }
+})
 
 
 function criarCardEvento(evento){
@@ -108,39 +129,18 @@ function criarCardEvento(evento){
     nomeEvento.append(br, dataEvento)
 }
 
-const listarEventos = await lerEventos()
-const eventos = listarEventos.items.eventos
-console.log(eventos)
-eventos.forEach((evento) => {
-    criarCardEvento(evento)
-})
-
-criarOptionsUfs()
-
 function filtarEventosUF(uf){
-    const eventosUF = eventos.filter(evento => evento.sigla == uf)
+    const eventosUF = eventos.filter(evento => evento.sigla == uf && evento.id_organizador == organizador.id)
     return eventosUF
 }
+
 
 function filtrarEventosCategoria(categoriaNome) {
     const filtro = eventos.filter(evento =>
         evento.categorias.some(categoria => categoria.categoria_nome == categoriaNome ) 
-    )
+        && evento.id_organizador == organizador.id)
     return filtro
 }
-
-document.querySelector(".uf").addEventListener("change", async function () {
-    const containerEventos = document.getElementById("container-eventos")
-
-    containerEventos.replaceChildren()
-    
-    const ufSelecionada = this.options[this.selectedIndex].text
-    const listaEventosUF = await filtarEventosUF(ufSelecionada)
-
-    for (const evento of listaEventosUF) {
-        await criarCardEvento(evento)
-    }
-})
 
 
 

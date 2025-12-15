@@ -140,9 +140,9 @@ const setEvent = async function(evento, contentType){
 
                                                    
                                     delete evento.categoria
-                                    //Pesquisa no BD todos os generos que foram associados ao filme
+                                   
                                     let resultDataCategory = await controllerEventCategory.listCategorysByEventID(lastId)
-                                    //Cria novamente o atributo genero e coloca o resultado do BD com os generos
+                                   
                                     evento.categoria = resultDataCategory.items.evento_categoria
 
 
