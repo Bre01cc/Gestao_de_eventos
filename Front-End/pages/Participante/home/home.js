@@ -66,6 +66,8 @@ const fecharMenu = document.getElementById('fechar-menu').addEventListener('clic
 
 
 
+
+
 async function criarOptionsUfs() {
     const listarUfs = await lerUFs()
     const ufs = listarUfs.items.uf
@@ -112,6 +114,11 @@ function criarCardEvento(evento) {
     container.appendChild(divEvento)
     divEvento.append(nomeEvento, imagemEvento, transparencia, linha)
     nomeEvento.append(br, dataEvento)
+
+    divEvento.addEventListener('click', () => {
+        sessionStorage.setItem('evento', JSON.stringify(evento))
+        window.location.href = '../../info_evento/index.html'    
+    })
 
     //Criando uma váriavel que vai guardar as três seções que guardam os eventos
     let secaoEventos = document.querySelectorAll('.eventos')
@@ -161,6 +168,7 @@ function criarCardEvento(evento) {
 const listarEventos = await lerEventos()
 const eventos = listarEventos.items.eventos
 console.log(eventos)
+
 eventos.forEach((evento) => {
     criarCardEvento(evento)
 })
@@ -172,21 +180,69 @@ function filtarEventosUF(uf) {
     return eventosUF
 }
 
-async function filtrarEventosCategoria(categoriaNome) {
-    console.log(eventos)
-    const filtro = eventos.forEach(evento => {
-        evento.categorias.forEach(categoria => {
+function filtrarEventosCategoria(categoriaNome) {
+  return eventos.filter(evento =>
+    evento.categorias.some(categoria =>
+      categoria.categoria_nome === categoriaNome
+    )
+  );
+}
+
+
+document.getElementById('teatro').addEventListener('click', () => {
+    const containerEventos = document.querySelector(".container-eventos")
+
+    const eventos = filtrarEventosCategoria('Teatro')
+    containerEventos.replaceChildren()
+    for(const evento of eventos){
+        criarCardEvento(evento)
+    }
+})
+document.getElementById('musica').addEventListener('click', () => {
+    const containerEventos = document.querySelector(".container-eventos")
+
+    const eventos = filtrarEventosCategoria('Música')
+    containerEventos.replaceChildren()
+    for(const evento of eventos){
+        criarCardEvento(evento)
+    }
+})
+document.getElementById('tecnologia').addEventListener('click', () => {
+    const containerEventos = document.querySelector(".container-eventos")
+
+    const eventos = filtrarEventosCategoria('Tecnologia')
+    containerEventos.replaceChildren()
+    for(const evento of eventos){
+        criarCardEvento(evento)
+    }
+})
+document.getElementById('esporte').addEventListener('click', () => {
+    const containerEventos = document.querySelector(".container-eventos")
+
+    const eventos = filtrarEventosCategoria('Esporte')
+    containerEventos.replaceChildren()
+    for(const evento of eventos){
+        criarCardEvento(evento)
+    }
+})
+
+/* async function filtrarEventosCategoria(categoriaNome) {
+    
+    let filtro = eventos.forEach(evento => {
+
+        const categorias = evento.categorias
+
+        categorias.forEach(categoria => {
             if (categoria.categoria_nome == categoriaNome) {
                 filtro = categoria
             }
 
         })
-        console.log(evento)
 
     })
     return filtro
 }
-
+ */
 // function filtrarEventosCategoria(categoriaNome) {
 //     const filtro = eventos.filter(evento =>
 //         evento.categorias.some(categoria => categoria.categoria_nome == categoriaNome)
@@ -194,7 +250,29 @@ async function filtrarEventosCategoria(categoriaNome) {
 //     return filtro
 // }
 
-filtrarEventosCategoria('Teatr')
+//filtrarEventosCategoria('Teatro')
+
+
+const input = document.getElementById("searchInput");
+
+// Escuta o ENTER
+input.addEventListener("keydown", function (event) {
+  if (event.key === "Enter") {
+    const termo = input.value.toLowerCase().trim();
+
+    const eventosFiltrados = eventos.filter(evento =>
+      evento.nome.toLowerCase().includes(termo)
+    );
+
+    if(eventosFiltrados){
+        const containerEventos = document.querySelector('.container-eventos')
+        containerEventos.replaceChildren()
+
+        for(const evento of eventosFiltrados)
+            criarCardEvento(evento)
+    }
+  }
+});
 
 
 
@@ -209,11 +287,12 @@ document.querySelector(".uf").addEventListener("change", async function () {
 
     console.log(listaEventosUF)
     if (listaEventosUF.length > 0) {
-        alert('Não foram encontrados')
         containerEventos.replaceChildren()
         for (const evento of listaEventosUF) {
             await criarCardEvento(evento)
         }
+    }else{
+        alert('Não foram encontrados dados de Retorno')
     }
 
 })
