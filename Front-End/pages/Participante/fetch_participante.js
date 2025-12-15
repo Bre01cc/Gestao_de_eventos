@@ -54,6 +54,15 @@ export async function atualizarParticipante(id, participante){
     return response.json()
 }
 
+export async function lerEventos(){
+
+    const url = "http://localhost:8080/v1/webeventos/evento/"
+    const response = await fetch(url)
+    const eventos = await response.json()
+    return eventos
+}
+
+
 const participante = {
     "nome": "Weslei Santos",
     "cpf": "12345678910",
