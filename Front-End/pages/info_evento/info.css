@@ -255,7 +255,16 @@ footer {
   transform: scale(1.1);
 }
 
+.categorias {
+  width: 75%;
+  height: 200px;
+  background-color: #fa862a;
+}
+
 @media (min-width: 650px) {
+  .categorias {
+    width: 90%;
+  }
   .logo {
     font-size: 1.5rem;
   }
