@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="style.css">
-    <script type="module" src="./cadastro.js"></script>
+    <script src="./cadastro_evento.js" defer type="module"></script>
     <title>Cadastro de evento</title>
 </head>
 
@@ -43,10 +43,10 @@
                 </div>
                 <div class="campos-dados">
                     <div class="input-box">
-                        <input type="text" placeholder="Nome" required>
+                        <input type="text" placeholder="Nome" required id="nome">
                     </div>
                     <div class="input-box">
-                        <input type="text" placeholder="Descrição" required>
+                        <input type="text" placeholder="Descrição" required id="descricao">
                     </div>
 
                     <div class="se">
@@ -59,32 +59,39 @@
                     </div>
                     <div class="sei">
                         <div class="input-box uf">
-                            <input type="text" placeholder="Uf" required>
+                            <label for="ufs">UF:</label>
+                            <select id="ufs">
+               
+                             </select>
                         </div>
-                        <div class="input-box cep">
-                            <input type="text" placeholder="CEP" required>
+                        <div class="input-box data">
+                            <input type="text" placeholder="Data" required id="data">
                         </div>
                     </div>
                     <div class="seila">
-                        <div class="input-box bai">
-                            <input type="text" placeholder="Cidade" required>
+                        <div class="input-box cep">
+                            <input type="text" placeholder="cep" required id="cep">
                         </div>
                         <div class="input-box bai">
-                            <input type="text" placeholder="Bairro" required>
+                            <input type="text" placeholder="Logradouro" required id="logradouro">
                         </div>
                     </div>
                     <div class="seime">
                         <div class="input-box logradouro">
-                            <input type="text" placeholder="Logradouro" required>
+                            <input type="text" placeholder="Bairro" required id="bairro">
+                        </div>
+                         <div class="input-box cidade">
+                            <input type="text" placeholder="Cidade" required id="cidade">
                         </div>
                         <div class="input-box numero">
-                            <input type="text" placeholder="N" required>
+                            <input type="text" placeholder="N" required id="numero">
                         </div>
                     </div>
                 </div>
                 <div class="categoria">
                     <p>Categorias</p>
                     <div class="container-categoria">
+                        <!---
                         <div class="item-categoria">
                             <p>Musica</p>
                         </div>
@@ -107,6 +114,7 @@
                             <p>Musica</p>
                         </div>
                     </div>
+                    -->
                 </div>
                 <div class="setor-ingresso">
                     <h4>Setores e Ingressos</h4>
@@ -143,7 +151,10 @@
                                 <input type="text" placeholder="data inicio venda" required>
                             </div>
                             <div class="input-box">
-                                <input type="text" placeholder="Tipo" required>
+                                <label for="tipos">Tipo:</label>
+                                <select id="tipos">
+               
+                                </select>
                             </div>
                             <div class="input-box">
                                 <input type="text" placeholder="Setor" required>
