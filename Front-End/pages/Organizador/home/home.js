@@ -124,21 +124,15 @@ function criarCardEvento(evento){
 }
 
 function filtarEventosUF(uf){
-    const eventosUF = eventos.filter(evento => evento.sigla == uf)
+    const eventosUF = eventos.filter(evento => evento.sigla == uf && evento.id_organizador == organizador.id)
     return eventosUF
 }
 
-//async function filtarEventosCategoria(categoria){
-    //const filtro = eventos.filter(evento => evento.categorias.categoria_nome == categoria)
-    //return filtro
-//}
 
 function filtrarEventosCategoria(categoriaNome) {
     const filtro = eventos.filter(evento =>
-        evento.categorias.some(categoria =>
-            categoria.categoria_nome == categoriaNome
-        )
-    )
+        evento.categorias.some(categoria => categoria.categoria_nome == categoriaNome ) 
+        && evento.id_organizador == organizador.id)
     return filtro
 }
 
