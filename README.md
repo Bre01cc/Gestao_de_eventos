@@ -1,4 +1,5 @@
 # Projeto Gestão de Eventos Online
+![](/Front-End/img/logo.banner.png)
 ## Visão Geral
   O Projeto Gestão de Eventos Online é uma aplicação web desenvolvida para facilitar a criação, organização e gerenciamento de eventos de forma centralizada e eficiente. A plataforma permite que organizadores cadastrem eventos com informações completas, enquanto participantes podem visualizar, buscar, se inscrever e acompanhar suas inscrições.
 
