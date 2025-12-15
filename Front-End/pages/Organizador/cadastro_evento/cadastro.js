@@ -51,7 +51,7 @@ async function uplodImge() {
         sasToken: 'sp=racwl&st=2025-12-14T22:40:51Z&se=2025-12-19T06:55:51Z&sv=2024-11-04&sr=c&sig=EqQEXnwHo3y0bIpUoOWTF5xyAEiNCSdioRX7Z2qlhhM%3D'
     }
     const image = await uploadImageToAzure(uploadParams)
-    
+
 }
 
 
@@ -62,8 +62,27 @@ document.getElementById('cadastrar').addEventListener('click', uplodImge)
 //Adicionar mais campos de ingresso
 const ingresso = document.getElementById('ingresso')
 let adicionarIngresso = ingresso.querySelector('.Adicionar')
-let removerIngresso = ingresso.querySelector('.Remover')
+
+
 let bntIngresso = ingresso.querySelector('.bntIngresso')
+
+let removerIngresso = ingresso.querySelector('.Remover')
+
+
+removerIngresso.addEventListener('click', () => {
+    let numeros = ingresso.querySelectorAll('.numeroIngresso')
+    let contador = 0
+    numeros.forEach(numero => {
+
+        console.log(contador)
+        if (numeros.length - 1 == contador) {
+            numero.remove()
+        }
+        contador += 1;
+    })
+
+})
+
 
 adicionarIngresso.addEventListener('click', () => {
     const numero = document.createElement('div')

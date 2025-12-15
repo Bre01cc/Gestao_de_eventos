@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="style.css">
     <script src="./cadastro_evento.js" defer type="module"></script>
+    <script type="module" src="./cadastro.js"></script>
     <title>Cadastro de evento</title>
 </head>
 
@@ -61,8 +62,8 @@
                         <div class="input-box uf">
                             <label for="ufs">UF:</label>
                             <select id="ufs">
-               
-                             </select>
+
+                            </select>
                         </div>
                         <div class="input-box data">
                             <input type="text" placeholder="Data" required id="data">
@@ -80,7 +81,7 @@
                         <div class="input-box logradouro">
                             <input type="text" placeholder="Bairro" required id="bairro">
                         </div>
-                         <div class="input-box cidade">
+                        <div class="input-box cidade">
                             <input type="text" placeholder="Cidade" required id="cidade">
                         </div>
                         <div class="input-box numero">
@@ -115,66 +116,66 @@
                         </div>
                     </div>
                     -->
-                </div>
-                <div class="setor-ingresso">
-                    <h4>Setores e Ingressos</h4>
-                    <div class="container-setor-ingresso">
-                        <section class="setor cadastro-setor" id="setor">
-                            <p>Setor</p>
-
-                            <div class="input-box nomeSetor">
-                                <input type="text" placeholder="Nome setor" class="InputSetor" required>
-                            </div>
-                            <div class="input-box capacidadeSetor">
-                                <input type="text" placeholder="Capacidade" required>
-                            </div>
-                            <div class="input-box capacidadeAtualSetor">
-                                <input type="text" placeholder="Capacidade atual" required>
-                            </div>
-                            <div class="bntSetor">
-                                <div class="bnt Remover">
-                                    -
-                                </div>
-                                <div class="bnt Adicionar">
-                                    +
-                                </div>
-                            </div>
-
-                        </section>
-                        <section class="setor cadastro-ingresso" id="ingresso">
-                            <p>Ingresso</p>
-
-                            <div class="input-box numeroIngresso">
-                                <input type="text" placeholder="Numero" required>
-                            </div>
-                            <div class="input-box quantidadeIngresso">
-                                <input type="text" placeholder="Quantidade" required>
-                            </div>
-                            <div class="input-box valorIngresso">
-                                <input type="text" placeholder="Valor" required>
-                            </div>
-                            <div class="input-box dataInicioIngresso">
-                                <input type="text" placeholder="Data inicio venda" required>
-                            </div>
-                            <div class="input-box tipoIngresso">
-                                <input type="text" placeholder="Tipo" required>
-                            </div>
-                            <div class="input-box setorIngresso">
-                                <input type="text" placeholder="Setor" required>
-                            </div>
-                            <div class="bntIngresso">
-                                <div class="bnt Remover">
-                                    -
-                                </div>
-                                <div class="bnt Adicionar">
-                                    +
-                                </div>
-                            </div>
-
-                        </section>
                     </div>
-                </div>
-                <button class="Cadastrar" id="cadastrar">Cadastrar</button>
+                    <div class="setor-ingresso">
+                        <h4>Setores e Ingressos</h4>
+                        <div class="container-setor-ingresso">
+                            <section class="setor cadastro-setor" id="setor">
+                                <p>Setor</p>
+
+                                <div class="input-box nomeSetor">
+                                    <input type="text" placeholder="Nome setor" class="InputSetor" required>
+                                </div>
+                                <div class="input-box capacidadeSetor">
+                                    <input type="text" placeholder="Capacidade" required>
+                                </div>
+                                <div class="input-box capacidadeAtualSetor">
+                                    <input type="text" placeholder="Capacidade atual" required>
+                                </div>
+                                <div class="bntSetor">
+                                    <div class="bnt Remover">
+                                        -
+                                    </div>
+                                    <div class="bnt Adicionar">
+                                        +
+                                    </div>
+                                </div>
+
+                            </section>
+                            <section class="setor cadastro-ingresso" id="ingresso">
+                                <p>Ingresso</p>
+
+                                <div class="input-box numeroIngresso">
+                                    <input type="text" placeholder="Numero" required>
+                                </div>
+                                <div class="input-box quantidadeIngresso">
+                                    <input type="text" placeholder="Quantidade" required>
+                                </div>
+                                <div class="input-box valorIngresso">
+                                    <input type="text" placeholder="Valor" required>
+                                </div>
+                                <div class="input-box dataInicioIngresso">
+                                    <input type="text" placeholder="Data inicio venda" required>
+                                </div>
+                                <div class="input-box tipoIngresso">
+                                    <input type="text" placeholder="Tipo" required>
+                                </div>
+                                <div class="input-box setorIngresso">
+                                    <input type="text" placeholder="Setor" required>
+                                </div>
+                                <div class="bntIngresso">
+                                    <div class="bnt Remover">
+                                        -
+                                    </div>
+                                    <div class="bnt Adicionar">
+                                        +
+                                    </div>
+                                </div>
+
+                            </section>
+                        </div>
+                    </div>
+                    <button class="Cadastrar" id="cadastrar">Cadastrar</button>
             </form>
 
         </div>
