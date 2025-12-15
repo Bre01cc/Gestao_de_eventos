@@ -46,3 +46,14 @@ O sistema permite o cadastro e organização de diferentes tipos de eventos, com
 
 ## Considerações Finais
   O Gestão de Eventos Online é um projeto flexível e escalável, podendo ser adaptado conforme a necessidade do organizador ou o porte do evento. Seu foco principal é tornar o processo de criação e participação em eventos mais simples, organizado e acessível.
+
+# Autores
+Weslei Santos
+### Linkedin: www.linkedin.com/in/weslei-santos-8b1267224
+### GitHub:   github.com/wees77
+Enzo Carrilho
+### Linkedin: www.linkedin.com/in/enzocarrilho/
+### GitHub:   github.com/EnzoCarrilho
+Breno Oliveira
+### Linkedin: www.linkedin.com/in/breno-oliveira-assis-reis-203010351/
+### GitHub:   github.com/Bre01cc
