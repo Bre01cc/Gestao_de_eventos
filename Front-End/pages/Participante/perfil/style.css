@@ -1,0 +1,190 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
+  
+  a {
+    text-decoration: none;
+    color: #fff;
+  }
+  
+  .active {
+    display: flex;
+  }
+  
+  .disable {
+    display: none;
+  }
+  
+  body {
+    background-color: #e4e6e7;
+    width: 100vw;
+    height: 100vh;
+    font-family: "Inter", sans-serif;
+    overflow-x: hidden;
+  }
+  
+  /* ================= HEADER ================= */
+  header {
+    width: 100%;
+    height: 10%;
+  }
+  
+  header .voltar {
+    width: 100%;
+    background-color: #222323;
+    height: 50%;
+    display: flex;
+    padding-left: 10px;
+    align-items: center;
+    color: #fff;
+    font-size: 0.9rem;
+  }
+  
+  header .voltar .icon {
+    font-size: 1.3rem;
+    cursor: pointer;
+    margin: 15px;
+  }
+  
+  header .titulo {
+    background-color: #2b2d2e;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    height: 50%;
+    width: 100%;
+    padding-left: 40px;
+    font-size: 0.825rem;
+  }
+  
+  /* ================= MAIN ================= */
+  main {
+    height: auto;
+    padding-top: 30px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    flex-direction: column;
+    padding-bottom: 15px;
+    gap: 3vh;
+  }
+  
+  main .campo-cadastro {
+    width: 100%;
+    height: 80%;
+    display: flex;
+    gap: 2vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  main .campo-cadastro .input-box {
+    padding-block: 5px;
+    display: flex;
+    gap: 10px;
+    background-color: #fdfefd;
+    flex-direction: row;
+    padding-inline: 10px;
+    align-items: center;
+    position: relative;
+    width: 90%;
+    border-radius: 5px;
+  }
+  
+  main .campo-cadastro .input-box input,
+  main .campo-cadastro .input-box select {
+    height: 28px;
+    width: 100%;
+    background-color: transparent;
+    font-weight: 700;
+    border-radius: 3px;
+    padding-left: 5px;
+    border: none;
+    color: #222323;
+    font-size: 1rem;
+    outline: none;
+  }
+  
+  /* Campos bloqueados (CPF / Email) */
+  main .campo-cadastro .input-box input:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
+  /* ================= BOTÃO ================= */
+  .botoes {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .finalizar {
+    width: 15%;
+    border: none;
+    border-radius: 5px;
+    height: 40px;
+    color: #fff;
+    font-size: 1.1rem;
+    background-color: #85329e;
+    transition: all 0.4s;
+    cursor: pointer;
+  }
+  
+  .finalizar:hover {
+    transform: scale(1.03);
+  }
+
+  /* ================= RESPONSIVO ================= */
+  @media (min-width: 650px) {
+    header .voltar .icon {
+    font-size: 1.6rem;
+  }
+  header .voltar {
+    font-size: 1.1rem;
+  }
+  header .titulo {
+    font-size: 0.9rem;
+  }
+    main .campo-cadastro{
+      width: 85%;
+    }
+    main .campo-cadastro .input-box input {
+      height: 30px;
+    }
+    main .finalizar {
+      width: 35%;
+    }
+  }
+  
+  @media (min-width: 1020px) {
+   header {
+    width: 100%;
+    height: 13%;
+  }
+  header .voltar .icon {
+    font-size: 1.8rem;
+  }
+  header .voltar {
+    font-size: 1.25rem;
+  }
+  header .titulo {
+    font-size: 1.125rem;
+  }
+    main .campo-cadastro{
+      width: 60%;
+    }
+    main .campo-cadastro .input-box input {
+      height: 40px;
+    }
+    main .finalizar {
+      width: 25%;
+    }
+    
+  }
