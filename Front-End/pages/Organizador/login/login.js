@@ -2,6 +2,7 @@
 
 import { lerOrganizador } from "../fetch_organizador.js"
 
+
 const mensagemErro = document.getElementById('mensagem-erro')
 mensagemErro.classList.add('disable');
 
