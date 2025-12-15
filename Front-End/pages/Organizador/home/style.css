@@ -436,6 +436,30 @@ footer {
   transform: scale(1.1);
 }
 
+.perfil-user {
+  cursor: pointer;
+  /* background-color: aqua; */
+  display: flex;
+  flex-direction: column;
+}
+.perfil-v {
+  display: flex;
+  width: 100%;
+  /* margin-top: 10px; */
+  padding: 8px;
+  display: flex;
+  align-items: end;
+  font-size: 0.7rem;
+  gap: 5vw;
+}
+.opcoes-user {
+  height: 100px;
+  width: 100%;
+  background-color: #fa862a;
+}
+/* .visualizar-perfil{
+
+} */
 /* CELULAR */
 
 @media (min-width: 650px) {
@@ -542,7 +566,6 @@ footer {
   }
   header {
     height: 70px;
-    
   }
 
   header img {

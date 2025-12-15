@@ -1,11 +1,9 @@
 'use strict'
 
-
-
-
+//Criando uma váriavel que vai guardar as três seções que guardam os eventos
 let secaoEventos = document.querySelectorAll('.eventos')
 
-
+//Objetivo desse forEach e adicionar carrossel para cada seção
 secaoEventos.forEach(secao => {
     const containerEvento = secao.querySelector('.container-eventos')
     let evento = secao.querySelectorAll('.evento')
@@ -31,10 +29,6 @@ secaoEventos.forEach(secao => {
     previous.addEventListener('click', previousB)
     next.addEventListener('click', nextB)
 
-    console.log(previous)
-
-    // document.querySelector('#previous').addEventListener('click', previous);
-    // document.querySelector('#next').addEventListener('click', next)
 })
 
 

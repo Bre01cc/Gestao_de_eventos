@@ -116,6 +116,7 @@ main {
   gap: 1vh;
   justify-content: center;
   margin: 15px;
+  cursor: pointer;
 }
 .titulo-foto {
   font-weight: 600;
@@ -180,11 +181,20 @@ main {
   flex-wrap: wrap;
   gap: 10px;
 }
+.cor-item-click {
+  transition: all 0.5s;
+  background-color: #8d33a3;
+}
+.cor-item-padrao {
+  transition: all 0.5s;
+  background-color: #6f6f6f;
+}
 .item-categoria {
   padding: 5px;
   padding-inline: 12px;
   border-radius: 5px;
-  background-color: #6f6f6f;
+
+  cursor: pointer;
 }
 .sei {
   display: flex;
@@ -284,6 +294,7 @@ main {
   background-color: #85329e;
   color: white;
   font-size: 1.8rem;
+  cursor: pointer;
 }
 
 .Cadastrar {
@@ -295,7 +306,9 @@ main {
   font-weight: 500;
   font-size: 1rem;
   color: #fff;
+  margin-top: 15vh;
   transition: ease-in 1s;
+  cursor: pointer;
 }
 .Cadastrar:hover {
   transform: scale(1.1);
@@ -398,7 +411,7 @@ footer {
   .seime {
     width: 100%;
   }
-  .categoria{
+  .categoria {
     margin-top: 20px;
     padding-inline: 3%;
   }
@@ -418,7 +431,79 @@ footer {
     font-size: 1.3rem;
     height: 40px;
     width: 35%;
+    margin-bottom: 30px;
+  }
+  .links {
+    font-size: 1.2rem;
+  }
+  .icon-s {
+    font-size: 1.5rem;
+  }
+  .what {
+    padding: 15px;
+    align-items: center;
+    gap: 10px;
+    border-radius: 30px;
   }
 }
 @media (min-width: 1020px) {
+  header {
+    height: 80px;
+    padding-inline: 35px;
+  }
+  header img {
+    width: 5%;
+  }
+  .icon {
+    font-size: 2.25rem;
+  }
+  .banner {
+    height: 500px;
+  }
+  .titulo-evento {
+    font-size: 2.125rem;
+  }
+  .detalhes {
+    padding-left: 4%;
+    font-size: 1.6rem;
+  }
+  .img-evento {
+    width: 45%;
+    height: 350px;
+    font-size: 1.7rem;
+    gap: 3vh;
+  }
+  .icon-camera {
+    font-size: 6.5rem;
+  }
+  .categoria {
+    padding-inline: 12%;
+  }
+  .carregar {
+    width: 40%;
+  }
+  .campos-dados {
+    padding-inline: 8%;
+  }
+
+  .container-setor-ingresso {
+    width: 75%;
+  }
+  .Adicionar {
+    width: 46px;
+    height: 44px;
+    font-size: 2.3rem;
+  }
+  .Cadastrar {
+    font-size: 1.3rem;
+    height: 40px;
+    width: 20%;
+    margin-bottom: 70px;
+  }
+  footer {
+    height: 25vh;
+  }
+  .icon-s {
+    font-size: 1.6rem;
+  }
 }

@@ -8,12 +8,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="style.css">
+    <script type="module" src="./cadastro.js"></script>
     <title>Cadastro de evento</title>
 </head>
 
 <body>
     <header>
-        <i class="fa-solid fa-arrow-left icon"></i>
+        <i class="fa-solid fa-arrow-left icon" id="voltar"></i>
         <img src="../../../img/Logo-Transparente.png" alt="">
         <i class="fa-solid fa-user icon"></i>
     </header>
@@ -31,6 +32,7 @@
             </p>
             <form class="dados-evento">
                 <div class="img-evento">
+                    <input type="file" id="foto-evento" accept="image/*" hidden>
                     <p class="titulo-foto">Foto de capa do evento</p>
 
                     <i class="fa-solid fa-camera icon-camera"></i>
@@ -38,7 +40,7 @@
                     <p class="carregar">
                         Carregar imagem
                     </p>
-                </div>
+                    <!-- </div>
                 <div class="campos-dados">
                     <div class="input-box">
                         <input type="text" placeholder="Nome" required>
@@ -46,7 +48,7 @@
                     <div class="input-box">
                         <input type="text" placeholder="Descrição" required>
                     </div>
-                    
+
                     <div class="se">
                         <div class="input-box data">
                             <input type="text" placeholder="Data" required>
@@ -109,23 +111,23 @@
                 <div class="setor-ingresso">
                     <h4>Setores e Ingressos</h4>
                     <div class="container-setor-ingresso">
-                        <section class="setor cadastro-setor">
+                        <section class="setor cadastro-setor" id="setor">
                             <p>Setor</p>
 
-                            <div class="input-box">
-                                <input type="text" placeholder="Nome setor" required>
+                            <div class="input-box nomeSetor">
+                                <input type="text" placeholder="Nome setor" class="InputSetor" required>
                             </div>
-                            <div class="input-box">
+                            <div class="input-box capacidadeSetor">
                                 <input type="text" placeholder="Capacidade" required>
                             </div>
-                            <div class="input-box">
+                            <div class="input-box capacidadeAtualSetor">
                                 <input type="text" placeholder="Capacidade_atual" required>
                             </div>
                             <div class="Adicionar">
                                 +
                             </div>
                         </section>
-                        <section class="setor cadastro-ingresso">
+                        <section class="setor cadastro-ingresso" id="ingresso">
                             <p>Ingresso</p>
 
                             <div class="input-box">
@@ -143,17 +145,20 @@
                             <div class="input-box">
                                 <input type="text" placeholder="Tipo" required>
                             </div>
+                            <div class="input-box">
+                                <input type="text" placeholder="Setor" required>
+                            </div>
                             <div class="Adicionar">
                                 +
                             </div>
                         </section>
                     </div>
-                </div>
-                <button class="Cadastrar">Cadastrar</button>
+                </div> -->
+
             </form>
-
+          
         </div>
-
+  <button class="Cadastrar" id="cadastrar">Cadastrar</button>
     </main>
     <footer>
         <div class="redes-sociais">

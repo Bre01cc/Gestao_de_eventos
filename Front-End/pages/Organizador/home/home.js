@@ -1,15 +1,21 @@
 'use strict'
 
+// Váriavel para guardar alguns elementos do HTML com objetivo de criar um menu dinâmico
 const body = document.getElementById('body')
 body.classList.add('scroll-horizontal')
+
 const menu = document.getElementById('menu')
 menu.classList.add('disable')
+
 const headerMenu = document.getElementById('header-menu')
+
 const itens = document.getElementById('itens')
+
 const componentes = document.querySelectorAll('.componente')
+
 const menuHeader = document.getElementById('header-menu')
 
-
+//Função com objetivo de fazer o menu aparecer
 const abrirMenu = document.getElementById('abrir-menu').addEventListener('click', () => {
 
     body.classList.remove('scroll-horizontal')
@@ -30,6 +36,7 @@ const abrirMenu = document.getElementById('abrir-menu').addEventListener('click'
     })
 })
 
+//Função com objetivo de fazer o menu desaparecer
 const fecharMenu = document.getElementById('fechar-menu').addEventListener('click', () => {
     body.classList.remove('scroll')
     body.classList.add('scroll-horizontal')
