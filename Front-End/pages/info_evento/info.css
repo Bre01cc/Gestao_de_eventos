@@ -88,6 +88,26 @@ main {
   border-radius: 10px;
 }
 
+.setores {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.setor{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.setor h3{
+  color: #fff;
+}
+
 .lote {
   display: flex;
   flex-direction: row;

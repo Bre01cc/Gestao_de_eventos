@@ -106,7 +106,7 @@ function criarCardEvento(evento) {
     const transparencia = document.createElement('div')
     transparencia.className = 'transparencia'
 
-    const linha = document.createElement('linha')
+    const linha = document.createElement('div')
     linha.className = 'linha'
 
     container.appendChild(divEvento)
