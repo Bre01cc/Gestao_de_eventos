@@ -1,6 +1,6 @@
 'use strict'
 
-import {lerUFs} from '../fetch_endereco_participante.js'
+import { lerUFs } from '../fetch_endereco_participante.js'
 import { lerEventos } from "../fetch_participante.js"
 
 const body = document.getElementById('body')
@@ -80,7 +80,7 @@ async function criarOptionsUfs() {
 }
 
 
-function criarCardEvento(evento){
+function criarCardEvento(evento) {
     const container = document.querySelector('.container-eventos')
 
     const divEvento = document.createElement('div')
@@ -97,7 +97,12 @@ function criarCardEvento(evento){
 
     const imagemEvento = document.createElement('img')
     imagemEvento.src = evento.capa_url
-    
+
+
+    imagemEvento.onerror = () => {
+        imagemEvento.src = '../../../img/fundo.png'
+    }
+
     const transparencia = document.createElement('div')
     transparencia.className = 'transparencia'
 
@@ -107,6 +112,50 @@ function criarCardEvento(evento){
     container.appendChild(divEvento)
     divEvento.append(nomeEvento, imagemEvento, transparencia, linha)
     nomeEvento.append(br, dataEvento)
+
+    //Criando uma váriavel que vai guardar as três seções que guardam os eventos
+    let secaoEventos = document.querySelectorAll('.eventos')
+
+    //Objetivo desse forEach e adicionar carrossel para cada seção
+
+
+    secaoEventos.forEach(secao => {
+        const containerEvento = secao.querySelector('.container-eventos')
+        let evento = secao.querySelectorAll('.evento')
+
+
+        const previousB = () => {
+            if (evento.length > 0) {
+                //Ele está pegando o primeiro elemento da lista de items e adicionando no final do containerItems
+                containerEvento.appendChild(evento[0]);
+                //Aqui ele está carregando a agora com o primeiro elemento no final
+                evento = secao.querySelectorAll('.evento');
+            } else {
+                console.log('Erro')
+            }
+
+        }
+
+        const nextB = () => {
+
+            if (evento.length > 0) {
+                //Aqui ele está pegando a posição do ultimo elemento de 
+                const lastEvento = evento[evento.length - 1]
+                //Aqui ele está pegando o ultimo elemento e inserindo antes(em primeiro lugar)
+                containerEvento.insertBefore(lastEvento, evento[0]);
+                //Aqui ele está carregando a lista após as mudanças
+                evento = secao.querySelectorAll('.evento');
+            } else {
+                console.log('Erro')
+            }
+
+        }
+        let previous = secao.querySelector('.previous')
+        let next = secao.querySelector('.next')
+        previous.addEventListener('click', previousB)
+        next.addEventListener('click', nextB)
+
+    })
 }
 
 const listarEventos = await lerEventos()
@@ -118,29 +167,55 @@ eventos.forEach((evento) => {
 
 criarOptionsUfs()
 
-function filtarEventosUF(uf){
+function filtarEventosUF(uf) {
     const eventosUF = eventos.filter(evento => evento.sigla == uf)
     return eventosUF
 }
 
-function filtrarEventosCategoria(categoriaNome) {
-    const filtro = eventos.filter(evento =>
-        evento.categorias.some(categoria => categoria.categoria_nome == categoriaNome ) 
-    )
+async function filtrarEventosCategoria(categoriaNome) {
+    console.log(eventos)
+    const filtro = eventos.forEach(evento => {
+        evento.categorias.forEach(categoria => {
+            if (categoria.categoria_nome == categoriaNome) {
+                filtro = categoria
+            }
+
+        })
+        console.log(evento)
+
+    })
     return filtro
 }
+
+// function filtrarEventosCategoria(categoriaNome) {
+//     const filtro = eventos.filter(evento =>
+//         evento.categorias.some(categoria => categoria.categoria_nome == categoriaNome)
+//     )
+//     return filtro
+// }
+
+filtrarEventosCategoria('Teatr')
+
+
 
 document.querySelector(".uf").addEventListener("change", async function () {
     const containerEventos = document.querySelector(".container-eventos")
 
-    containerEventos.replaceChildren()
-    
+
+
     const ufSelecionada = this.options[this.selectedIndex].text
+    console.log(ufSelecionada)
     const listaEventosUF = await filtarEventosUF(ufSelecionada)
 
-    for (const evento of listaEventosUF) {
-        await criarCardEvento(evento)
+    console.log(listaEventosUF)
+    if (listaEventosUF.length > 0) {
+        alert('Não foram encontrados')
+        containerEventos.replaceChildren()
+        for (const evento of listaEventosUF) {
+            await criarCardEvento(evento)
+        }
     }
+
 })
 
 
