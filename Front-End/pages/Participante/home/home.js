@@ -131,7 +131,7 @@ function filtrarEventosCategoria(categoriaNome) {
 }
 
 document.querySelector(".uf").addEventListener("change", async function () {
-    const containerEventos = document.getElementById("container-eventos")
+    const containerEventos = document.querySelector(".container-eventos")
 
     containerEventos.replaceChildren()
     
@@ -142,6 +142,8 @@ document.querySelector(".uf").addEventListener("change", async function () {
         await criarCardEvento(evento)
     }
 })
+
+
 
 
 
