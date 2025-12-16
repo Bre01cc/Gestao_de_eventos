@@ -113,6 +113,11 @@ function criarCardEvento(evento) {
     divEvento.append(nomeEvento, imagemEvento, transparencia, linha)
     nomeEvento.append(br, dataEvento)
 
+    divEvento.addEventListener('click', () => {
+        sessionStorage.setItem('evento', JSON.stringify(evento))
+        window.location.href = '../../info_evento/index.html'    
+    })
+
     //Criando uma váriavel que vai guardar as três seções que guardam os eventos
     let secaoEventos = document.querySelectorAll('.eventos')
 
