@@ -66,6 +66,8 @@ const fecharMenu = document.getElementById('fechar-menu').addEventListener('clic
 
 
 
+
+
 async function criarOptionsUfs() {
     const listarUfs = await lerUFs()
     const ufs = listarUfs.items.uf
@@ -166,6 +168,7 @@ function criarCardEvento(evento) {
 const listarEventos = await lerEventos()
 const eventos = listarEventos.items.eventos
 console.log(eventos)
+
 eventos.forEach((evento) => {
     criarCardEvento(evento)
 })
@@ -177,21 +180,23 @@ function filtarEventosUF(uf) {
     return eventosUF
 }
 
-async function filtrarEventosCategoria(categoriaNome) {
-    console.log(eventos)
-    const filtro = eventos.forEach(evento => {
-        evento.categorias.forEach(categoria => {
+/* async function filtrarEventosCategoria(categoriaNome) {
+    
+    let filtro = eventos.forEach(evento => {
+
+        const categorias = evento.categorias
+
+        categorias.forEach(categoria => {
             if (categoria.categoria_nome == categoriaNome) {
                 filtro = categoria
             }
 
         })
-        console.log(evento)
 
     })
     return filtro
 }
-
+ */
 // function filtrarEventosCategoria(categoriaNome) {
 //     const filtro = eventos.filter(evento =>
 //         evento.categorias.some(categoria => categoria.categoria_nome == categoriaNome)
@@ -199,7 +204,29 @@ async function filtrarEventosCategoria(categoriaNome) {
 //     return filtro
 // }
 
-filtrarEventosCategoria('Teatr')
+//filtrarEventosCategoria('Teatro')
+
+
+const input = document.getElementById("searchInput");
+
+// Escuta o ENTER
+input.addEventListener("keydown", function (event) {
+  if (event.key === "Enter") {
+    const termo = input.value.toLowerCase().trim();
+
+    const eventosFiltrados = eventos.filter(evento =>
+      evento.nome.toLowerCase().includes(termo)
+    );
+
+    if(eventosFiltrados){
+        const containerEventos = document.querySelector('.container-eventos')
+        containerEventos.replaceChildren()
+
+        for(const evento of eventosFiltrados)
+            criarCardEvento(evento)
+    }
+  }
+});
 
 
 
