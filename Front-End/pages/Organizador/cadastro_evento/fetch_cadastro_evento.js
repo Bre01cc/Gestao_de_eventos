@@ -59,7 +59,6 @@ export async function buscarCategoriaId(id) {
 }
 
 
-
 export async function lerUFs(){
     const url = "http://localhost:8080/v1/webeventos/uf/"
     const response = await fetch(url)
@@ -69,6 +68,21 @@ export async function lerUFs(){
 
 export async function buscarUFId(id) {
     const url = `http://localhost:8080/v1/webeventos/uf/${id}`
+    const response = await fetch(url)
+    const uf = await response.json()
+    return uf
+}
+
+
+export async function lerTiposIngresso(){
+    const url = "http://localhost:8080/v1/webeventos/tipo-ingresso/"
+    const response = await fetch(url)
+    const ufs = await response.json()
+    return ufs
+}
+
+export async function buscarTipoIngressoId(id) {
+    const url = `http://localhost:8080/v1/webeventos/tipo-ingresso/${id}`
     const response = await fetch(url)
     const uf = await response.json()
     return uf

@@ -170,6 +170,11 @@ main {
   outline: none;
   box-shadow: none;
 }
+
+.input-box label{
+  color: #222323;
+  background-color: transparent;
+}
 .categoria {
   padding-top: 10px;
   width: 100%;
@@ -188,11 +193,17 @@ main {
   border-radius: 5px;
   background-color: #6f6f6f;
 }
+
+.item-categoria.selecionado {
+    background-color: #8d33a3
+}
+
 .sei {
   display: flex;
   width: 100%;
   padding-inline: 3%;
   justify-content: space-around;
+  gap: 2%;
 }
 .uf {
   width: 20%;
@@ -216,6 +227,7 @@ main {
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  gap: 2%;
 }
 .logradouro {
   width: 80%;
