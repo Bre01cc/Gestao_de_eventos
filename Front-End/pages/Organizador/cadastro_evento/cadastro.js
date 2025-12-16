@@ -1,27 +1,43 @@
 'use strict'
 
 import { uploadImageToAzure } from "./uploadAzure.js"
-// //Criando uma Váriavel para guardar todas as categorias
-const itensCategoria = document.querySelectorAll('.item-categoria')
 
-// //Mudar cor da categoria quando for clicada
-itensCategoria.forEach(item => {
-    let cor = true
-    item.classList.add('cor-item-padrao')
+import { lerTiposIngresso, lerUFs } from "./fetch_cadastro_evento.js"
+import { lerCategorias } from "./fetch_cadastro_evento.js"
+import { criarEvento } from "./fetch_cadastro_evento.js"
 
-    item.addEventListener('click', () => {
-        if (cor) {
-            item.classList.remove('cor-item-padrao')
-            item.classList.add('cor-item-click')
-            cor = false
+let categoriasSelecionadas = []; 
+
+function ativarSelecaoCategorias() {
+    const container = document.querySelector('.container-categoria');
+
+    container.addEventListener('click', (event) => {
+        const item = event.target.closest('.item-categoria');
+        if (!item) return;
+
+        const id = Number(item.dataset.id);
+
+        // Verifica se a categoria já está selecionada
+        const index = categoriasSelecionadas.findIndex(
+            cat => cat.categoria_id === id
+        );
+
+        if (index !== -1) {
+            // Já existe → remove
+            categoriasSelecionadas.splice(index, 1);
+            item.classList.remove('selecionado');
         } else {
-            item.classList.remove('cor-item-click')
-            item.classList.add('cor-item-padrao')
-            cor = true
+            // Não existe → adiciona
+            categoriasSelecionadas.push({ categoria_id: id });
+            item.classList.add('selecionado');
         }
 
-    })
-})
+        console.log(categoriasSelecionadas)
+    });
+}
+
+const organizador = sessionStorage.getItem('organizador')
+
 
 const imgEvento = document.querySelector('.img-evento')
 const inputFoto = document.getElementById('foto-evento')
@@ -51,8 +67,88 @@ async function uplodImge() {
         sasToken: 'sp=racwl&st=2025-12-14T22:40:51Z&se=2025-12-19T06:55:51Z&sv=2024-11-04&sr=c&sig=EqQEXnwHo3y0bIpUoOWTF5xyAEiNCSdioRX7Z2qlhhM%3D'
     }
     const image = await uploadImageToAzure(uploadParams)
+
+    const data = document.getElementById('data').value
+    const novoEvento = {
+        
+        nome: document.getElementById('nome').value,
+        descricao: document.getElementById('descricao').value,
+        data: formatarData(data),
+        capa_url: image,
+        id_organizador: organizador.id,
+        id_status_evento: 1,
+        endereco: {
+            cep: document.getElementById('cep').value,
+            cidade: document.getElementById('cidade').value,
+            bairro: document.getElementById('bairro').value,
+            numero: document.getElementById('numero').value,
+            logradouro: document.getElementById('logradouro').value,
+            id_uf: document.getElementById('ufs').value
+        },
+        categoria: categoriasSelecionadas
+    }
+
+    console.log(novoEvento)
+    const cadastro = await criarEvento(novoEvento)
+    console.log(cadastro)
+
     
 }
+
+async function criarOptionsUfs() {
+    const listarUfs = await lerUFs()
+    const ufs = listarUfs.items.uf
+    
+    const select = document.getElementById('ufs')
+    ufs.forEach(uf => {
+        const option = document.createElement('option')
+        option.value = uf.id
+        option.text = uf.sigla
+        select.appendChild(option)
+    });
+}
+
+
+async function criarOptionsTipoIngresso() {
+    const listarTipos = await lerTiposIngresso()
+    const ufs = listarTipos.items.ticket
+    
+    const select = document.getElementById('tipos')
+    ufs.forEach(tipo => {
+        const option = document.createElement('option')
+        option.value = tipo.id
+        option.text = tipo.tipo
+        select.appendChild(option)
+    });
+}
+
+
+async function criarCardsCategoria(categoria) {
+    const container = document.querySelector('.container-categoria')
+
+    const itenCategoria = document.createElement('div')
+    itenCategoria.dataset.id = categoria.id
+
+    itenCategoria.className = "item-categoria"
+    const nomeCategoria = document.createElement('p')
+
+    nomeCategoria.textContent = categoria.nome
+    
+    container.appendChild(itenCategoria)
+    itenCategoria.appendChild(nomeCategoria)
+}
+
+const listarCategorias = await lerCategorias()
+const categorias = listarCategorias.items.categorias
+
+categorias.forEach(async (categoria) => {
+    await criarCardsCategoria(categoria)
+});
+
+
+criarOptionsUfs()
+criarOptionsTipoIngresso()
+ativarSelecaoCategorias()
 
 
 document.getElementById('cadastrar').addEventListener('click', uplodImge)
@@ -196,3 +292,8 @@ adicionarSetor.addEventListener('click', () => {
     setor.append(nomeSetor, capacidadeSetor, capacidadeAtualSetor, bntSetor)
 
 })
+
+function formatarData(data) {
+    const [dia, mes, ano] = data.split('/');
+    return `${ano}-${mes}-${dia}`;
+}

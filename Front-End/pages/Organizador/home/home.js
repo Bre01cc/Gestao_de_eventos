@@ -117,6 +117,7 @@ function criarCardEvento(evento){
     dataEvento.textContent = evento.data
 
     const imagemEvento = document.createElement('img')
+    imagemEvento.src = evento.capa_url
     
     const transparencia = document.createElement('div')
     transparencia.className = 'transparencia'
