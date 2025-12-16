@@ -180,6 +180,52 @@ function filtarEventosUF(uf) {
     return eventosUF
 }
 
+function filtrarEventosCategoria(categoriaNome) {
+  return eventos.filter(evento =>
+    evento.categorias.some(categoria =>
+      categoria.categoria_nome === categoriaNome
+    )
+  );
+}
+
+
+document.getElementById('teatro').addEventListener('click', () => {
+    const containerEventos = document.querySelector(".container-eventos")
+
+    const eventos = filtrarEventosCategoria('Teatro')
+    containerEventos.replaceChildren()
+    for(const evento of eventos){
+        criarCardEvento(evento)
+    }
+})
+document.getElementById('musica').addEventListener('click', () => {
+    const containerEventos = document.querySelector(".container-eventos")
+
+    const eventos = filtrarEventosCategoria('Música')
+    containerEventos.replaceChildren()
+    for(const evento of eventos){
+        criarCardEvento(evento)
+    }
+})
+document.getElementById('tecnologia').addEventListener('click', () => {
+    const containerEventos = document.querySelector(".container-eventos")
+
+    const eventos = filtrarEventosCategoria('Tecnologia')
+    containerEventos.replaceChildren()
+    for(const evento of eventos){
+        criarCardEvento(evento)
+    }
+})
+document.getElementById('esporte').addEventListener('click', () => {
+    const containerEventos = document.querySelector(".container-eventos")
+
+    const eventos = filtrarEventosCategoria('Esporte')
+    containerEventos.replaceChildren()
+    for(const evento of eventos){
+        criarCardEvento(evento)
+    }
+})
+
 /* async function filtrarEventosCategoria(categoriaNome) {
     
     let filtro = eventos.forEach(evento => {
@@ -241,11 +287,12 @@ document.querySelector(".uf").addEventListener("change", async function () {
 
     console.log(listaEventosUF)
     if (listaEventosUF.length > 0) {
-        alert('Não foram encontrados')
         containerEventos.replaceChildren()
         for (const evento of listaEventosUF) {
             await criarCardEvento(evento)
         }
+    }else{
+        alert('Não foram encontrados dados de Retorno')
     }
 
 })
