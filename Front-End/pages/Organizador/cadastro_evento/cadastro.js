@@ -58,12 +58,15 @@ async function uplodImge() {
         file: inputFoto.files[0],
         sasToken:'sp=racwl&st=2025-12-14T22:40:51Z&se=2025-12-19T06:55:51Z&sv=2024-11-04&sr=c&sig=EqQEXnwHo3y0bIpUoOWTF5xyAEiNCSdioRX7Z2qlhhM%3D'
     }
-    await uploadImageToAzure(uploadParams)
+    const image = await uploadImageToAzure(uploadParams)
+    
 }
 
-console.log(inputFoto )
+console.log(inputFoto)
 
 document.getElementById('cadastrar').addEventListener('click',uplodImge)
+
+
 
 
 
