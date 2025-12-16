@@ -126,7 +126,7 @@ function criarLotes(lotes){
         nomeIngresso.textContent = lote.tipo_ingresso[0].nome
 
         const preco = document.createElement('p')
-        preco.textContent = lote.valor
+        preco.innerHTML = `R$: ${lote.valor}`
 
         const buttonComprar = document.createElement('button')
         buttonComprar.className = "comprar"
@@ -143,4 +143,6 @@ function mesPorNumero(numeroMes) {
     return new Intl.DateTimeFormat('pt-BR', { month: 'long' }).format(data)
 }
   
-  
+document.getElementById('voltar').addEventListener('click', () => {
+    window.location.href = '../Participante/home/index.html'
+})

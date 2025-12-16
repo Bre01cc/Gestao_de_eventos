@@ -60,7 +60,7 @@ const fecharMenu = document.getElementById('fechar-menu').addEventListener('clic
 
 })
 
-const organizador = sessionStorage.getItem('organizador')
+const organizador = JSON.parse(sessionStorage.getItem('organizador'))
 console.log(organizador)
 
 const listarEventos = await lerEventos()
@@ -143,6 +143,10 @@ function filtrarEventosCategoria(categoriaNome) {
     return filtro
 }
 
+document.querySelector('.cadastrar').addEventListener('click', () => {
+    sessionStorage.setItem('organizador', JSON.stringify(organizador))
+    window.location.href = '../cadastro_evento/index.html'
+})
 
 
 

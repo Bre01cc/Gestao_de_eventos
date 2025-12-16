@@ -38,7 +38,7 @@ function ativarSelecaoCategorias() {
     });
 }
 
-const organizador = sessionStorage.getItem('organizador')
+const organizador = JSON.parse(sessionStorage.getItem('organizador'))
 
 
 const imgEvento = document.querySelector('.img-evento')
@@ -332,3 +332,7 @@ function formatarData(data) {
     const [dia, mes, ano] = data.split('/');
     return `${ano}-${mes}-${dia}`;
 }
+
+document.getElementById('voltar').addEventListener('click', () => {
+    window.location.href = '../home/index.html'
+})
